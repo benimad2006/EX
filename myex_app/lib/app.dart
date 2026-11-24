@@ -9,15 +9,54 @@ import 'features/lifecycle/application/lifecycle_coordinator.dart';
 import 'features/onboarding/application/onboarding_controller.dart';
 import 'l10n/app_localizations.dart';
 
-class MyExApp extends ConsumerWidget {
+class MyExApp extends ConsumerStatefulWidget {
   const MyExApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MyExApp> createState() => _MyExAppState();
+}
+
+class _MyExAppState extends ConsumerState<MyExApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangePlatformBrightness() => setState(() {});
+
+  @override
+  Widget build(BuildContext context) {
+    // Pick the palette BEFORE anything reads a colour token. Colour tokens
+    // are plain getters, so on a light/night switch every element (const
+    // ones included) is marked dirty once to repaint with the new palette.
+    final palette = paletteFor(
+      ref.watch(appearanceProvider),
+      WidgetsBinding.instance.platformDispatcher.platformBrightness,
+    );
+    if (!identical(palette, MyExColors.palette)) {
+      MyExColors.use(palette);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        void visit(Element e) {
+          e.markNeedsBuild();
+          e.visitChildren(visit);
+        }
+
+        (context as Element).visitChildren(visit);
+      });
+    }
     return MaterialApp.router(
       onGenerateTitle: (c) => AppLocalizations.of(c).appTitle,
       debugShowCheckedModeBanner: false,
-      theme: MyExTheme.light(),
+      theme: MyExTheme.current(),
       routerConfig: ref.watch(appRouterProvider),
       locale: ref.watch(appLocaleProvider),
       builder: (context, child) {

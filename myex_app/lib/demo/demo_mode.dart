@@ -11,9 +11,10 @@ import '../core/router/app_router.dart';
 import '../core/supabase/supabase_providers.dart';
 import '../features/coach/application/coach_controller.dart';
 import '../features/draft_jail/data/draft_repository.dart';
-import '../features/home/application/streak.dart';
+import '../features/journal/data/journal_repository.dart';
 import '../features/lifecycle/data/lifecycle_repository.dart';
 import '../features/monetization/application/monetization_providers.dart';
+import '../features/no_contact/data/no_contact_repository.dart';
 import '../features/onboarding/application/onboarding_controller.dart';
 import '../features/plan/application/plan_progress.dart';
 import '../features/subscription/data/subscription_repository.dart';
@@ -108,16 +109,11 @@ List<Override> demoOverrides(SharedPreferences prefs) {
     ),
     onboardingRepositoryProvider.overrideWithValue(DemoOnboardingRepository()),
     cancelSurveyLogProvider.overrideWithValue(DemoCancelLog()),
-    noContactSinceProvider.overrideWith(
-      (ref) async => ref.watch(demoStoreProvider).noContactSince,
+    journalRepositoryProvider.overrideWith(
+      (ref) => DemoJournalRepository(ref.watch(demoStoreProvider)),
     ),
-    startStreakProvider.overrideWith(
-      (ref) => () async {
-        final s = ref.read(demoStoreProvider);
-        s.noContactSince = DateTime.now();
-        s.changed();
-        ref.invalidate(noContactSinceProvider);
-      },
+    noContactRepositoryProvider.overrideWith(
+      (ref) => DemoNoContactRepository(ref.watch(demoStoreProvider)),
     ),
   ];
 }

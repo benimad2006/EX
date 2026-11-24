@@ -558,7 +558,7 @@ class _Dock extends StatelessWidget {
     final bottom = MediaQuery.paddingOf(context).bottom;
     final c = copy;
     return DecoratedBox(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,

@@ -282,7 +282,7 @@ class _GetCapsule extends StatelessWidget {
       borderRadius: BorderRadius.circular(MyExRadii.capsule),
     ),
     child: busy
-        ? const SizedBox.square(
+        ? SizedBox.square(
             dimension: MyExSizes.iconSm,
             child: CircularProgressIndicator(
               strokeWidth: 2,

@@ -165,7 +165,7 @@ class _MeScreenState extends ConsumerState<MeScreen> {
                   width: MyExSizes.avatar,
                   height: MyExSizes.avatar,
                   alignment: Alignment.center,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: MyExColors.accent,
                   ),

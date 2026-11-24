@@ -156,7 +156,7 @@ class NavBar extends StatelessWidget {
             child: AnimatedOpacity(
               opacity: showEdge ? 1 : 0,
               duration: MyExDurations.tabFade,
-              child: const DecoratedBox(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,

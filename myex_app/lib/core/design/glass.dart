@@ -67,8 +67,8 @@ class GlassSurface extends ConsumerWidget {
         color: reduced ? MyExColors.bgElev : MyExColors.glassFill,
         gradient: reduced
             ? null
-            : const RadialGradient(
-                center: Alignment(-0.5, -1),
+            : RadialGradient(
+                center: const Alignment(-0.5, -1),
                 radius: 1.2,
                 colors: [MyExColors.glassHighlight, MyExColors.glassFill],
                 stops: [0, 0.55],
@@ -187,14 +187,14 @@ class GlassChip extends StatelessWidget {
     this.leading,
     this.onPressed,
     this.semanticLabel,
-    this.foreground = MyExColors.ink,
+    this.foreground,
   });
 
   final String label;
   final Widget? leading;
   final VoidCallback? onPressed;
   final String? semanticLabel;
-  final Color foreground;
+  final Color? foreground;
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +213,7 @@ class GlassChip extends StatelessWidget {
                 if (leading != null) ...[
                   IconTheme.merge(
                     data: IconThemeData(
-                      color: foreground,
+                      color: foreground ?? MyExColors.ink,
                       size: MyExSizes.icon,
                     ),
                     child: leading!,
@@ -223,7 +223,7 @@ class GlassChip extends StatelessWidget {
                 Text(
                   label,
                   style: MyExType.subheadline.copyWith(
-                    color: foreground,
+                    color: foreground ?? MyExColors.ink,
                     fontWeight: FontWeight.w600,
                     fontFeatures: MyExType.tabular,
                   ),
@@ -287,7 +287,7 @@ class GlassButton extends StatelessWidget {
             ),
             child: Center(
               child: busy
-                  ? const SizedBox.square(
+                  ? SizedBox.square(
                       dimension: MyExSizes.icon,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
@@ -372,10 +372,10 @@ class GlassTabBar extends StatelessWidget {
                   top: 0,
                   bottom: 0,
                   width: w,
-                  child: const DecoratedBox(
+                  child: DecoratedBox(
                     decoration: BoxDecoration(
                       color: MyExColors.capsule,
-                      borderRadius: BorderRadius.all(
+                      borderRadius: const BorderRadius.all(
                         Radius.circular(MyExRadii.tabCapsule),
                       ),
                     ),
@@ -472,7 +472,7 @@ class SosCircleButton extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
+                Icon(
                   Icons.favorite_border_rounded,
                   color: MyExColors.danger,
                   size: MyExSizes.iconMd,
@@ -514,7 +514,7 @@ class PresentingScale extends StatelessWidget {
       builder: (context, depth, child) {
         final on = depth > 0 && m.allowPresentingScale;
         return AnnotatedRegion<SystemUiOverlayStyle>(
-          value: depth > 0
+          value: depth > 0 || MyExColors.isNight
               ? SystemUiOverlayStyle.light
               : SystemUiOverlayStyle.dark,
           child: TweenAnimationBuilder<double>(
@@ -613,9 +613,9 @@ class _GlassSheetFrame extends StatelessWidget {
                 child: Container(
                   width: MyExSizes.grabberWidth,
                   height: MyExSizes.grabberHeight,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: MyExColors.ink3,
-                    borderRadius: BorderRadius.all(
+                    borderRadius: const BorderRadius.all(
                       Radius.circular(MyExRadii.capsule),
                     ),
                   ),

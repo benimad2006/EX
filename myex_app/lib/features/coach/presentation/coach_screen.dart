@@ -132,7 +132,7 @@ class _CoachScreenState extends ConsumerState<CoachScreen> {
                       if (state.sending && i == 0) {
                         return Semantics(
                           label: l.coachTyping,
-                          child: const Align(
+                          child: Align(
                             alignment: Alignment.centerLeft,
                             child: SizedBox(
                               width: MyExSizes.iconLg,
@@ -313,7 +313,7 @@ class _Composer extends StatelessWidget {
                       behavior: HitTestBehavior.opaque,
                       onTap: sending || !has ? null : onSend,
                       // 44pt hit area around the 32pt button.
-                      child: const SizedBox(
+                      child: SizedBox(
                         width: MyExSizes.minTap,
                         height: MyExSizes.minTap,
                         child: Center(
@@ -322,7 +322,7 @@ class _Composer extends StatelessWidget {
                               shape: BoxShape.circle,
                               color: MyExColors.accent,
                             ),
-                            child: SizedBox.square(
+                            child: const SizedBox.square(
                               dimension: MyExSizes.sendButton,
                               child: Icon(
                                 Icons.arrow_upward_rounded,

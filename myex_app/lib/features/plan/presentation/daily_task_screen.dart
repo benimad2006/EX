@@ -213,11 +213,11 @@ class DayCompleteScreen extends ConsumerWidget {
                   child: Container(
                     width: MyExSizes.successMark,
                     height: MyExSizes.successMark,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: MyExColors.successSoft,
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.check_rounded,
                       color: MyExColors.success,
                       size: MyExSizes.successMark / 2,

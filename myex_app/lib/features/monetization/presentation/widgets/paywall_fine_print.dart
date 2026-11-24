@@ -22,7 +22,7 @@ class PaywallLinks extends StatelessWidget {
           tone: TextLinkTone.muted,
           small: true,
         ),
-        const ExcludeSemantics(
+        ExcludeSemantics(
           child: Text('·', style: TextStyle(color: MyExColors.ink3)),
         ),
         TextLinkButton(

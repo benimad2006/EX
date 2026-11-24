@@ -9,81 +9,202 @@ import 'package:flutter/widgets.dart';
 // white surfaces, glass only on floating chrome, ONE gradient (streak hero).
 // =============================================================================
 
+/// One full set of colours. [light] is the "Love" theme (spec §13); [night] is
+/// the warm wine dark theme (docs/design/MYEX_DESIGN_DIRECTION.md).
+@immutable
+class MyExPalette {
+  const MyExPalette({
+    required this.brightness,
+    required this.bg,
+    required this.bgElev,
+    required this.ink,
+    required this.ink2,
+    required this.ink3,
+    required this.sep,
+    required this.fill,
+    required this.capsule,
+    required this.neutralIcon,
+    required this.accent,
+    required this.accentInk,
+    required this.accentSoft,
+    required this.success,
+    required this.successSoft,
+    required this.danger,
+    required this.scrim,
+    required this.pushDim,
+    required this.glassFill,
+    required this.glassRim,
+    required this.glassHighlight,
+    required this.pageGlowTop,
+    required this.pageGlowBottom,
+    required this.mood,
+    required this.shadowTint,
+  });
+
+  final Brightness brightness;
+  final Color bg, bgElev, ink, ink2, ink3, sep, fill, capsule, neutralIcon;
+  final Color accent, accentInk, accentSoft, success, successSoft, danger;
+  final Color scrim, pushDim, glassFill, glassRim, glassHighlight;
+  final Color pageGlowTop, pageGlowBottom;
+
+  /// Mood levels 1 (heaviest) → 5 (lightest): plum → rose → blush.
+  /// Always shown with a word, never colour alone.
+  final List<Color> mood;
+
+  /// Base colour of the (neutral) floating shadows.
+  final Color shadowTint;
+
+  static const light = MyExPalette(
+    brightness: Brightness.light,
+    bg: Color(0xFFFFF5F7),
+    bgElev: Color(0xFFFFFFFF),
+    ink: Color(0xFF3A0F22),
+    ink2: Color(0xFF86506A),
+    ink3: Color(0x4D3A0F22),
+    sep: Color(0x1F3A0F22),
+    fill: Color(0x0F3A0F22),
+    capsule: Color(0x143A0F22),
+    neutralIcon: Color(0xFF8E7280),
+    accent: Color(0xFFD81B60),
+    accentInk: Color(0xFFB0124F),
+    accentSoft: Color(0x1AD81B60),
+    success: Color(0xFF0B7A55),
+    successSoft: Color(0x1A0B7A55),
+    danger: Color(0xFFD70015),
+    scrim: Color(0x3814040C),
+    pushDim: Color(0x1F14040C),
+    glassFill: Color(0x8CFFFFFF),
+    glassRim: Color(0xBFFFFFFF),
+    glassHighlight: Color(0x80FFFFFF),
+    pageGlowTop: Color(0x29FF78A0),
+    pageGlowBottom: Color(0x24FFAAC3),
+    mood: [
+      Color(0xFF6B3A5B),
+      Color(0xFF9C4A78),
+      Color(0xFFC2306E),
+      Color(0xFFE5608F),
+      Color(0xFFF59AB8),
+    ],
+    shadowTint: Color(0xFF3A0F22),
+  );
+
+  static const night = MyExPalette(
+    brightness: Brightness.dark,
+    bg: Color(0xFF140A0F),
+    bgElev: Color(0xFF231219),
+    ink: Color(0xFFFBEAF0),
+    ink2: Color(0xFFC79AAE),
+    ink3: Color(0x52FBEAF0),
+    sep: Color(0x24FBEAF0),
+    fill: Color(0x14FBEAF0),
+    capsule: Color(0x1FFBEAF0),
+    neutralIcon: Color(0xFF8F6E7D),
+    accent: Color(0xFFFF4F8B),
+    accentInk: Color(0xFFFF8DB3),
+    accentSoft: Color(0x29FF4F8B),
+    success: Color(0xFF3CCB94),
+    successSoft: Color(0x243CCB94),
+    danger: Color(0xFFFF5A6E),
+    scrim: Color(0x8C000000),
+    pushDim: Color(0x4D000000),
+    glassFill: Color(0x99301A24),
+    glassRim: Color(0x33FFFFFF),
+    glassHighlight: Color(0x1AFFFFFF),
+    pageGlowTop: Color(0x29B3134F),
+    pageGlowBottom: Color(0x1A7A1F4A),
+    mood: [
+      Color(0xFF8C5A7C),
+      Color(0xFFB3628F),
+      Color(0xFFE0457F),
+      Color(0xFFF2709D),
+      Color(0xFFFFADC8),
+    ],
+    shadowTint: Color(0xFF000000),
+  );
+}
+
 abstract final class MyExColors {
+  static MyExPalette _p = MyExPalette.light;
+
+  /// The active palette. Set ONLY by the app root (lib/app.dart), which then
+  /// remounts the tree so every widget picks it up.
+  static MyExPalette get palette => _p;
+  static void use(MyExPalette p) => _p = p;
+  static bool get isNight => _p.brightness == Brightness.dark;
+
   // ---- Surfaces ----
   /// Grouped page background.
-  static const bg = Color(0xFFFFF5F7);
+  static Color get bg => _p.bg;
 
   /// Cells, cards, bubbles.
-  static const bgElev = Color(0xFFFFFFFF);
+  static Color get bgElev => _p.bgElev;
 
   // ---- Labels (wine-tinted neutrals) ----
   /// Primary label (≈15:1 on bg).
-  static const ink = Color(0xFF3A0F22);
+  static Color get ink => _p.ink;
 
-  /// Secondary label (5.8:1 on bg).
-  static const ink2 = Color(0xFF86506A);
+  /// Secondary label (≥5.8:1 on bg).
+  static Color get ink2 => _p.ink2;
 
   /// Tertiary: chevrons, placeholders. Glyphs only, NEVER text.
-  static const ink3 = Color(0x4D3A0F22); // rgba(58,15,34,.30)
+  static Color get ink3 => _p.ink3;
 
   /// 0.5pt hairlines.
-  static const sep = Color(0x1F3A0F22); // rgba(58,15,34,.12)
+  static Color get sep => _p.sep;
 
   /// Pressed cells, tracks, neutral fills.
-  static const fill = Color(0x0F3A0F22); // rgba(58,15,34,.06)
+  static Color get fill => _p.fill;
 
   /// Tab selection capsule.
-  static const capsule = Color(0x143A0F22); // rgba(58,15,34,.08)
+  static Color get capsule => _p.capsule;
 
   /// Neutral icon square (secondary rows).
-  static const neutralIcon = Color(0xFF8E7280);
+  static Color get neutralIcon => _p.neutralIcon;
 
   // ---- Accent (one) ----
-  /// Fills, icons, text ≥17pt semibold (4.94:1 on white).
-  static const accent = Color(0xFFD81B60);
+  /// Fills, icons, text ≥17pt semibold.
+  static Color get accent => _p.accent;
 
-  /// Small accent text and links (6.9:1).
-  static const accentInk = Color(0xFFB0124F);
+  /// Small accent text and links.
+  static Color get accentInk => _p.accentInk;
 
   /// Tinted fills; text on it uses [accentInk], never [accent].
-  static const accentSoft = Color(0x1AD81B60); // rgba(216,27,96,.10)
+  static Color get accentSoft => _p.accentSoft;
 
   static const onAccent = Color(0xFFFFFFFF);
 
   // ---- Semantic ----
-  static const success = Color(0xFF0B7A55);
-  static const successSoft = Color(0x1A0B7A55); // rgba(11,122,85,.10)
-  static const danger = Color(0xFFD70015);
+  static Color get success => _p.success;
+  static Color get successSoft => _p.successSoft;
+  static Color get danger => _p.danger;
 
   /// Switches only.
   static const switchOn = Color(0xFF34C759);
+
+  // ---- Mood (1..5) ----
+  static Color mood(int level) => _p.mood[(level - 1).clamp(0, 4)];
 
   // ---- Coin (the object's real colour) ----
   static const coinGold = Color(0xFFF6C25B);
   static const coinFace = Color(0xFFFFE7A8);
 
   // ---- Scrims ----
-  /// Sheet backdrop rgba(20,4,12,.22).
-  static const scrim = Color(0x3814040C);
-
-  /// Push dim #14040C at 12%.
-  static const pushDim = Color(0x1F14040C);
+  static Color get scrim => _p.scrim;
+  static Color get pushDim => _p.pushDim;
 
   /// Behind a scaled page while a sheet is presented.
   static const presentingBackdrop = Color(0xFF0B0A10);
 
   // ---- Glass (floating chrome only) ----
   /// Transparent bg, for fades into the page (dock, nav edge).
-  static const bgClear = Color(0x00FFF5F7);
-
-  static const glassFill = Color(0x8CFFFFFF); // white 55%
-  static const glassRim = Color(0xBFFFFFFF); // white 75%, 0.5pt
-  static const glassHighlight = Color(0x80FFFFFF); // specular top-left
+  static Color get bgClear => _p.bg.withValues(alpha: 0);
+  static Color get glassFill => _p.glassFill;
+  static Color get glassRim => _p.glassRim;
+  static Color get glassHighlight => _p.glassHighlight;
 
   // ---- Page background: static glows over bg ----
-  static const pageGlowTop = Color(0x29FF78A0); // rgba(255,120,160,.16)
-  static const pageGlowBottom = Color(0x24FFAAC3); // rgba(255,170,195,.14)
+  static Color get pageGlowTop => _p.pageGlowTop;
+  static Color get pageGlowBottom => _p.pageGlowBottom;
 
   // ---- The ONLY gradient: Home streak hero (+ app icon) ----
   static const heroStart = Color(0xFFB3134F);
@@ -272,14 +393,15 @@ abstract final class MyExPresentation {
 
 /// Shadows: ONLY floating things (glass chrome, sheets). No coloured glows.
 abstract final class MyExShadows {
-  static const glass = [
-    BoxShadow(color: Color(0x1A3A0F22), blurRadius: 24, offset: Offset(0, 8)),
-    BoxShadow(color: Color(0x0F3A0F22), blurRadius: 2, offset: Offset(0, 1)),
+  static Color _t(int alpha) => MyExColors.palette.shadowTint.withAlpha(alpha);
+  static List<BoxShadow> get glass => [
+    BoxShadow(color: _t(0x1A), blurRadius: 24, offset: const Offset(0, 8)),
+    BoxShadow(color: _t(0x0F), blurRadius: 2, offset: const Offset(0, 1)),
   ];
   static const sheet = [
     BoxShadow(color: Color(0x4014040C), blurRadius: 60, offset: Offset(0, 20)),
   ];
-  static const pushEdge = [
-    BoxShadow(color: Color(0x1A3A0F22), blurRadius: 30, offset: Offset(-10, 0)),
+  static List<BoxShadow> get pushEdge => [
+    BoxShadow(color: _t(0x1A), blurRadius: 30, offset: const Offset(-10, 0)),
   ];
 }

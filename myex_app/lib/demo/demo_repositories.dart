@@ -5,12 +5,17 @@ import '../features/coach/domain/chat_message.dart';
 import '../features/coach/domain/chat_origin.dart';
 import '../features/draft_jail/data/draft_repository.dart';
 import '../features/draft_jail/domain/draft.dart';
+import '../features/journal/data/journal_repository.dart';
+import '../features/journal/domain/journal_entry.dart';
+import '../features/journal/domain/mood.dart';
 import '../features/lifecycle/data/lifecycle_repository.dart';
 import '../features/lifecycle/domain/reminder_plan.dart';
 import '../features/monetization/data/wallet_repository.dart';
 import '../features/monetization/domain/coin_pack.dart';
 import '../features/monetization/domain/limits.dart';
 import '../features/monetization/domain/monetization_ids.dart';
+import '../features/no_contact/data/no_contact_repository.dart';
+import '../features/no_contact/domain/no_contact.dart';
 import '../features/onboarding/data/onboarding_repository.dart';
 import '../features/onboarding/domain/onboarding_answers.dart';
 import '../features/plan/data/plan_repository.dart';
@@ -398,4 +403,127 @@ class DemoCancelLog implements CancelSurveyLog {
     bool offerAccepted = false,
     String? note,
   }) async {}
+}
+
+class DemoJournalRepository implements JournalRepository {
+  DemoJournalRepository(this.store);
+  final DemoStore store;
+
+  @override
+  Future<List<JournalEntry>> entries() async {
+    final l = List.of(store.journal)
+      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    return l;
+  }
+
+  @override
+  Future<JournalEntry> save(JournalEntry e) async {
+    final saved = e.copyWith(updatedAt: DateTime.now());
+    final i = store.journal.indexWhere((x) => x.id == e.id);
+    if (i == -1) {
+      store.journal.add(saved);
+    } else {
+      store.journal[i] = saved;
+    }
+    store.changed();
+    return saved;
+  }
+
+  @override
+  Future<void> delete(String id) async {
+    store.journal.removeWhere((x) => x.id == id);
+    store.changed();
+  }
+
+  @override
+  Future<List<MoodEntry>> moods({int days = 60}) async {
+    final since = DateTime.now().subtract(Duration(days: days));
+    final l = [
+      for (final m in store.moods)
+        if (m.createdAt.isAfter(since)) m,
+    ]..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    return l;
+  }
+
+  @override
+  Future<MoodEntry> addMood({
+    required int level,
+    required List<MoodWord> feelings,
+    String? note,
+  }) async {
+    final m = MoodEntry(
+      id: store.nextId('mood'),
+      level: level,
+      feelings: feelings,
+      note: (note?.trim().isEmpty ?? true) ? null : note!.trim(),
+      createdAt: DateTime.now(),
+    );
+    store.moods.add(m);
+    store.changed();
+    return m;
+  }
+}
+
+class DemoNoContactRepository implements NoContactRepository {
+  DemoNoContactRepository(this.store);
+  final DemoStore store;
+
+  DateTime get _today {
+    final n = DateTime.now();
+    return DateTime(n.year, n.month, n.day);
+  }
+
+  @override
+  Future<NoContactState> load() async =>
+      NoContactState(attempts: List.of(store.attempts));
+
+  void _endActive({String? reflection}) {
+    final i = store.attempts.indexWhere((a) => a.active);
+    if (i == -1) return;
+    final a = store.attempts[i];
+    store.attempts[i] = NoContactAttempt(
+      id: a.id,
+      startedOn: a.startedOn,
+      endedOn: _today,
+      goalDays: a.goalDays,
+      reflection: (reflection?.trim().isEmpty ?? true)
+          ? null
+          : reflection!.trim(),
+    );
+  }
+
+  @override
+  Future<void> start({required int goalDays}) async {
+    _endActive();
+    store.attempts.insert(
+      0,
+      NoContactAttempt(
+        id: store.nextId('nc'),
+        startedOn: _today,
+        goalDays: goalDays,
+      ),
+    );
+    store.changed();
+  }
+
+  @override
+  Future<void> setGoal(int goalDays) async {
+    final i = store.attempts.indexWhere((a) => a.active);
+    if (i == -1) return;
+    final a = store.attempts[i];
+    store.attempts[i] = NoContactAttempt(
+      id: a.id,
+      startedOn: a.startedOn,
+      goalDays: goalDays,
+    );
+    store.changed();
+  }
+
+  @override
+  Future<void> reachedOut({String? reflection, bool restart = true}) async {
+    final goal = store.attempts.where((a) => a.active).firstOrNull?.goalDays;
+    _endActive(reflection: reflection);
+    if (restart) await start(goalDays: goal ?? 30);
+    store.changed();
+  }
 }

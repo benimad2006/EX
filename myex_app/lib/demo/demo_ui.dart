@@ -5,8 +5,10 @@ import '../core/design/design.dart';
 import '../core/router/app_router.dart';
 import '../core/supabase/supabase_providers.dart';
 import '../features/home/application/streak.dart';
+import '../features/journal/data/journal_repository.dart';
 import '../features/monetization/application/monetization_providers.dart';
 import '../features/monetization/domain/paywall_offer.dart';
+import '../features/no_contact/data/no_contact_repository.dart';
 import '../features/onboarding/application/onboarding_controller.dart';
 import '../features/plan/application/plan_progress.dart';
 import 'demo_purchases.dart';
@@ -107,7 +109,10 @@ Future<void> showDemoMenu(BuildContext context, WidgetRef ref) {
       ..invalidate(limitsProvider)
       ..invalidate(planStateProvider)
       ..invalidate(paywallOfferProvider)
-      ..invalidate(noContactSinceProvider);
+      ..invalidate(noContactSinceProvider)
+      ..invalidate(noContactProvider)
+      ..invalidate(journalEntriesProvider)
+      ..invalidate(moodEntriesProvider);
   }
 
   return showGlassSheet<void>(
@@ -175,6 +180,16 @@ Future<void> showDemoMenu(BuildContext context, WidgetRef ref) {
                     refresh();
                   },
                 ),
+              ),
+              ListRow(
+                key: const Key('demo-fill-sample'),
+                title: 'Fill sample weeks (moods, journal, no contact)',
+                onTap: () {
+                  store.fillSample(
+                    turkish: ref.read(onboardingProvider).language == 'tr',
+                  );
+                  refresh();
+                },
               ),
               ListRow(
                 title: 'Add 50 coins',

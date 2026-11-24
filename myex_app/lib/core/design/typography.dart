@@ -24,43 +24,34 @@ abstract final class MyExType {
   );
 
   // ---- iOS text styles ----
-  static final largeTitle = _sans(34, 41, FontWeight.w700);
-  static final title1 = _sans(28, 34, FontWeight.w700);
-  static final title2 = _sans(22, 28, FontWeight.w700);
+  static TextStyle get largeTitle => _sans(34, 41, FontWeight.w700);
+  static TextStyle get title1 => _sans(28, 34, FontWeight.w700);
+  static TextStyle get title2 => _sans(22, 28, FontWeight.w700);
 
   /// Title 3 / prominent section header.
-  static final title3 = _sans(20, 25, FontWeight.w600);
-  static final headline = _sans(17, 22, FontWeight.w600);
-  static final body = _sans(17, 22, FontWeight.w400);
-  static final callout = _sans(16, 21, FontWeight.w400);
-  static final subheadline = _sans(
-    15,
-    20,
-    FontWeight.w400,
-  ).copyWith(color: MyExColors.ink2);
-  static final footnote = _sans(
-    13,
-    18,
-    FontWeight.w400,
-  ).copyWith(color: MyExColors.ink2);
-  static final caption1 = _sans(
-    12,
-    16,
-    FontWeight.w400,
-  ).copyWith(color: MyExColors.ink2);
+  static TextStyle get title3 => _sans(20, 25, FontWeight.w600);
+  static TextStyle get headline => _sans(17, 22, FontWeight.w600);
+  static TextStyle get body => _sans(17, 22, FontWeight.w400);
+  static TextStyle get callout => _sans(16, 21, FontWeight.w400);
+  static TextStyle get subheadline =>
+      _sans(15, 20, FontWeight.w400).copyWith(color: MyExColors.ink2);
+  static TextStyle get footnote =>
+      _sans(13, 18, FontWeight.w400).copyWith(color: MyExColors.ink2);
+  static TextStyle get caption1 =>
+      _sans(12, 16, FontWeight.w400).copyWith(color: MyExColors.ink2);
 
   /// Tab labels.
-  static final caption2 = _sans(10, 12, FontWeight.w600);
+  static TextStyle get caption2 => _sans(10, 12, FontWeight.w600);
 
   /// Buttons: 17/22 semibold, Title Case copy.
-  static final button = _sans(17, 22, FontWeight.w600);
+  static TextStyle get button => _sans(17, 22, FontWeight.w600);
 
   /// Inline nav-bar title.
-  static final navTitle = _sans(17, 22, FontWeight.w600);
+  static TextStyle get navTitle => _sans(17, 22, FontWeight.w600);
 
   // ---- Brand voice: Instrument Serif, upright ----
   /// One per emotional screen (Plan ready, Paywall, Welcome, SOS, Win-back).
-  static const display = TextStyle(
+  static TextStyle get display => TextStyle(
     fontFamily: MyExFonts.serif,
     fontSize: 40,
     height: 44 / 40,
@@ -99,15 +90,12 @@ abstract final class MyExType {
 
   // ---- Paywall price hierarchy ----
   /// Billed price on plan rows: the main (largest) price.
-  static final billedPrice = headline.copyWith(fontFeatures: tabular);
+  static TextStyle get billedPrice => headline.copyWith(fontFeatures: tabular);
 
   /// Billing period / monthly equivalent under it: secondary.
-  static final priceDetail = footnote.copyWith(fontFeatures: tabular);
+  static TextStyle get priceDetail => footnote.copyWith(fontFeatures: tabular);
 
   /// "Save 68%" inline.
-  static final save = _sans(
-    13,
-    18,
-    FontWeight.w600,
-  ).copyWith(color: MyExColors.success);
+  static TextStyle get save =>
+      _sans(13, 18, FontWeight.w600).copyWith(color: MyExColors.success);
 }

@@ -960,12 +960,12 @@ class _BuildingStepState extends ConsumerState<_BuildingStep> {
                     chevron: false,
                     titleColor: i < _done ? MyExColors.ink : MyExColors.ink2,
                     trailing: i < _done
-                        ? const Icon(
+                        ? Icon(
                             Icons.check_rounded,
                             color: MyExColors.success,
                             size: MyExSizes.iconMd,
                           )
-                        : const SizedBox.square(
+                        : SizedBox.square(
                             dimension: MyExSizes.icon,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,

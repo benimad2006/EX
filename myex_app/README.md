@@ -8,7 +8,7 @@ coins + subscriptions. Source of truth: `../MyEx_Monetization_Prompts.md` (phase
 
 | Area | State |
 |---|---|
-| Flutter app (`lib/`) | `flutter analyze` 0 issues, `flutter test` 98 green. Not run on a device yet (Windows dev box). |
+| Flutter app (`lib/`) | `flutter analyze` 0 issues, `flutter test` 98 green. Runs on the iOS Simulator in demo mode (see "Run on the iOS Simulator"). Not tested on a physical device. |
 | Demo mode (`lib/demo/`) | Runs the whole app with no keys (see "Demo / Android test build"). |
 | Supabase migrations (`supabase/migrations/`) | **UNTESTED.** Written without the Supabase CLI. Run `supabase db reset` first. |
 | SQL tests (`supabase/tests/*.sql`) | **UNTESTED.** |
@@ -91,6 +91,37 @@ git-ignored). Server-side values are Supabase secrets. **Never** put a server se
 | `[TERMS_URL]`, `[PRIVACY_URL]` | `env/*.json` | Hosted EULA + privacy policy |
 | `[SUPPORT_EMAIL]` | `env/*.json` | Shown in Me |
 | `[EMERGENCY_TR]`, `[EMERGENCY_US]`, `[HELPLINE_TR]`, `[HELPLINE_US]` | `env/*.json` (app) **and** Supabase secrets `EMERGENCY_*`/`HELPLINE_*` (SOS prompt) | Defaults: 112 / 911 / (none) / 988. **Verify every number with official sources before release.** |
+
+## Run on the iOS Simulator
+
+Verified on macOS with Flutter 3.44, Xcode and an iPhone 17 simulator (iOS 26.5). No keys are needed:
+with no `env/dev.json` the app starts in **demo mode** (in-memory fakes, a Demo pill on every screen).
+
+```bash
+cd myex_app
+flutter pub get
+open -a Simulator                       # or boot one: xcrun simctl boot "iPhone 17"
+flutter devices                         # copy the simulator id
+flutter run -d <simulator-id>           # add --no-resident for build + install + exit (no hot reload)
+```
+
+Real backend instead of demo mode: `cp env/example.json env/dev.json`, fill it in, then
+`flutter run -d <simulator-id> --dart-define-from-file=env/dev.json`.
+
+The first build takes a few minutes (`pod install` + a full Xcode build); later ones take about a minute.
+In a `flutter run` session: `r` hot reload, `R` hot restart, `q` quit.
+
+### Troubleshooting
+
+| Symptom | Fix |
+|---|---|
+| `Could not resolve package dependencies … purchases-hybrid-common 20.9.0` (Swift Package Manager) | Turn SPM off so Flutter uses CocoaPods: `flutter config --no-enable-swift-package-manager`. This is a global Flutter setting. Undo it with `flutter config --enable-swift-package-manager`. |
+| `Method not found: 'CupertinoPageTransitionsBuilder'` | Flutter 3.44 no longer re-exports Cupertino from `material.dart`. `navigation.dart` imports `package:flutter/cupertino.dart` explicitly. Do the same for any other Cupertino symbol. |
+| Build killed (exit 137) or very slow | Close other heavy apps and re-run. Run it in the background and log to a file. Pods are cached after the first build. |
+| Pod or Xcode errors after a Flutter or plugin upgrade | `flutter clean && flutter pub get`, then `cd ios && pod install --repo-update`. |
+
+Pods print an `IPHONEOS_DEPLOYMENT_TARGET is set to 11.0` warning (from `flutter_timezone`) and RevenueCat
+deprecation warnings. Both are harmless.
 
 ## Run
 
@@ -230,8 +261,8 @@ curl -i -X POST https://[SUPABASE_PROJECT_REF].supabase.co/functions/v1/revenuec
   `priceString` because intl renders TRY as "TL" while the App Store shows "₺".
 - Timezone: resolved with flutter_timezone (IANA names sent at startup). The server still ignores more than one change per 24 h.
 - flutter_local_notifications on iOS needs the delegate line in AppDelegate (added, untested on device).
-- CocoaPods: purchases_flutter 11 depends on PurchasesHybridCommon 20.x; if `pod install` can't resolve it, enable
-  Swift Package Manager (`flutter config --enable-swift-package-manager`).
+- Swift Package Manager: with Flutter 3.44, SPM could not resolve purchases_flutter 11's `purchases-hybrid-common`
+  20.9.0 (the tag exists upstream). CocoaPods works, so SPM is turned off (`flutter config --no-enable-swift-package-manager`).
 - The exit-offer flag is marked "shown" before the sheet renders (server is authoritative; a crash at that instant loses the offer).
 
 ## Manual tests (not automatable here)

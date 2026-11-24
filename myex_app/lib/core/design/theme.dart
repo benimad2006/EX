@@ -7,9 +7,13 @@ import 'typography.dart';
 /// Material theme derived ONLY from tokens + typography.
 /// No fontFamily: UI text uses the platform system font (SF Pro on iOS).
 abstract final class MyExTheme {
-  static ThemeData light() {
+  /// Theme for the ACTIVE palette ([MyExColors.palette]).
+  static ThemeData light() => current();
+
+  static ThemeData current() {
     final scheme = ColorScheme.fromSeed(
       seedColor: MyExColors.accent,
+      brightness: MyExColors.palette.brightness,
       primary: MyExColors.accent,
       onPrimary: MyExColors.onAccent,
       error: MyExColors.danger,
@@ -18,6 +22,7 @@ abstract final class MyExTheme {
     );
     return ThemeData(
       useMaterial3: true,
+      brightness: MyExColors.palette.brightness,
       platform: TargetPlatform.iOS,
       colorScheme: scheme,
       scaffoldBackgroundColor: MyExColors.bg,
@@ -37,7 +42,7 @@ abstract final class MyExTheme {
         labelLarge: MyExType.button,
         labelSmall: MyExType.caption2,
       ),
-      textSelectionTheme: const TextSelectionThemeData(
+      textSelectionTheme: TextSelectionThemeData(
         cursorColor: MyExColors.accent,
       ),
       inputDecorationTheme: InputDecorationTheme(

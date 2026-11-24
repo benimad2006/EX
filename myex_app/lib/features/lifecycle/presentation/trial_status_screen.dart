@@ -116,7 +116,7 @@ class TrialStatusScreen extends ConsumerWidget {
                             child: Row(
                               children: [
                                 _Stat(value: recap?.talks, label: l.trialTalks),
-                                const VerticalDivider(
+                                VerticalDivider(
                                   width: MyExSpacing.s4,
                                   thickness: MyExSizes.hairline,
                                   color: MyExColors.sep,
@@ -125,7 +125,7 @@ class TrialStatusScreen extends ConsumerWidget {
                                   value: recap?.draftsNotSent,
                                   label: l.trialDrafts,
                                 ),
-                                const VerticalDivider(
+                                VerticalDivider(
                                   width: MyExSpacing.s4,
                                   thickness: MyExSizes.hairline,
                                   color: MyExColors.sep,

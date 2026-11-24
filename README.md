@@ -10,4 +10,7 @@ Breakup-recovery app for iPhone (Flutter + Supabase + RevenueCat).
 | `MyEx_Monetization_Prompts.md` | Build prompts for Flutter, Supabase and RevenueCat |
 | `MyEx_Paywall_Inspiration.md` | Paywall and onboarding research |
 
+iOS Simulator (no keys needed, runs in demo mode): `cd myex_app && flutter run -d <simulator-id>`.
+See "Run on the iOS Simulator" in `myex_app/README.md` for setup and troubleshooting.
+
 Demo APK (no keys needed): `cd myex_app && flutter build apk --release --dart-define=DEMO=true`

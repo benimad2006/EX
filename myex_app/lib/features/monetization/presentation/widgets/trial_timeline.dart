@@ -227,7 +227,7 @@ class _HowToCancelRowState extends State<HowToCancelRow> {
               trailing: AnimatedRotation(
                 turns: _open ? 0.25 : 0,
                 duration: m.reduced ? Duration.zero : MyExDurations.tabFade,
-                child: const Icon(
+                child: Icon(
                   Icons.chevron_right_rounded,
                   size: MyExSizes.icon,
                   color: MyExColors.ink3,

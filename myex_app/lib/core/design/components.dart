@@ -25,22 +25,22 @@ class ScreenBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: const BoxDecoration(color: MyExColors.bg),
+      decoration: BoxDecoration(color: MyExColors.bg),
       child: DecoratedBox(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: RadialGradient(
-            center: Alignment(1, -1),
+            center: const Alignment(1, -1),
             radius: 1.0,
-            colors: [MyExColors.pageGlowTop, Color(0x00FF78A0)],
+            colors: [MyExColors.pageGlowTop, const Color(0x00FF78A0)],
             stops: [0, 0.7],
           ),
         ),
         child: DecoratedBox(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: RadialGradient(
-              center: Alignment(-1, 1),
+              center: const Alignment(-1, 1),
               radius: 0.8,
-              colors: [MyExColors.pageGlowBottom, Color(0x00FFAAC3)],
+              colors: [MyExColors.pageGlowBottom, const Color(0x00FFAAC3)],
               stops: [0, 0.7],
             ),
           ),
@@ -75,9 +75,9 @@ class SolidCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: MyExColors.bgElev,
-        borderRadius: BorderRadius.all(Radius.circular(MyExRadii.l)),
+        borderRadius: const BorderRadius.all(Radius.circular(MyExRadii.l)),
       ),
       child: Padding(padding: padding, child: child),
     );
@@ -139,7 +139,7 @@ class InsetGroup extends StatelessWidget {
         rows.add(
           Padding(
             padding: EdgeInsets.only(left: inset),
-            child: const Divider(
+            child: Divider(
               height: MyExSizes.hairline,
               thickness: MyExSizes.hairline,
               color: MyExColors.sep,
@@ -275,7 +275,7 @@ class _ListRowState extends State<ListRow> {
           if (w.trailing != null) ...[const Gap(MyExSpacing.s2), w.trailing!],
           if (showChevron) ...[
             const Gap(MyExSpacing.s2),
-            const Icon(
+            Icon(
               Icons.chevron_right_rounded,
               size: MyExSizes.icon,
               color: MyExColors.ink3,
@@ -568,16 +568,11 @@ class MyExSwitch extends StatelessWidget {
 
 /// 4pt progress bar.
 class ProgressBar extends StatelessWidget {
-  const ProgressBar({
-    super.key,
-    required this.value,
-    this.color = MyExColors.accent,
-    this.track = MyExColors.fill,
-  });
+  const ProgressBar({super.key, required this.value, this.color, this.track});
 
   final double value;
-  final Color color;
-  final Color track;
+  final Color? color;
+  final Color? track;
 
   @override
   Widget build(BuildContext context) => ClipRRect(
@@ -587,11 +582,11 @@ class ProgressBar extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          ColoredBox(color: track),
+          ColoredBox(color: track ?? MyExColors.fill),
           FractionallySizedBox(
             alignment: Alignment.centerLeft,
             widthFactor: value.clamp(0, 1),
-            child: ColoredBox(color: color),
+            child: ColoredBox(color: color ?? MyExColors.accent),
           ),
         ],
       ),
@@ -1062,7 +1057,7 @@ class SelectRow extends StatelessWidget {
         trailing: AnimatedOpacity(
           opacity: selected ? 1 : 0,
           duration: MyExDurations.tabFade,
-          child: const Icon(
+          child: Icon(
             Icons.check_rounded,
             color: MyExColors.accent,
             size: MyExSizes.iconMd,

@@ -92,7 +92,7 @@ class CompareTable extends StatelessWidget {
                   rows[i].$3 == null
                       ? Semantics(
                           label: l.compareIncluded,
-                          child: const Icon(
+                          child: Icon(
                             Icons.check_rounded,
                             color: MyExColors.accent,
                             size: MyExSizes.icon,

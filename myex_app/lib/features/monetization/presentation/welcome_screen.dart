@@ -99,7 +99,7 @@ class WelcomeScreen extends ConsumerWidget {
                             child: ListRow(
                               title: items[i],
                               chevron: false,
-                              leading: const Icon(
+                              leading: Icon(
                                 Icons.check_rounded,
                                 color: MyExColors.success,
                                 size: MyExSizes.iconMd,
