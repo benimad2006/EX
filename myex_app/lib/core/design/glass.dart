@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../accessibility/accessibility_flags.dart';
 import 'motion.dart';
+import 'my_ex_icons.dart';
 import 'tokens.dart';
 import 'typography.dart';
 
@@ -473,7 +474,7 @@ class SosCircleButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.favorite_border_rounded,
+                  MyExIcons.heart,
                   color: MyExColors.danger,
                   size: MyExSizes.iconMd,
                 ),

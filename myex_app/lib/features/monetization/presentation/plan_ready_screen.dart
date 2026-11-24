@@ -59,7 +59,7 @@ class PlanReadyScreen extends ConsumerWidget {
                   child: ListView(
                     padding: kScreenPadding.copyWith(top: MyExSpacing.s6),
                     children: [
-                      const Center(child: LumiMascot()),
+                      const Center(child: NightMark()),
                       const Gap(MyExSpacing.s4),
                       DisplayText(
                         a.name == null
@@ -107,7 +107,7 @@ class PlanReadyScreen extends ConsumerWidget {
                           children: [
                             ListRow(
                               leading: const IconSquare(
-                                icon: Icons.favorite_border_rounded,
+                                icon: MyExIcons.heart,
                                 tone: IconTone.neutral,
                               ),
                               title: l.planReadySupport(

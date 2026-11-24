@@ -219,7 +219,7 @@ class _CoachScreenState extends ConsumerState<CoachScreen> {
                           key: const Key('sos-mode-banner'),
                           label: l.coachSosMode,
                           foreground: MyExColors.success,
-                          leading: const Icon(Icons.shield_outlined),
+                          leading: const Icon(MyExIcons.shield),
                         )
                       else if (meter.visible)
                         _Meter(meter: meter),
@@ -239,7 +239,7 @@ class _CoachScreenState extends ConsumerState<CoachScreen> {
               showEdge: true,
               leading: _isSos
                   ? GlassIconButton(
-                      icon: Icons.chevron_left_rounded,
+                      icon: MyExIcons.back,
                       semanticLabel: l.commonBack,
                       onPressed: () => context.canPop()
                           ? context.pop()
@@ -276,7 +276,7 @@ class _CoachScreenState extends ConsumerState<CoachScreen> {
               trailing: !_isSos && state.messages.isNotEmpty
                   ? GlassIconButton(
                       key: const Key('coach-new'),
-                      icon: Icons.add_comment_outlined,
+                      icon: MyExIcons.compose,
                       semanticLabel: l.coachNew,
                       onPressed: _newConversation,
                     )
@@ -423,7 +423,7 @@ class _Composer extends StatelessWidget {
                             child: const SizedBox.square(
                               dimension: MyExSizes.sendButton,
                               child: Icon(
-                                Icons.arrow_upward_rounded,
+                                MyExIcons.arrowUp,
                                 size: MyExSizes.icon,
                                 color: MyExColors.onAccent,
                               ),

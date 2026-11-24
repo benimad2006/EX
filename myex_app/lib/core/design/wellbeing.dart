@@ -267,7 +267,7 @@ class StatPair extends StatelessWidget {
 }
 
 /// Calm empty state: the petal mark, a sentence-case title, one line, and an
-/// optional primary action. Lumi stays reserved for her four screens.
+/// optional primary action. The night mark stays on its four screens.
 class EmptyState extends StatelessWidget {
   const EmptyState({
     super.key,

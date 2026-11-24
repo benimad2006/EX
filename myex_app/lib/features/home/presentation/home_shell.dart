@@ -34,27 +34,24 @@ class HomeShell extends StatelessWidget {
                   shell.goBranch(i, initialLocation: i == shell.currentIndex),
               items: [
                 GlassTabItem(
-                  icon: Icons.home_outlined,
-                  selectedIcon: Icons.home_rounded,
+                  icon: MyExIcons.home,
+                  selectedIcon: MyExIcons.homeFilled,
                   label: l.tabHome,
                 ),
+                GlassTabItem(icon: MyExIcons.list, label: l.tabPlan),
                 GlassTabItem(
-                  icon: Icons.format_list_bulleted_rounded,
-                  label: l.tabPlan,
-                ),
-                GlassTabItem(
-                  icon: Icons.chat_bubble_outline_rounded,
-                  selectedIcon: Icons.chat_bubble_rounded,
+                  icon: MyExIcons.chat,
+                  selectedIcon: MyExIcons.chat,
                   label: l.tabCoach,
                 ),
                 GlassTabItem(
-                  icon: Icons.book_outlined,
-                  selectedIcon: Icons.book_rounded,
+                  icon: MyExIcons.journal,
+                  selectedIcon: MyExIcons.journal,
                   label: l.tabJournal,
                 ),
                 GlassTabItem(
-                  icon: Icons.person_outline_rounded,
-                  selectedIcon: Icons.person_rounded,
+                  icon: MyExIcons.user,
+                  selectedIcon: MyExIcons.user,
                   label: l.tabMe,
                 ),
               ],

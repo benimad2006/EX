@@ -80,7 +80,7 @@ class _DailyTaskScreenState extends ConsumerState<DailyTaskScreen> {
                 largeTitle: false,
                 bottomPadding: MyExSpacing.s6,
                 leading: GlassIconButton(
-                  icon: Icons.chevron_left_rounded,
+                  icon: MyExIcons.back,
                   semanticLabel: l.commonBack,
                   onPressed: () => context.canPop()
                       ? context.pop()
@@ -156,7 +156,7 @@ class _DailyTaskScreenState extends ConsumerState<DailyTaskScreen> {
               ),
           ],
         ),
-        Footnote(l.taskDoneNote, icon: Icons.check_rounded),
+        Footnote(l.taskDoneNote, icon: MyExIcons.check),
       ] else if (d.status == PlanDayStatus.open) ...[
         for (var i = 0; i < _entries; i++)
           InsetTextField(
@@ -167,7 +167,7 @@ class _DailyTaskScreenState extends ConsumerState<DailyTaskScreen> {
             maxLength: _maxChars,
             maxLines: 4,
           ),
-        Footnote(l.taskPrivate, icon: Icons.lock_outline_rounded),
+        Footnote(l.taskPrivate, icon: MyExIcons.lock),
       ] else
         Footnote(l.taskNotOpen),
     ];
@@ -215,7 +215,7 @@ class DayCompleteScreen extends ConsumerWidget {
                     value: (s?.doneCount ?? day) / planTotalDays,
                     size: MyExSizes.successMark * 1.4,
                     child: Icon(
-                      Icons.check_rounded,
+                      MyExIcons.check,
                       color: MyExColors.accent,
                       size: MyExSizes.successMark / 2,
                     ),

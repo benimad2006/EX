@@ -46,7 +46,7 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
         title: l.journalTitle,
         trailing: GlassIconButton(
           key: const Key('journal-new'),
-          icon: Icons.edit_outlined,
+          icon: MyExIcons.edit,
           semanticLabel: l.journalNew,
           onPressed: _write,
         ),
@@ -110,7 +110,7 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
             else
               ..._byMonth(context, shown),
           ],
-          Footnote(l.journalPrivate, icon: Icons.lock_outline_rounded),
+          Footnote(l.journalPrivate, icon: MyExIcons.lock),
         ],
       ),
     );
@@ -199,7 +199,7 @@ class _PromptCard extends StatelessWidget {
                   ),
                 ),
                 Icon(
-                  Icons.arrow_forward_rounded,
+                  MyExIcons.arrowRight,
                   size: MyExSizes.icon,
                   color: MyExColors.accentInk,
                 ),

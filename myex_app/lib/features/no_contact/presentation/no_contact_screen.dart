@@ -30,7 +30,7 @@ class NoContactScreen extends ConsumerWidget {
           title: l.noContactTitle,
           bottomPadding: MyExSpacing.s8 + MediaQuery.paddingOf(context).bottom,
           leading: GlassIconButton(
-            icon: Icons.chevron_left_rounded,
+            icon: MyExIcons.back,
             semanticLabel: l.commonBack,
             onPressed: () => context.pop(),
           ),
@@ -261,7 +261,7 @@ class _MilestoneBadge extends StatelessWidget {
     ),
     child: reached
         ? const Icon(
-            Icons.check_rounded,
+            MyExIcons.check,
             size: MyExSizes.icon,
             color: MyExColors.onAccent,
           )

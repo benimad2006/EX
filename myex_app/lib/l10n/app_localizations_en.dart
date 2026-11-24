@@ -1339,7 +1339,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get trialNotActive => 'You’re not in a free trial right now.';
 
   @override
-  String get winbackTitle => 'Lumi kept your place.';
+  String get winbackTitle => 'We kept your place.';
 
   @override
   String get winbackSub => 'Your streak, plan and drafts are all still here.';

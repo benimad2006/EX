@@ -1327,7 +1327,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get trialNotActive => 'Şu an ücretsiz denemede değilsin.';
 
   @override
-  String get winbackTitle => 'Lumi yerini sakladı.';
+  String get winbackTitle => 'Yerini sakladık.';
 
   @override
   String get winbackSub => 'Serin, planın ve taslakların hâlâ burada.';

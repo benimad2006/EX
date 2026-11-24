@@ -72,7 +72,7 @@ class SosScreen extends ConsumerWidget {
                     GlassButton(
                       key: const Key('sos-draft'),
                       label: l.sosDraft,
-                      icon: Icons.edit_outlined,
+                      icon: MyExIcons.edit,
                       onPressed: () => context.push(Routes.sosDraft),
                     ),
                     TextLinkButton(
@@ -87,7 +87,7 @@ class SosScreen extends ConsumerWidget {
               ),
               NavBar(
                 leading: GlassIconButton(
-                  icon: Icons.close_rounded,
+                  icon: MyExIcons.close,
                   semanticLabel: l.commonClose,
                   onPressed: () => context.canPop()
                       ? context.pop()
@@ -102,8 +102,8 @@ class SosScreen extends ConsumerWidget {
   }
 }
 
-/// Lumi breathes (8s cycle) with a synced "Breathe in / Breathe out" cue.
-/// Reduce Motion: Lumi holds still and only "Breathe in" is shown.
+/// The night mark breathes (8s cycle) with a synced "Breathe in / Breathe out" cue.
+/// Reduce Motion: the mark holds still and only "Breathe in" is shown.
 class _Breathing extends StatefulWidget {
   const _Breathing();
 
@@ -152,10 +152,7 @@ class _BreathingState extends State<_Breathing>
           children: [
             Transform.scale(
               scale: scale,
-              child: const LumiMascot(
-                size: MyExSizes.lumiSos,
-                pose: LumiPose.eyesClosed,
-              ),
+              child: const NightMark(size: MyExSizes.lumiSos),
             ),
             const Gap(MyExSpacing.s4),
             Semantics(
@@ -199,14 +196,14 @@ Future<void> showCrisisSheet(BuildContext context) {
         const Gap(MyExSpacing.s6),
         PrimaryButton(
           destructive: true,
-          icon: Icons.phone_rounded,
+          icon: MyExIcons.call,
           label: l.crisisCallEmergency,
           onPressed: () => Links.call(lines.emergency),
         ),
         if (lines.helpline != null) ...[
           const Gap(MyExSpacing.s3),
           GlassButton(
-            icon: Icons.support_agent_rounded,
+            icon: MyExIcons.support,
             label: l.crisisCallHelpline,
             onPressed: () => Links.call(lines.helpline!),
           ),

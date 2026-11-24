@@ -204,6 +204,13 @@ Fonts: `assets/fonts/FrauncesSoft-SemiBold.ttf` (the brand serif since 2026-11-2
 opsz 72 / wght 620 / SOFT 100, OFL, license in `assets/fonts/OFL-Fraunces.txt`) and the older
 `InstrumentSerif-Regular.ttf` (OFL, `assets/fonts/OFL.txt`, no longer used by the theme).
 Illustrations (night sky, moon, dreamer figure, medallions) are drawn in code in `lib/core/design/art.dart`.
+No emoji or faces anywhere in the UI: the old Lumi heart is replaced by `NightMark` (crescent moon + stars).
+
+Icons: `MyExIcons` (`lib/core/design/my_ex_icons.dart`), an icon font (`assets/fonts/MyExIcons.ttf`) compiled from
+the Iconsax-style SVGs shared with the Doxygene, yayaexpress and nodo apps (plus a few drawn to match in
+`assets/icons-src/`). Use it like `Icons`: `Icon(MyExIcons.journal)`. To add one, put the SVG in `assets/icons-src/`
+or point `tool/build_icons.py` at a sibling project's SVG, then run `python -I tool/build_icons.py` (needs
+`picosvg`, `fonttools`, `pillow`). Material `Icons.*` remain only in demo tooling.
 Lumi is drawn by `_LumiPainter` in `components.dart`; replace it when final artwork exists.
 
 ## Manual setup

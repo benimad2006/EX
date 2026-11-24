@@ -120,7 +120,7 @@ class _DraftJailScreenState extends ConsumerState<DraftJailScreen> {
               const Gap(MyExSpacing.s3),
               GlassButton(
                 label: l.draftCopy,
-                icon: Icons.copy_rounded,
+                icon: MyExIcons.copy,
                 onPressed: () async {
                   await Clipboard.setData(ClipboardData(text: d.body));
                   if (ctx.mounted) showMyExToast(ctx, l.draftCopied);
@@ -189,7 +189,7 @@ class _DraftJailScreenState extends ConsumerState<DraftJailScreen> {
           largeTitle: false,
           bottomPadding: MyExSpacing.s8,
           leading: GlassIconButton(
-            icon: Icons.chevron_left_rounded,
+            icon: MyExIcons.back,
             semanticLabel: l.commonBack,
             onPressed: () => context.canPop()
                 ? context.pop()
@@ -217,7 +217,7 @@ class _DraftJailScreenState extends ConsumerState<DraftJailScreen> {
                   builder: (context, _) => PrimaryButton(
                     key: const Key('draft-lock'),
                     label: l.draftLock,
-                    icon: Icons.lock_outline_rounded,
+                    icon: MyExIcons.lock,
                     busy: _busy,
                     onPressed: _text.text.trim().isEmpty ? null : _lock,
                   ),
@@ -258,7 +258,7 @@ class _DraftJailScreenState extends ConsumerState<DraftJailScreen> {
                         ListRow(
                           key: Key('draft-${d.id}'),
                           leading: const IconSquare(
-                            icon: Icons.lock_outline_rounded,
+                            icon: MyExIcons.lock,
                             tone: IconTone.neutral,
                           ),
                           title: l.draftLockedRow,
@@ -282,9 +282,7 @@ class _DraftJailScreenState extends ConsumerState<DraftJailScreen> {
                       for (final d in ready)
                         ListRow(
                           key: Key('draft-${d.id}'),
-                          leading: const IconSquare(
-                            icon: Icons.lock_open_rounded,
-                          ),
+                          leading: const IconSquare(icon: MyExIcons.unlock),
                           title: l.draftReadyRow,
                           subtitle: context.shortDate(d.createdAt),
                           value: l.draftWords(d.wordCount),

@@ -222,7 +222,7 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen> {
                     }),
                   ),
                   const Gap(MyExSpacing.s5),
-                  Footnote(l.journalPrivate, icon: Icons.lock_outline_rounded),
+                  Footnote(l.journalPrivate, icon: MyExIcons.lock),
                   if (_existing != null) ...[
                     const Gap(MyExSpacing.s4),
                     TextLinkButton(
@@ -239,7 +239,7 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen> {
                     ? l.journalNew
                     : context.shortDate(_existing!.createdAt),
                 leading: GlassIconButton(
-                  icon: Icons.close_rounded,
+                  icon: MyExIcons.close,
                   semanticLabel: l.commonClose,
                   onPressed: _close,
                 ),

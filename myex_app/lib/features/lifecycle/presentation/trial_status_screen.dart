@@ -49,7 +49,7 @@ class TrialStatusScreen extends ConsumerWidget {
                   largeTitle: false,
                   bottomPadding: MyExSpacing.s6,
                   leading: GlassIconButton(
-                    icon: Icons.chevron_left_rounded,
+                    icon: MyExIcons.back,
                     semanticLabel: l.commonBack,
                     onPressed: () => context.canPop()
                         ? context.pop()

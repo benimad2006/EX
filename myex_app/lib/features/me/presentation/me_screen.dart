@@ -282,15 +282,13 @@ class _MeScreenState extends ConsumerState<MeScreen> {
                 children: [
                   ListRow(
                     key: const Key('me-insights'),
-                    leading: const IconSquare(icon: Icons.insights_rounded),
+                    leading: const IconSquare(icon: MyExIcons.chart),
                     title: l.insightsTitle,
                     onTap: () => context.push(Routes.insights),
                   ),
                   ListRow(
                     key: const Key('me-no-contact'),
-                    leading: const IconSquare(
-                      icon: Icons.local_fire_department_outlined,
-                    ),
+                    leading: const IconSquare(icon: MyExIcons.fire),
                     title: l.noContactTitle,
                     value: nc?.current == null
                         ? null
@@ -300,7 +298,7 @@ class _MeScreenState extends ConsumerState<MeScreen> {
                   ListRow(
                     key: const Key('me-appearance'),
                     leading: const IconSquare(
-                      icon: Icons.dark_mode_outlined,
+                      icon: MyExIcons.moon,
                       tone: IconTone.neutral,
                     ),
                     title: l.meAppearance,
@@ -351,7 +349,7 @@ class _MeScreenState extends ConsumerState<MeScreen> {
                   ),
                   ListRow(
                     leading: const IconSquare(
-                      icon: Icons.restore_rounded,
+                      icon: MyExIcons.restore,
                       tone: IconTone.neutral,
                     ),
                     title: l.meRestore,
@@ -360,13 +358,13 @@ class _MeScreenState extends ConsumerState<MeScreen> {
                   ),
                   if (active && premium!.isTrial)
                     ListRow(
-                      leading: const IconSquare(icon: Icons.schedule_rounded),
+                      leading: const IconSquare(icon: MyExIcons.clock),
                       title: l.meTrialProgress,
                       onTap: () => context.push(Routes.trial),
                     ),
                   ListRow(
                     leading: const IconSquare(
-                      icon: Icons.edit_outlined,
+                      icon: MyExIcons.edit,
                       tone: IconTone.neutral,
                     ),
                     title: l.homeDraftTitle,

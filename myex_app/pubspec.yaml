@@ -44,6 +44,11 @@ flutter:
       fonts:
         - asset: assets/fonts/InstrumentSerif-Regular.ttf
     # Fraunces (OFL), static instance: opsz 72, wght 620, SOFT 100, WONK 0.
+    # Iconsax-style icons (shared with Doxygene / yayaexpress / nodo), built by
+    # tool/build_icons.py.
+    - family: MyExIcons
+      fonts:
+        - asset: assets/fonts/MyExIcons.ttf
     - family: Fraunces
       fonts:
         - asset: assets/fonts/FrauncesSoft-SemiBold.ttf

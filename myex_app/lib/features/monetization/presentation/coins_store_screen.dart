@@ -115,7 +115,7 @@ class _CoinsStoreScreenState extends ConsumerState<CoinsStoreScreen> {
           bottomPadding: MyExSpacing.s8,
           onRefresh: _refresh,
           leading: GlassIconButton(
-            icon: Icons.chevron_left_rounded,
+            icon: MyExIcons.back,
             semanticLabel: l.commonBack,
             onPressed: () =>
                 context.canPop() ? context.pop() : context.go(Routes.home),
@@ -147,7 +147,7 @@ class _CoinsStoreScreenState extends ConsumerState<CoinsStoreScreen> {
             if (_awaitingCredit)
               Footnote(
                 l.coinsAdding,
-                icon: Icons.hourglass_top_rounded,
+                icon: MyExIcons.clock,
                 textAlign: TextAlign.start,
               ),
             Column(
@@ -202,9 +202,7 @@ class _CoinsStoreScreenState extends ConsumerState<CoinsStoreScreen> {
               InsetGroup(
                 children: [
                   ListRow(
-                    leading: const IconSquare(
-                      icon: Icons.card_giftcard_rounded,
-                    ),
+                    leading: const IconSquare(icon: MyExIcons.gift),
                     title: l.coinsCrossSell(
                       MonetizationDisplay.premiumMonthlyBonusCoins,
                     ),

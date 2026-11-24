@@ -85,7 +85,7 @@ class _WinbackScreenState extends ConsumerState<WinbackScreen> {
                 child: ListView(
                   padding: kScreenPadding.copyWith(top: MyExSpacing.s6),
                   children: [
-                    const Center(child: LumiMascot()),
+                    const Center(child: NightMark()),
                     const Gap(MyExSpacing.s4),
                     DisplayText(l.winbackTitle),
                     const Gap(MyExSpacing.s2),

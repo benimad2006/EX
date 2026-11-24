@@ -29,6 +29,8 @@ plus project notes. Phases run in order: M0 → M1 → … → M9 → MR.
   posters, display text and numerals. Illustrations are drawn in code in `lib/core/design/art.dart` (StarField,
   CrescentMoon, DreamerFigure, DreamScene, ArtMedallion, PosterHeadline); gradients are allowed inside art, never
   as fake urgency or glow on CTAs. Light mode stays as a choice in Me › Appearance.
+- Icons: only `MyExIcons.*` (Iconsax-style icon font, `tool/build_icons.py`), never Material `Icons.*` in shipped UI.
+  No emoji and no faces in the UI (Lumi was replaced by the faceless `NightMark`).
 - Two palettes (light "Love", night "Rose night" = default, `MyExPalette` in `tokens.dart`). `MyExColors.*` and `MyExType.*` are
   getters, so never put them inside a `const` expression; `lib/app.dart` picks the palette and repaints on change.
 - Journal, mood and no-contact data are private (RLS, own rows only, never sent to analytics or Edge Functions).

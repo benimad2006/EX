@@ -30,7 +30,7 @@ final _bonusConfirmedProvider = FutureProvider.autoDispose<bool>((ref) async {
   return false;
 });
 
-/// After any successful premium purchase (spec S8 / M5): Lumi bounces in
+/// After any successful premium purchase (spec S8 / M5): the night mark bounces in
 /// (the only staggered entrance in the app), what unlocked, the trial date,
 /// then straight to the plan. No confetti, crown or glow.
 class WelcomeScreen extends ConsumerWidget {
@@ -77,7 +77,7 @@ class WelcomeScreen extends ConsumerWidget {
                 child: ListView(
                   padding: kScreenPadding.copyWith(top: MyExSpacing.s6),
                   children: [
-                    const Center(child: LumiMascot(entrance: true)),
+                    const Center(child: NightMark(entrance: true)),
                     const Gap(MyExSpacing.s4),
                     DisplayText(
                       name == null
@@ -100,7 +100,7 @@ class WelcomeScreen extends ConsumerWidget {
                               title: items[i],
                               chevron: false,
                               leading: Icon(
-                                Icons.check_rounded,
+                                MyExIcons.check,
                                 color: MyExColors.success,
                                 size: MyExSizes.iconMd,
                               ),
@@ -250,7 +250,7 @@ class _ReminderPrePromptState extends ConsumerState<_ReminderPrePrompt> {
           const Gap(MyExSpacing.s3),
           GlassButton(
             label: l.welcomeNotifAllow,
-            icon: Icons.notifications_none_rounded,
+            icon: MyExIcons.bell,
             busy: _busy,
             onPressed: _allow,
           ),

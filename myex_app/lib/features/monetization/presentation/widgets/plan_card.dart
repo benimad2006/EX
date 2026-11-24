@@ -261,7 +261,7 @@ class RadioDot extends StatelessWidget {
         duration: selected ? m.bouncy : MyExDurations.tabFade,
         curve: selected ? m.bouncyCurve : MyExCurves.easeIn,
         child: const Icon(
-          Icons.check_rounded,
+          MyExIcons.check,
           size: MyExSizes.radioCheck + 2,
           color: MyExColors.onAccent,
         ),

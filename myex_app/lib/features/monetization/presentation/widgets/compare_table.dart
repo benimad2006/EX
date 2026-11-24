@@ -93,7 +93,7 @@ class CompareTable extends StatelessWidget {
                       ? Semantics(
                           label: l.compareIncluded,
                           child: Icon(
-                            Icons.check_rounded,
+                            MyExIcons.check,
                             color: MyExColors.accent,
                             size: MyExSizes.icon,
                           ),

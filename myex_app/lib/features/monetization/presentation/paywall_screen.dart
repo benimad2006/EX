@@ -316,11 +316,16 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
                         _PosterHeader(title: l.paywallTitle),
                         const Gap(MyExSpacing.s3),
                         // R14: the billed price, in body size, above the fold.
-                        SwapText(
-                          copy?.subtitle(_selected) ?? l.paywallSub,
-                          key: const Key('paywall-sub'),
-                          textAlign: TextAlign.start,
-                          style: MyExType.body.copyWith(color: MyExColors.ink2),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: SwapText(
+                            copy?.subtitle(_selected) ?? l.paywallSub,
+                            key: const Key('paywall-sub'),
+                            textAlign: TextAlign.start,
+                            style: MyExType.body.copyWith(
+                              color: MyExColors.ink2,
+                            ),
+                          ),
                         ),
                         const Gap(MyExSpacing.section),
                         _Includes(
@@ -341,10 +346,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
                           _ => _plans(copy),
                         },
                         const Gap(MyExSpacing.section),
-                        Footnote(
-                          l.paywallPrivacyNote,
-                          icon: Icons.lock_outline_rounded,
-                        ),
+                        Footnote(l.paywallPrivacyNote, icon: MyExIcons.lock),
                         const Gap(MyExSpacing.s4),
                         if (copy != null) ...[
                           Footnote(
@@ -361,7 +363,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
                     NavBar(
                       leading: GlassIconButton(
                         key: const Key('paywall-close'),
-                        icon: Icons.close_rounded,
+                        icon: MyExIcons.close,
                         semanticLabel: l.commonClose,
                         onPressed: _close,
                       ),
@@ -622,7 +624,7 @@ class _Dock extends StatelessWidget {
                 Footnote(
                   context.l10n.paywallNoPaymentToday,
                   key: const Key('no-payment-today'),
-                  icon: Icons.check_rounded,
+                  icon: MyExIcons.check,
                   color: MyExColors.success,
                 ),
               ],

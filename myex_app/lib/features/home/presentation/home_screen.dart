@@ -83,7 +83,7 @@ class HomeScreen extends ConsumerWidget {
                   _todayRow(context, ref, plan),
                   ListRow(
                     leading: const IconSquare(
-                      icon: Icons.chat_bubble_outline_rounded,
+                      icon: MyExIcons.chat,
                       tone: IconTone.neutral,
                     ),
                     title: l.homeMiraTitle,
@@ -97,7 +97,7 @@ class HomeScreen extends ConsumerWidget {
                   ListRow(
                     key: const Key('home-journal-row'),
                     leading: const IconSquare(
-                      icon: Icons.book_outlined,
+                      icon: MyExIcons.journal,
                       tone: IconTone.neutral,
                     ),
                     title: l.homeJournalTitle,
@@ -114,7 +114,7 @@ class HomeScreen extends ConsumerWidget {
             children: [
               ListRow(
                 leading: const IconSquare(
-                  icon: Icons.edit_outlined,
+                  icon: MyExIcons.edit,
                   tone: IconTone.neutral,
                 ),
                 title: l.homeDraftTitle,
@@ -124,7 +124,7 @@ class HomeScreen extends ConsumerWidget {
               ListRow(
                 key: const Key('home-sos-row'),
                 leading: const IconSquare(
-                  icon: Icons.favorite_border_rounded,
+                  icon: MyExIcons.heart,
                   tone: IconTone.danger,
                 ),
                 title: l.homeSosTitle,
@@ -137,7 +137,7 @@ class HomeScreen extends ConsumerWidget {
             InsetGroup(
               children: [
                 ListRow(
-                  leading: const IconSquare(icon: Icons.schedule_rounded),
+                  leading: const IconSquare(icon: MyExIcons.clock),
                   title: l.homeTrialTitle(_daysLeft(premium.expiresAt)),
                   subtitle: l.homeTrialSub,
                   onTap: () => context.push(Routes.trial),
@@ -149,7 +149,7 @@ class HomeScreen extends ConsumerWidget {
               children: [
                 ListRow(
                   leading: const IconSquare(
-                    icon: Icons.lock_outline_rounded,
+                    icon: MyExIcons.lock,
                     tone: IconTone.neutral,
                   ),
                   title: l.homeUpsellTitle,
@@ -172,7 +172,7 @@ class HomeScreen extends ConsumerWidget {
     final t = plan?.teasers.where((t) => t.day == plan.currentDay).firstOrNull;
     if (plan == null || t == null || plan.finished) {
       return ListRow(
-        leading: const IconSquare(icon: Icons.calendar_today_outlined),
+        leading: const IconSquare(icon: MyExIcons.calendar),
         title: l.homePlanTitle,
         subtitle: plan?.finished ?? false ? l.planFinished : null,
         onTap: () => context.go(Routes.plan),
@@ -181,7 +181,7 @@ class HomeScreen extends ConsumerWidget {
     final status = plan.statusOf(t.day);
     return ListRow(
       key: const Key('home-today-row'),
-      leading: const IconSquare(icon: Icons.calendar_today_outlined),
+      leading: const IconSquare(icon: MyExIcons.calendar),
       title: t.title,
       subtitle: switch (status) {
         PlanDayStatus.open => l.planRowToday(t.day, t.minutes),
@@ -221,7 +221,7 @@ class _StreakHero extends StatelessWidget {
     );
     final label = Row(
       children: [
-        const Icon(Icons.local_fire_department_outlined, size: MyExSizes.icon),
+        const Icon(MyExIcons.fire, size: MyExSizes.icon),
         const Gap(MyExSpacing.s1 + 2),
         Text(l.homeHeroLabel, style: labelStyle),
       ],
@@ -252,7 +252,7 @@ class _StreakHero extends StatelessWidget {
                   style: MyExType.headline.copyWith(color: MyExColors.onHero),
                 ),
                 const Gap(MyExSpacing.s1),
-                const Icon(Icons.arrow_forward_rounded, size: MyExSizes.icon),
+                const Icon(MyExIcons.arrowRight, size: MyExSizes.icon),
               ],
             ),
           ],
@@ -410,7 +410,7 @@ class _MoodCard extends StatelessWidget {
                       ),
                     ),
                     Icon(
-                      Icons.chevron_right_rounded,
+                      MyExIcons.forward,
                       size: MyExSizes.icon,
                       color: MyExColors.accentInk,
                     ),

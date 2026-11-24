@@ -276,11 +276,6 @@ abstract final class MyExColors {
     stops: [0, 0.5, 1],
   );
   static const miraRim = Color(0x59FFFFFF); // white 35%
-
-  // ---- Lumi (mascot) ----
-  static const lumiTop = Color(0xFFD81B60);
-  static const lumiBottom = Color(0xFFFF5C8A);
-  static const lumiFace = Color(0xFF3A0F22);
 }
 
 /// Corner radii.

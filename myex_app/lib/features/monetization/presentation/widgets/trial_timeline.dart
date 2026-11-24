@@ -49,19 +49,19 @@ class TrialTimeline extends StatelessWidget {
                   children: [
                     _Step(
                       key: const Key('timeline-built'),
-                      icon: Icons.check_rounded,
+                      icon: MyExIcons.check,
                       title: l.paywallTimelineBuild,
                       body: l.paywallTimelineBuildBody,
                       done: true,
                     ),
                     _Step(
-                      icon: Icons.lock_open_rounded,
+                      icon: MyExIcons.unlock,
                       title: l.paywallTimelineToday,
                       body: l.paywallTimelineTodayBody,
                       current: true,
                     ),
                     _Step(
-                      icon: Icons.notifications_none_rounded,
+                      icon: MyExIcons.bell,
                       title: context.shortDate(remindDate),
                       body: remind
                           ? l.paywallTimelineRemindBody
@@ -94,7 +94,7 @@ class TrialTimeline extends StatelessWidget {
                           : null,
                     ),
                     _Step(
-                      icon: Icons.workspace_premium_outlined,
+                      icon: MyExIcons.star,
                       title: context.shortDate(endDate),
                       body: l.paywallTimelineEndBody(annualPrice),
                       last: true,
@@ -228,7 +228,7 @@ class _HowToCancelRowState extends State<HowToCancelRow> {
                 turns: _open ? 0.25 : 0,
                 duration: m.reduced ? Duration.zero : MyExDurations.tabFade,
                 child: Icon(
-                  Icons.chevron_right_rounded,
+                  MyExIcons.forward,
                   size: MyExSizes.icon,
                   color: MyExColors.ink3,
                 ),

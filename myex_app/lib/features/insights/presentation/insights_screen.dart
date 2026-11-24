@@ -36,7 +36,7 @@ class InsightsScreen extends ConsumerWidget {
           title: l.insightsTitle,
           bottomPadding: MyExSpacing.s8 + MediaQuery.paddingOf(context).bottom,
           leading: GlassIconButton(
-            icon: Icons.chevron_left_rounded,
+            icon: MyExIcons.back,
             semanticLabel: l.commonBack,
             onPressed: () =>
                 context.canPop() ? context.pop() : context.go(Routes.home),

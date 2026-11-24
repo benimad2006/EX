@@ -11,7 +11,7 @@ import 'package:flutter/widgets.dart';
 // snappy  (response 0.4, damping 0.8)  tab capsule, plan highlight, switch,
 //                                        button release, toast, digit roll
 // bouncy  (response 0.45, damping 0.55) success only: radio check, purchase
-//                                        check, Welcome Lumi
+//                                        check, Welcome mark
 // Reduce Motion: slides become a 200ms crossfade; no bounce, roll or loops.
 // =============================================================================
 

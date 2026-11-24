@@ -7,12 +7,13 @@ import 'package:flutter/material.dart';
 import 'art.dart';
 import 'glass.dart';
 import 'motion.dart';
+import 'my_ex_icons.dart';
 import 'tokens.dart';
 import 'typography.dart';
 
 // =============================================================================
 // SHARED COMPONENTS — flat white surfaces on the grouped background, iOS
-// grouped inset lists, solid accent buttons, serif display text, Lumi + Mira.
+// grouped inset lists, solid accent buttons, serif display text, the night mark + Mira.
 // All visuals come from tokens / typography / motion. No shadows on content,
 // no gradients except the streak hero, no tags/pills except the coin chip.
 // =============================================================================
@@ -319,7 +320,7 @@ class _ListRowState extends State<ListRow> {
           if (showChevron) ...[
             const Gap(MyExSpacing.s2),
             Icon(
-              Icons.chevron_right_rounded,
+              MyExIcons.forward,
               size: MyExSizes.icon,
               color: MyExColors.ink3,
             ),
@@ -710,29 +711,30 @@ class CoinIcon extends StatelessWidget {
         color: MyExColors.coinFace,
         border: Border.all(color: MyExColors.coinGold, width: size / 9),
       ),
-      child: Icon(Icons.favorite, size: size * 0.5, color: MyExColors.accent),
+      child: Icon(
+        MyExIcons.heartFilled,
+        size: size * 0.5,
+        color: MyExColors.accent,
+      ),
     ),
   );
 }
 
 // -----------------------------------------------------------------------------
-// Mascots
+// Brand marks
 // -----------------------------------------------------------------------------
 
-enum LumiPose { happy, eyesClosed }
-
-/// Lumi, the heart mascot. ONLY on Plan ready, SOS, Welcome and Win-back.
-/// No crown, no confetti, no glow. Swap the painter for final artwork.
-class LumiMascot extends StatelessWidget {
-  const LumiMascot({
+/// The night mark: a crescent moon with a few stars. It replaced Lumi (the
+/// heart with a face) so nothing in the app reads as an emoji. Used on
+/// Plan ready, SOS (breathing), Welcome and Win-back.
+class NightMark extends StatelessWidget {
+  const NightMark({
     super.key,
     this.size = MyExSizes.lumi,
-    this.pose = LumiPose.happy,
     this.entrance = false,
   });
 
   final double size;
-  final LumiPose pose;
 
   /// Bouncy scale-in (Welcome success). Off under Reduce Motion.
   final bool entrance;
@@ -740,7 +742,16 @@ class LumiMascot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final art = ExcludeSemantics(
-      child: CustomPaint(size: Size.square(size), painter: _LumiPainter(pose)),
+      child: SizedBox.square(
+        dimension: size,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            const Positioned.fill(child: StarField(count: 14, seed: 17)),
+            CrescentMoon(size: size * 0.95),
+          ],
+        ),
+      ),
     );
     final m = MyExMotion.of(context);
     if (!entrance || m.reduced) return art;
@@ -755,64 +766,6 @@ class LumiMascot extends StatelessWidget {
       child: art,
     );
   }
-}
-
-class _LumiPainter extends CustomPainter {
-  _LumiPainter(this.pose);
-  final LumiPose pose;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final s = size.width / 200;
-    canvas.scale(s);
-    final heart = Path()
-      ..moveTo(100, 174)
-      ..cubicTo(40, 132, 22, 98, 22, 70)
-      ..cubicTo(22, 44, 42, 28, 64, 28)
-      ..cubicTo(80, 28, 92, 36, 100, 50)
-      ..cubicTo(108, 36, 120, 28, 136, 28)
-      ..cubicTo(158, 28, 178, 44, 178, 70)
-      ..cubicTo(178, 98, 160, 132, 100, 174)
-      ..close();
-    canvas.drawPath(
-      heart,
-      Paint()
-        ..shader = const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [MyExColors.lumiTop, MyExColors.lumiBottom],
-        ).createShader(const Rect.fromLTWH(0, 0, 200, 200)),
-    );
-    final ink = Paint()
-      ..color = MyExColors.lumiFace
-      ..strokeWidth = 4.2
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke;
-    for (final cx in [76.0, 124.0]) {
-      if (pose == LumiPose.eyesClosed) {
-        canvas.drawPath(
-          Path()
-            ..moveTo(cx - 8, 89)
-            ..quadraticBezierTo(cx, 97, cx + 8, 89),
-          ink,
-        );
-      } else {
-        canvas.drawOval(
-          Rect.fromCenter(center: Offset(cx, 90), width: 14, height: 18),
-          Paint()..color = MyExColors.lumiFace,
-        );
-      }
-    }
-    canvas.drawPath(
-      Path()
-        ..moveTo(90, 112)
-        ..quadraticBezierTo(100, 122, 110, 112),
-      ink,
-    );
-  }
-
-  @override
-  bool shouldRepaint(_LumiPainter old) => old.pose != pose;
 }
 
 /// Mira: a faceless orb (presence, not a second character).
@@ -1054,7 +1007,7 @@ class _IslandToast extends StatelessWidget {
                   children: [
                     if (success) ...[
                       const Icon(
-                        Icons.check_circle_rounded,
+                        MyExIcons.checkCircle,
                         size: MyExSizes.icon,
                         color: MyExColors.switchOn,
                       ),
@@ -1121,7 +1074,7 @@ class SelectRow extends StatelessWidget {
           opacity: selected ? 1 : 0,
           duration: MyExDurations.tabFade,
           child: Icon(
-            Icons.check_rounded,
+            MyExIcons.check,
             color: MyExColors.accent,
             size: MyExSizes.iconMd,
           ),
@@ -1316,12 +1269,12 @@ class DayBadge extends StatelessWidget {
         alignment: Alignment.center,
         child: switch (tone) {
           DayBadgeTone.done => Icon(
-            Icons.check_rounded,
+            MyExIcons.check,
             size: MyExSizes.iconSm,
             color: fg,
           ),
           DayBadgeTone.locked => Icon(
-            Icons.lock_outline_rounded,
+            MyExIcons.lock,
             size: MyExSizes.iconSm,
             color: fg,
           ),
@@ -1424,10 +1377,7 @@ class BillingIssueBanner extends StatelessWidget {
     children: [
       ListRow(
         key: const Key('billing-issue'),
-        leading: const IconSquare(
-          icon: Icons.credit_card_rounded,
-          tone: IconTone.danger,
-        ),
+        leading: const IconSquare(icon: MyExIcons.card, tone: IconTone.danger),
         title: title,
         subtitle: message,
         value: actionLabel,

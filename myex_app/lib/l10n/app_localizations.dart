@@ -2249,7 +2249,7 @@ abstract class AppLocalizations {
   /// No description provided for @winbackTitle.
   ///
   /// In en, this message translates to:
-  /// **'Lumi kept your place.'**
+  /// **'We kept your place.'**
   String get winbackTitle;
 
   /// No description provided for @winbackSub.

@@ -5,6 +5,7 @@ export 'art.dart';
 export 'components.dart';
 export 'glass.dart';
 export 'motion.dart';
+export 'my_ex_icons.dart';
 export 'navigation.dart';
 export 'theme.dart';
 export 'theme_mode.dart';

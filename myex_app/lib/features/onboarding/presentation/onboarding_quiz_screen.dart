@@ -404,7 +404,7 @@ class _OnboardingQuizScreenState extends ConsumerState<OnboardingQuizScreen> {
                 leading: _step.index == 0 || building
                     ? null
                     : GlassIconButton(
-                        icon: Icons.chevron_left_rounded,
+                        icon: MyExIcons.back,
                         semanticLabel: l.commonBack,
                         onPressed: _back,
                       ),
@@ -870,7 +870,7 @@ class _CheckinStep extends StatelessWidget {
           children: [
             ListRow(
               key: const Key('onb-checkin-time'),
-              leading: const IconSquare(icon: Icons.notifications_none_rounded),
+              leading: const IconSquare(icon: MyExIcons.bell),
               title: l.onbCheckinChange,
               value: time,
               onTap: () => _pick(context),
@@ -976,7 +976,7 @@ class _BuildingStepState extends ConsumerState<_BuildingStep> {
                     titleColor: i < _done ? MyExColors.ink : MyExColors.ink2,
                     trailing: i < _done
                         ? Icon(
-                            Icons.check_rounded,
+                            MyExIcons.check,
                             color: MyExColors.success,
                             size: MyExSizes.iconMd,
                           )
