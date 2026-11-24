@@ -74,3 +74,13 @@ extension JournalLabels on AppLocalizations {
     return all[dayIndex % all.length];
   }
 }
+
+/// The mood tint a feeling usually sits at (bars and chips only; the word is
+/// always shown next to it).
+int feelingTint(MoodWord f) => switch (f) {
+  MoodWord.heartbroken || MoodWord.numb => 1,
+  MoodWord.lonely || MoodWord.angry || MoodWord.anxious || MoodWord.tired => 2,
+  MoodWord.confused => 3,
+  MoodWord.hopeful || MoodWord.calm || MoodWord.relieved => 4,
+  MoodWord.proud || MoodWord.grateful => 5,
+};

@@ -47,6 +47,8 @@ const _empty = <String, String>{
 const _filled = <String, String>{
   'home_filled': Routes.home,
   'journal_filled': Routes.journal,
+  'journal_calendar': '/journal?tab=calendar',
+  'journal_prompts': '/journal?tab=prompts',
   'no_contact_filled': Routes.noContact,
   'insights_filled': Routes.insights,
   'me_filled': Routes.me,

@@ -2190,4 +2190,104 @@ class AppLocalizationsTr extends AppLocalizations {
   String paywallMedalCoins(int count) {
     return 'Ayda +$count jeton';
   }
+
+  @override
+  String get journalTabEntries => 'Yazılar';
+
+  @override
+  String get journalTabCalendar => 'Takvim';
+
+  @override
+  String get journalTabPrompts => 'Sorular';
+
+  @override
+  String get journalLandscape => 'Duygu haritası';
+
+  @override
+  String get journalDayFelt => 'Hissettiklerin';
+
+  @override
+  String get journalDayNoMood => 'Bu gün kayıt yok.';
+
+  @override
+  String get journalDayEmpty => 'Bu gün bir şey yazılmadı.';
+
+  @override
+  String get journalDayWrite => 'Bugünü Yaz';
+
+  @override
+  String journalCalendarDay(String date, String state) {
+    return '$date, $state';
+  }
+
+  @override
+  String get journalCalendarWrote => 'bir şey yazıldı';
+
+  @override
+  String get journalCalendarNothing => 'kayıt yok';
+
+  @override
+  String get journalCollections => 'Rehberli günlükler';
+
+  @override
+  String get journalCollectionsSub =>
+      'Bir tür seç, sonra bir soru. Ya da yazmaya başla.';
+
+  @override
+  String get journalCollReflection => 'Bugünü anlamlandır';
+
+  @override
+  String get journalCollLetter => 'Göndermeden söyle';
+
+  @override
+  String get journalCollGratitude => 'Her gün küçük bir iyi şey';
+
+  @override
+  String get journalCollList => 'Az çaba, gerçek netlik';
+
+  @override
+  String journalPromptsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count soru',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get journalFreeWrite => 'Serbest Yaz';
+
+  @override
+  String get insightsPeriodWeek => 'Hafta';
+
+  @override
+  String get insightsPeriodMonth => 'Ay';
+
+  @override
+  String get insightsMoodWeek => 'Son 7 günün';
+
+  @override
+  String get insightsMoodMonth => 'Son 30 günün';
+
+  @override
+  String get insightsWords => 'Yazılan kelimeler';
+
+  @override
+  String insightsWordsTotal(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kelime',
+      zero: 'Henüz kelime yok',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get insightsFeelingsTitle => 'En çok hissettiklerin';
+
+  @override
+  String get insightsFeelingsEmpty =>
+      'Kayıt yaparken bir duygu seç, burada görünsün.';
 }

@@ -97,3 +97,35 @@ List<MoodWord> mostFrequentFeelings(List<MoodEntry> entries, {int n = 3}) {
     });
   return [for (final e in sorted.take(n)) e.key];
 }
+
+/// Average mood per calendar day (for the month calendar).
+Map<DateTime, double> moodByDay(List<MoodEntry> entries) {
+  final sums = <DateTime, (int, int)>{};
+  for (final e in entries) {
+    final d = dayOf(e.createdAt);
+    final (s, n) = sums[d] ?? (0, 0);
+    sums[d] = (s + e.level, n + 1);
+  }
+  return {for (final e in sums.entries) e.key: e.value.$1 / e.value.$2};
+}
+
+/// Feelings named in the last [days] days with their counts, most first
+/// (ties by declaration order).
+List<(MoodWord, int)> feelingCounts(
+  List<MoodEntry> entries,
+  DateTime now, {
+  int days = 7,
+}) {
+  final from = dayOf(now).subtract(Duration(days: days - 1));
+  final c = <MoodWord, int>{};
+  for (final e in entries) {
+    if (dayOf(e.createdAt).isBefore(from)) continue;
+    for (final f in e.feelings) {
+      c[f] = (c[f] ?? 0) + 1;
+    }
+  }
+  return [for (final e in c.entries) (e.key, e.value)]..sort((a, b) {
+    final byCount = b.$2.compareTo(a.$2);
+    return byCount != 0 ? byCount : a.$1.index.compareTo(b.$1.index);
+  });
+}

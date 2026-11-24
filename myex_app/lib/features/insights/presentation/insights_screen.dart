@@ -7,6 +7,7 @@ import '../../../core/design/design.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/util/context_x.dart';
 import '../../journal/data/journal_repository.dart';
+import '../../journal/domain/journal_entry.dart';
 import '../../journal/domain/mood.dart';
 import '../../journal/presentation/journal_labels.dart';
 import '../../journal/presentation/mood_checkin_sheet.dart';
@@ -16,19 +17,47 @@ import '../domain/week_summary.dart';
 
 /// Insights: 14-day mood line, a calm week summary, and counts. Recovery is
 /// framed as non-linear; nothing here says "behind" or "failed".
-class InsightsScreen extends ConsumerWidget {
+class InsightsScreen extends ConsumerStatefulWidget {
   const InsightsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<InsightsScreen> createState() => _InsightsScreenState();
+
+  static String _weekLine(BuildContext context, WeekSummary w) {
+    final l = context.l10n;
+    return [
+      l.insightsWeekCheckins(w.checkIns),
+      switch (w.trend) {
+        WeekTrend.lighter => l.insightsWeekUp,
+        WeekTrend.heavier => l.insightsWeekDown,
+        WeekTrend.steady => l.insightsWeekSame,
+        WeekTrend.unknown => null,
+      },
+    ].whereType<String>().join(' ');
+  }
+}
+
+enum _Period { week, month }
+
+class _InsightsScreenState extends ConsumerState<InsightsScreen> {
+  _Period _period = _Period.week;
+
+  @override
+  Widget build(BuildContext context) {
     final l = context.l10n;
     final now = DateTime.now();
     final moods = ref.watch(moodEntriesProvider).value;
     final journal = ref.watch(journalEntriesProvider).value ?? const [];
     final nc = ref.watch(noContactProvider).value;
     final plan = ref.watch(planStateProvider).value;
-
+    final days = _period == _Period.week ? 7 : 30;
     final fmt = DateFormat.MMMd(context.localeName);
+    final dayLetter = DateFormat('EEEEE', context.localeName);
+    final words = wordsPerDay(journal, now, days: days);
+    final totalWords = words.fold<int>(0, (a, b) => a + b);
+    final felt = moods == null
+        ? const <(MoodWord, int)>[]
+        : feelingCounts(moods, now, days: days).take(5).toList();
 
     return Scaffold(
       body: ScreenBackground(
@@ -46,6 +75,14 @@ class InsightsScreen extends ConsumerWidget {
             ..invalidate(journalEntriesProvider)
             ..invalidate(noContactProvider),
           children: [
+            PillTabs<_Period>(
+              value: _period,
+              tabs: {
+                _Period.week: l.insightsPeriodWeek,
+                _Period.month: l.insightsPeriodMonth,
+              },
+              onChanged: (p) => setState(() => _period = p),
+            ),
             if (moods == null)
               const SkeletonBox(height: 240)
             else if (moods.isEmpty)
@@ -56,21 +93,31 @@ class InsightsScreen extends ConsumerWidget {
                 onAction: () => showMoodCheckIn(context),
               )
             else ...[
+              _WeekCard(summary: WeekSummary.of(moods, now)),
               SolidCard(
                 padding: const EdgeInsets.all(MyExSpacing.s5),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(l.insightsMood, style: MyExType.headline),
+                    Text(
+                      _period == _Period.week
+                          ? l.insightsMoodWeek
+                          : l.insightsMoodMonth,
+                      style: MyExType.headline,
+                    ),
                     const Gap(MyExSpacing.s4),
                     MoodLineChart(
-                      values: dailyMoodAverages(moods, now),
+                      key: ValueKey(_period),
+                      values: dailyMoodAverages(moods, now, days: days),
                       semanticLabel: l.insightsChartSemantics(
-                        _weekLine(context, WeekSummary.of(moods, now)),
+                        InsightsScreen._weekLine(
+                          context,
+                          WeekSummary.of(moods, now),
+                        ),
                       ),
                       xLabels: [
-                        fmt.format(now.subtract(const Duration(days: 13))),
-                        fmt.format(now.subtract(const Duration(days: 7))),
+                        fmt.format(now.subtract(Duration(days: days - 1))),
+                        fmt.format(now.subtract(Duration(days: days ~/ 2))),
                         fmt.format(now),
                       ],
                     ),
@@ -79,8 +126,62 @@ class InsightsScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              _WeekCard(summary: WeekSummary.of(moods, now)),
             ],
+            SolidCard(
+              key: const Key('insights-words'),
+              padding: const EdgeInsets.all(MyExSpacing.s5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      Expanded(
+                        child: Text(l.insightsWords, style: MyExType.headline),
+                      ),
+                      Text(
+                        l.insightsWordsTotal(totalWords),
+                        style: MyExType.footnote,
+                      ),
+                    ],
+                  ),
+                  const Gap(MyExSpacing.s4),
+                  TrackBars(
+                    key: ValueKey('bars-$_period'),
+                    values: words,
+                    labels: _period == _Period.week
+                        ? [
+                            for (var i = 6; i >= 0; i--)
+                              dayLetter.format(now.subtract(Duration(days: i))),
+                          ]
+                        : const [],
+                    semanticLabel:
+                        '${l.insightsWords}: ${l.insightsWordsTotal(totalWords)}',
+                  ),
+                ],
+              ),
+            ),
+            SolidCard(
+              key: const Key('insights-feelings'),
+              padding: const EdgeInsets.all(MyExSpacing.s5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(l.insightsFeelingsTitle, style: MyExType.headline),
+                  const Gap(MyExSpacing.s3),
+                  if (felt.isEmpty)
+                    Text(l.insightsFeelingsEmpty, style: MyExType.subheadline)
+                  else
+                    FeelingBars(
+                      items: [
+                        for (final (f, n) in felt)
+                          (l.feeling(f), n, feelingTint(f)),
+                      ],
+                    ),
+                ],
+              ),
+            ),
             StatPair(
               left: StatTile(
                 value: '${moods?.length ?? 0}',
@@ -109,19 +210,6 @@ class InsightsScreen extends ConsumerWidget {
         ),
       ),
     );
-  }
-
-  static String _weekLine(BuildContext context, WeekSummary w) {
-    final l = context.l10n;
-    return [
-      l.insightsWeekCheckins(w.checkIns),
-      switch (w.trend) {
-        WeekTrend.lighter => l.insightsWeekUp,
-        WeekTrend.heavier => l.insightsWeekDown,
-        WeekTrend.steady => l.insightsWeekSame,
-        WeekTrend.unknown => null,
-      },
-    ].whereType<String>().join(' ');
   }
 }
 

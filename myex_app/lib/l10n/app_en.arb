@@ -1509,5 +1509,56 @@
         "type": "int"
       }
     }
-  }
+  },
+  "journalTabEntries": "Entries",
+  "journalTabCalendar": "Calendar",
+  "journalTabPrompts": "Prompts",
+  "journalLandscape": "Emotional landscape",
+  "journalDayFelt": "You felt",
+  "journalDayNoMood": "No check-in this day.",
+  "journalDayEmpty": "Nothing written this day.",
+  "journalDayWrite": "Write About Today",
+  "journalCalendarDay": "{date}, {state}",
+  "@journalCalendarDay": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "state": {
+        "type": "String"
+      }
+    }
+  },
+  "journalCalendarWrote": "something written",
+  "journalCalendarNothing": "no check-in",
+  "journalCollections": "Guided journals",
+  "journalCollectionsSub": "Pick a kind, then a prompt. Or just start writing.",
+  "journalCollReflection": "Make sense of today",
+  "journalCollLetter": "Say it without sending it",
+  "journalCollGratitude": "One small good thing a day",
+  "journalCollList": "Low effort, real clarity",
+  "journalPromptsCount": "{count, plural, =1{1 prompt} other{{count} prompts}}",
+  "@journalPromptsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "journalFreeWrite": "Free Write",
+  "insightsPeriodWeek": "Week",
+  "insightsPeriodMonth": "Month",
+  "insightsMoodWeek": "Your last 7 days",
+  "insightsMoodMonth": "Your last 30 days",
+  "insightsWords": "Words written",
+  "insightsWordsTotal": "{count, plural, =0{No words yet} =1{1 word} other{{count} words}}",
+  "@insightsWordsTotal": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsFeelingsTitle": "What you felt most",
+  "insightsFeelingsEmpty": "Name a feeling when you check in and it shows up here."
 }

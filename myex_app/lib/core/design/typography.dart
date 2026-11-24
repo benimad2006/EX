@@ -55,6 +55,9 @@ abstract final class MyExType {
   /// Buttons: 17/22 semibold, Title Case copy.
   static TextStyle get button => _sans(17, 22, FontWeight.w600);
 
+  /// Bottom-sheet title (nodo): 18/28 medium, centred.
+  static TextStyle get sheetTitle => _sans(18, 28, FontWeight.w500);
+
   /// Inline nav-bar title.
   static TextStyle get navTitle => _sans(17, 22, FontWeight.w600);
 

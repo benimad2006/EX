@@ -103,7 +103,7 @@ class _LimitSheetBodyState extends ConsumerState<_LimitSheetBody> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(l.limitTitle, style: MyExType.title2),
+                  Text(l.limitTitle, style: MyExType.sheetTitle),
                   Text(
                     l.limitBody(MonetizationDisplay.freeMessagesPerDay),
                     style: MyExType.subheadline,

@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../accessibility/accessibility_flags.dart';
 import 'motion.dart';
 import 'my_ex_icons.dart';
+import 'round_controls.dart';
 import 'tokens.dart';
 import 'typography.dart';
 
@@ -163,16 +164,21 @@ class GlassIconButton extends StatelessWidget {
       button: true,
       label: semanticLabel,
       excludeSemantics: true,
+      // nodo's round control: back / close get the drawn thin glyphs, any
+      // other icon sits in the same disc.
       child: Pressable(
         onTap: onPressed,
         pressedScale: MyExPress.glass,
-        child: SizedBox.square(
-          dimension: MyExSizes.minTap,
-          child: GlassSurface(
-            shape: BoxShape.circle,
-            child: Center(
-              child: Icon(icon, size: MyExSizes.iconMd, color: MyExColors.ink),
-            ),
+        child: RoundControl(
+          glyph: icon == MyExIcons.back
+              ? RoundGlyph.back
+              : icon == MyExIcons.close
+              ? RoundGlyph.close
+              : null,
+          child: Icon(
+            icon,
+            size: MyExSizes.iconMd,
+            color: MyExColors.controlGlyph,
           ),
         ),
       ),
@@ -561,6 +567,7 @@ Future<T?> showGlassSheet<T>({
       isScrollControlled: true,
       isDismissible: isDismissible,
       useSafeArea: true,
+      constraints: const BoxConstraints(maxWidth: 600),
       backgroundColor: Colors.transparent,
       barrierColor: MyExColors.scrim,
       elevation: 0,
@@ -583,48 +590,50 @@ Future<T?> showGlassSheet<T>({
   }
 }
 
+/// nodo's bottom sheet: solid background, 30pt top corners with a 1pt
+/// outline along the top edge, the 45 × 5 handle 19 below it, 24pt sides.
 class _GlassSheetFrame extends StatelessWidget {
   const _GlassSheetFrame({required this.child});
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    final bottom = MediaQuery.paddingOf(context).bottom;
-    return Padding(
-      padding: const EdgeInsets.all(MyExSpacing.s2),
-      child: DecoratedBox(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(MyExRadii.sheet)),
-          boxShadow: MyExShadows.sheet,
-        ),
-        child: GlassSurface(
-          radius: MyExRadii.sheet,
-          shadow: false,
-          padding: EdgeInsets.fromLTRB(
-            MyExSpacing.s5,
-            MyExSpacing.s2,
-            MyExSpacing.s5,
-            MyExSpacing.s5 + bottom,
+    final bottom = MediaQuery.viewPaddingOf(context).bottom;
+    const radius = Radius.circular(MyExRadii.sheet);
+    return ClipRRect(
+      borderRadius: const BorderRadius.vertical(top: radius),
+      child: ColoredBox(
+        color: MyExColors.sheet,
+        child: CustomPaint(
+          foregroundPainter: SheetTopBorder(
+            color: MyExColors.sheetRim,
+            radius: MyExRadii.sheet,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Center(
-                child: Container(
-                  width: MyExSizes.grabberWidth,
-                  height: MyExSizes.grabberHeight,
-                  decoration: BoxDecoration(
-                    color: MyExColors.ink3,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(MyExRadii.capsule),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+              MyExSpacing.s6,
+              MyExSizes.grabberTop,
+              MyExSpacing.s6,
+              bottom + 22 < 32 ? 32 : bottom + 22,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Center(
+                  child: Container(
+                    width: MyExSizes.grabberWidth,
+                    height: MyExSizes.grabberHeight,
+                    decoration: BoxDecoration(
+                      color: MyExColors.ink3,
+                      borderRadius: BorderRadius.circular(2.5),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: MyExSpacing.s4),
-              Flexible(child: SingleChildScrollView(child: child)),
-            ],
+                const SizedBox(height: 15),
+                Flexible(child: SingleChildScrollView(child: child)),
+              ],
+            ),
           ),
         ),
       ),

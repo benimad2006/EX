@@ -45,6 +45,12 @@ class MyExPalette {
     required this.moon,
     required this.lavender,
     required this.cardRim,
+    required this.controlFill,
+    required this.controlFill2,
+    required this.controlEdge,
+    required this.controlGlyph,
+    required this.sheet,
+    required this.sheetRim,
   });
 
   final Brightness brightness;
@@ -73,6 +79,13 @@ class MyExPalette {
 
   /// Hairline rim on content cards (night only; transparent by day).
   final Color cardRim;
+
+  /// Round back / close controls (nodo style): disc, close-disc gradient end,
+  /// the glass-edge light and the thin glyph.
+  final Color controlFill, controlFill2, controlEdge, controlGlyph;
+
+  /// Bottom sheets (nodo style): solid background + 1pt top outline.
+  final Color sheet, sheetRim;
 
   static const light = MyExPalette(
     brightness: Brightness.light,
@@ -112,6 +125,12 @@ class MyExPalette {
     moon: Color(0xFFF7C9A6),
     lavender: Color(0xFF9C7BEA),
     cardRim: Color(0x00000000),
+    controlFill: Color(0xFFFFFFFF),
+    controlFill2: Color(0xFFFFF0F4),
+    controlEdge: Color(0xFF3A0F22),
+    controlGlyph: Color(0xFF3A0F22),
+    sheet: Color(0xFFFFFFFF),
+    sheetRim: Color(0x1F3A0F22),
   );
 
   /// "Rose night": the default identity. Plum-black sky, rose accent,
@@ -154,6 +173,12 @@ class MyExPalette {
     moon: Color(0xFFFDE1CD),
     lavender: Color(0xFFB79BFF),
     cardRim: Color(0x14FFFFFF),
+    controlFill: Color(0xFF0D0610),
+    controlFill2: Color(0xFF1A0E20),
+    controlEdge: Color(0xFFFFFFFF),
+    controlGlyph: Color(0xFFFFF0F5),
+    sheet: Color(0xFF170C1C),
+    sheetRim: Color(0xFF3A2442),
   );
 }
 
@@ -222,6 +247,12 @@ abstract final class MyExColors {
   static Color get lavender => _p.lavender;
   static Color get skyTop => _p.skyTop;
   static Color get cardRim => _p.cardRim;
+  static Color get controlFill => _p.controlFill;
+  static Color get controlFill2 => _p.controlFill2;
+  static Color get controlEdge => _p.controlEdge;
+  static Color get controlGlyph => _p.controlGlyph;
+  static Color get sheet => _p.sheet;
+  static Color get sheetRim => _p.sheetRim;
 
   // ---- Mood (1..5) ----
   static Color mood(int level) => _p.mood[(level - 1).clamp(0, 4)];
@@ -292,7 +323,9 @@ abstract final class MyExRadii {
 
   /// Hero.
   static const xl = 28.0;
-  static const sheet = 38.0;
+
+  /// nodo bottom sheets: 30pt top corners.
+  static const sheet = 30.0;
   static const capsule = 999.0;
 
   static const planRow = 18.0;
@@ -408,8 +441,13 @@ abstract final class MyExSizes {
   /// 0.5pt hairline.
   static const hairline = 0.5;
 
-  static const grabberWidth = 36.0;
+  /// nodo sheet handle: 45 × 5, 19 below the top edge.
+  static const grabberWidth = 45.0;
   static const grabberHeight = 5.0;
+  static const grabberTop = 19.0;
+
+  /// nodo round back / close controls (53 in nodo; 48 fits the 52pt bar).
+  static const roundControl = 48.0;
 }
 
 /// Glass recipe (floating chrome only).

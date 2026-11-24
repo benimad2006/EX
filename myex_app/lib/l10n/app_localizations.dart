@@ -3709,6 +3709,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'+{count} coins a month'**
   String paywallMedalCoins(int count);
+
+  /// No description provided for @journalTabEntries.
+  ///
+  /// In en, this message translates to:
+  /// **'Entries'**
+  String get journalTabEntries;
+
+  /// No description provided for @journalTabCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get journalTabCalendar;
+
+  /// No description provided for @journalTabPrompts.
+  ///
+  /// In en, this message translates to:
+  /// **'Prompts'**
+  String get journalTabPrompts;
+
+  /// No description provided for @journalLandscape.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotional landscape'**
+  String get journalLandscape;
+
+  /// No description provided for @journalDayFelt.
+  ///
+  /// In en, this message translates to:
+  /// **'You felt'**
+  String get journalDayFelt;
+
+  /// No description provided for @journalDayNoMood.
+  ///
+  /// In en, this message translates to:
+  /// **'No check-in this day.'**
+  String get journalDayNoMood;
+
+  /// No description provided for @journalDayEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing written this day.'**
+  String get journalDayEmpty;
+
+  /// No description provided for @journalDayWrite.
+  ///
+  /// In en, this message translates to:
+  /// **'Write About Today'**
+  String get journalDayWrite;
+
+  /// No description provided for @journalCalendarDay.
+  ///
+  /// In en, this message translates to:
+  /// **'{date}, {state}'**
+  String journalCalendarDay(String date, String state);
+
+  /// No description provided for @journalCalendarWrote.
+  ///
+  /// In en, this message translates to:
+  /// **'something written'**
+  String get journalCalendarWrote;
+
+  /// No description provided for @journalCalendarNothing.
+  ///
+  /// In en, this message translates to:
+  /// **'no check-in'**
+  String get journalCalendarNothing;
+
+  /// No description provided for @journalCollections.
+  ///
+  /// In en, this message translates to:
+  /// **'Guided journals'**
+  String get journalCollections;
+
+  /// No description provided for @journalCollectionsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a kind, then a prompt. Or just start writing.'**
+  String get journalCollectionsSub;
+
+  /// No description provided for @journalCollReflection.
+  ///
+  /// In en, this message translates to:
+  /// **'Make sense of today'**
+  String get journalCollReflection;
+
+  /// No description provided for @journalCollLetter.
+  ///
+  /// In en, this message translates to:
+  /// **'Say it without sending it'**
+  String get journalCollLetter;
+
+  /// No description provided for @journalCollGratitude.
+  ///
+  /// In en, this message translates to:
+  /// **'One small good thing a day'**
+  String get journalCollGratitude;
+
+  /// No description provided for @journalCollList.
+  ///
+  /// In en, this message translates to:
+  /// **'Low effort, real clarity'**
+  String get journalCollList;
+
+  /// No description provided for @journalPromptsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 prompt} other{{count} prompts}}'**
+  String journalPromptsCount(int count);
+
+  /// No description provided for @journalFreeWrite.
+  ///
+  /// In en, this message translates to:
+  /// **'Free Write'**
+  String get journalFreeWrite;
+
+  /// No description provided for @insightsPeriodWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Week'**
+  String get insightsPeriodWeek;
+
+  /// No description provided for @insightsPeriodMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get insightsPeriodMonth;
+
+  /// No description provided for @insightsMoodWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Your last 7 days'**
+  String get insightsMoodWeek;
+
+  /// No description provided for @insightsMoodMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Your last 30 days'**
+  String get insightsMoodMonth;
+
+  /// No description provided for @insightsWords.
+  ///
+  /// In en, this message translates to:
+  /// **'Words written'**
+  String get insightsWords;
+
+  /// No description provided for @insightsWordsTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No words yet} =1{1 word} other{{count} words}}'**
+  String insightsWordsTotal(int count);
+
+  /// No description provided for @insightsFeelingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What you felt most'**
+  String get insightsFeelingsTitle;
+
+  /// No description provided for @insightsFeelingsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Name a feeling when you check in and it shows up here.'**
+  String get insightsFeelingsEmpty;
 }
 
 class _AppLocalizationsDelegate

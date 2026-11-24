@@ -148,7 +148,11 @@ class _CancelSurveyBodyState extends State<CancelSurveyBody> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(l.cancelTitle, style: MyExType.title2),
+        Text(
+          l.cancelTitle,
+          style: MyExType.sheetTitle,
+          textAlign: TextAlign.center,
+        ),
         Text(l.cancelSub, style: MyExType.subheadline),
         const Gap(MyExSpacing.s4),
         InsetGroup(

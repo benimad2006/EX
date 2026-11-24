@@ -37,7 +37,11 @@ class _Body extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(l.draftLimitTitle, style: MyExType.title2),
+        Text(
+          l.draftLimitTitle,
+          style: MyExType.sheetTitle,
+          textAlign: TextAlign.center,
+        ),
         const Gap(MyExSpacing.s1),
         Text(l.draftLimitBody, style: MyExType.subheadline),
         const Gap(MyExSpacing.s6),

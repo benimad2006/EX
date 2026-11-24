@@ -527,3 +527,396 @@ class WeekStrip extends StatelessWidget {
     ],
   );
 }
+
+/// Pill tabs (Entries / Calendar / Prompts, Week / Month): the selected pill
+/// fills with the accent and the others sit on a soft track.
+class PillTabs<T> extends StatelessWidget {
+  const PillTabs({
+    super.key,
+    required this.value,
+    required this.tabs,
+    required this.onChanged,
+  });
+
+  final T value;
+  final Map<T, String> tabs;
+  final ValueChanged<T> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final m = MyExMotion.of(context);
+    return Container(
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: MyExColors.bgElev,
+        borderRadius: BorderRadius.circular(MyExRadii.capsule),
+        border: Border.all(
+          color: MyExColors.cardRim,
+          width: MyExSizes.hairline,
+        ),
+      ),
+      child: Row(
+        children: [
+          for (final e in tabs.entries)
+            Expanded(
+              child: Semantics(
+                button: true,
+                selected: e.key == value,
+                inMutuallyExclusiveGroup: true,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    if (e.key == value) return;
+                    MyExHaptics.selection();
+                    onChanged(e.key);
+                  },
+                  child: AnimatedContainer(
+                    duration: m.snappy,
+                    curve: m.snappyCurve,
+                    height: MyExSizes.minTap - 6,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: e.key == value ? MyExColors.accent : null,
+                      borderRadius: BorderRadius.circular(MyExRadii.capsule),
+                    ),
+                    child: Text(
+                      e.value,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: MyExType.subheadline.copyWith(
+                        color: e.key == value
+                            ? MyExColors.onAccent
+                            : MyExColors.ink,
+                        fontWeight: e.key == value
+                            ? FontWeight.w600
+                            : FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Month grid ("emotional landscape"): each day tinted by its average mood,
+/// a small dot when something was written, the selected day ringed.
+/// Weeks start on Monday.
+class MoodCalendar extends StatelessWidget {
+  const MoodCalendar({
+    super.key,
+    required this.month,
+    required this.moods,
+    required this.written,
+    required this.selected,
+    required this.onSelect,
+    required this.weekdayLetters,
+    required this.today,
+    required this.semanticsFor,
+  });
+
+  /// Any day in the month to show.
+  final DateTime month;
+
+  /// Average mood per day (keys are local midnight).
+  final Map<DateTime, double> moods;
+
+  /// Days with at least one journal entry.
+  final Set<DateTime> written;
+  final DateTime? selected;
+  final ValueChanged<DateTime> onSelect;
+
+  /// Seven labels, Monday first.
+  final List<String> weekdayLetters;
+  final DateTime today;
+  final String Function(DateTime day, double? mood, bool wrote) semanticsFor;
+
+  @override
+  Widget build(BuildContext context) {
+    final first = DateTime(month.year, month.month);
+    final daysInMonth = DateTime(month.year, month.month + 1, 0).day;
+    final lead = first.weekday - 1;
+    final cells = lead + daysInMonth;
+    final rows = (cells / 7).ceil();
+    final m = MyExMotion.of(context);
+    return Column(
+      children: [
+        Row(
+          children: [
+            for (final w in weekdayLetters)
+              Expanded(
+                child: Center(child: Text(w, style: MyExType.caption1)),
+              ),
+          ],
+        ),
+        const Gap(MyExSpacing.s2),
+        for (var r = 0; r < rows; r++)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 6),
+            child: Row(
+              children: [
+                for (var c = 0; c < 7; c++)
+                  Expanded(
+                    child: Builder(
+                      builder: (context) {
+                        final n = r * 7 + c - lead + 1;
+                        if (n < 1 || n > daysInMonth) {
+                          return const SizedBox(height: 44);
+                        }
+                        final day = DateTime(month.year, month.month, n);
+                        final mood = moods[day];
+                        final wrote = written.contains(day);
+                        final isSel = selected == day;
+                        final isToday = day == today;
+                        final future = day.isAfter(today);
+                        final fill = mood == null
+                            ? MyExColors.fill
+                            : MyExColors.mood(mood.round());
+                        final onFill = mood == null
+                            ? (future ? MyExColors.ink3 : MyExColors.ink)
+                            : (mood.round() >= 4
+                                  ? MyExColors.onBlush
+                                  : MyExColors.onAccent);
+                        return Semantics(
+                          button: !future,
+                          selected: isSel,
+                          label: semanticsFor(day, mood, wrote),
+                          excludeSemantics: true,
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: future
+                                ? null
+                                : () {
+                                    MyExHaptics.selection();
+                                    onSelect(day);
+                                  },
+                            child: SizedBox(
+                              height: 44,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  AnimatedContainer(
+                                    duration: m.snappy,
+                                    width: 34,
+                                    height: 34,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: future ? null : fill,
+                                      border: isSel
+                                          ? Border.all(
+                                              color: MyExColors.ink,
+                                              width: 2,
+                                            )
+                                          : null,
+                                    ),
+                                    child: Text(
+                                      '$n',
+                                      style: MyExType.footnote.copyWith(
+                                        color: onFill,
+                                        fontWeight: isToday || isSel
+                                            ? FontWeight.w700
+                                            : FontWeight.w500,
+                                        fontFeatures: MyExType.tabular,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 3),
+                                  Container(
+                                    width: 4,
+                                    height: 4,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: wrote
+                                          ? MyExColors.accentInk
+                                          : const Color(0x00000000),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+              ],
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+/// Rounded bars on soft tracks (words written per day). Bars grow in once
+/// unless Reduce Motion is on; the label row sits under the bars.
+class TrackBars extends StatelessWidget {
+  const TrackBars({
+    super.key,
+    required this.values,
+    required this.labels,
+    required this.semanticLabel,
+    this.height = 150,
+    this.highlightLast = true,
+  });
+
+  final List<int> values;
+
+  /// One per bar, or empty to hide (e.g. a month of thin bars).
+  final List<String> labels;
+  final String semanticLabel;
+  final double height;
+  final bool highlightLast;
+
+  @override
+  Widget build(BuildContext context) {
+    final m = MyExMotion.of(context);
+    final max = values.fold<int>(0, (a, b) => b > a ? b : a);
+    final thin = values.length > 10;
+    return Semantics(
+      label: semanticLabel,
+      excludeSemantics: true,
+      child: Column(
+        children: [
+          SizedBox(
+            height: height,
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: m.reduced ? 1 : 0, end: 1),
+              duration: m.reduced ? Duration.zero : MyExDurations.chartDraw,
+              curve: MyExCurves.easeOut,
+              builder: (context, t, _) => Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  for (var i = 0; i < values.length; i++)
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: thin ? 1.5 : 5,
+                        ),
+                        child: Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: MyExColors.fill,
+                                borderRadius: BorderRadius.circular(
+                                  MyExRadii.capsule,
+                                ),
+                              ),
+                            ),
+                            FractionallySizedBox(
+                              heightFactor: max == 0
+                                  ? 0
+                                  : (values[i] / max * t).clamp(0.0, 1.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                    MyExRadii.capsule,
+                                  ),
+                                  color: highlightLast && i == values.length - 1
+                                      ? MyExColors.accent
+                                      : MyExColors.accent.withValues(
+                                          alpha: 0.55,
+                                        ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
+          if (labels.isNotEmpty) ...[
+            const Gap(MyExSpacing.s2),
+            Row(
+              children: [
+                for (final l in labels)
+                  Expanded(
+                    child: Text(
+                      l,
+                      textAlign: TextAlign.center,
+                      style: MyExType.caption1,
+                    ),
+                  ),
+              ],
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+/// "What you felt most": a word, a count and a bar per feeling, each bar in
+/// a mood tint so the list reads at a glance (always with its word).
+class FeelingBars extends StatelessWidget {
+  const FeelingBars({super.key, required this.items});
+
+  /// (label, count, tint level 1..5).
+  final List<(String, int, int)> items;
+
+  @override
+  Widget build(BuildContext context) {
+    final max = items.fold<int>(0, (a, b) => b.$2 > a ? b.$2 : a);
+    return Column(
+      children: [
+        for (final (label, count, level) in items)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            child: MergeSemantics(
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 96,
+                    child: Text(
+                      label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: MyExType.subheadline.copyWith(
+                        color: MyExColors.ink,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(MyExRadii.capsule),
+                      child: SizedBox(
+                        height: 8,
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            ColoredBox(color: MyExColors.fill),
+                            FractionallySizedBox(
+                              alignment: Alignment.centerLeft,
+                              widthFactor: max == 0 ? 0 : count / max,
+                              child: ColoredBox(color: MyExColors.mood(level)),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 32,
+                    child: Text(
+                      '$count',
+                      textAlign: TextAlign.end,
+                      style: MyExType.footnote.copyWith(
+                        fontFeatures: MyExType.tabular,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}

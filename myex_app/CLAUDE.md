@@ -29,6 +29,9 @@ plus project notes. Phases run in order: M0 → M1 → … → M9 → MR.
   posters, display text and numerals. Illustrations are drawn in code in `lib/core/design/art.dart` (StarField,
   CrescentMoon, DreamerFigure, DreamScene, ArtMedallion, PosterHeadline); gradients are allowed inside art, never
   as fake urgency or glow on CTAs. Light mode stays as a choice in Me › Appearance.
+- Back / close buttons and bottom sheets follow the nodo app (`lib/core/design/round_controls.dart`): dark disc +
+  directional glass-edge rim + thin glyph; sheets solid with 30pt top corners, a 1pt top outline, 45×5 handle and a
+  centred 18pt title (`MyExType.sheetTitle`). Use `GlassIconButton` / `showGlassSheet`; they render this style.
 - Icons: only `MyExIcons.*` (Iconsax-style icon font, `tool/build_icons.py`), never Material `Icons.*` in shipped UI.
   No emoji and no faces in the UI (Lumi was replaced by the faceless `NightMark`).
 - Two palettes (light "Love", night "Rose night" = default, `MyExPalette` in `tokens.dart`). `MyExColors.*` and `MyExType.*` are

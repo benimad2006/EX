@@ -310,7 +310,11 @@ class _MeScreenState extends ConsumerState<MeScreen> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text(l.meAppearance, style: MyExType.title2),
+                          Text(
+                            l.meAppearance,
+                            style: MyExType.sheetTitle,
+                            textAlign: TextAlign.center,
+                          ),
                           const Gap(MyExSpacing.s4),
                           InsetGroup(
                             children: [

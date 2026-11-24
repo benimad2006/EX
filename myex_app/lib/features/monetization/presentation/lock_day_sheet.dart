@@ -108,7 +108,11 @@ class _LockDayBodyState extends ConsumerState<_LockDayBody> {
           textAlign: TextAlign.start,
         ),
         const Gap(MyExSpacing.s1),
-        Text(widget.title, style: MyExType.title2),
+        Text(
+          widget.title,
+          style: MyExType.sheetTitle,
+          textAlign: TextAlign.center,
+        ),
         const Gap(MyExSpacing.s1),
         Text(
           l.lockDayBody(MonetizationDisplay.freePlanDays),

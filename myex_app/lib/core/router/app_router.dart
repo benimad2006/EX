@@ -235,7 +235,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: Routes.journal,
-                builder: (context, state) => const JournalScreen(),
+                builder: (context, state) =>
+                    JournalScreen(initialTab: state.uri.queryParameters['tab']),
               ),
             ],
           ),

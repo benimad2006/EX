@@ -2202,4 +2202,106 @@ class AppLocalizationsEn extends AppLocalizations {
   String paywallMedalCoins(int count) {
     return '+$count coins a month';
   }
+
+  @override
+  String get journalTabEntries => 'Entries';
+
+  @override
+  String get journalTabCalendar => 'Calendar';
+
+  @override
+  String get journalTabPrompts => 'Prompts';
+
+  @override
+  String get journalLandscape => 'Emotional landscape';
+
+  @override
+  String get journalDayFelt => 'You felt';
+
+  @override
+  String get journalDayNoMood => 'No check-in this day.';
+
+  @override
+  String get journalDayEmpty => 'Nothing written this day.';
+
+  @override
+  String get journalDayWrite => 'Write About Today';
+
+  @override
+  String journalCalendarDay(String date, String state) {
+    return '$date, $state';
+  }
+
+  @override
+  String get journalCalendarWrote => 'something written';
+
+  @override
+  String get journalCalendarNothing => 'no check-in';
+
+  @override
+  String get journalCollections => 'Guided journals';
+
+  @override
+  String get journalCollectionsSub =>
+      'Pick a kind, then a prompt. Or just start writing.';
+
+  @override
+  String get journalCollReflection => 'Make sense of today';
+
+  @override
+  String get journalCollLetter => 'Say it without sending it';
+
+  @override
+  String get journalCollGratitude => 'One small good thing a day';
+
+  @override
+  String get journalCollList => 'Low effort, real clarity';
+
+  @override
+  String journalPromptsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count prompts',
+      one: '1 prompt',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get journalFreeWrite => 'Free Write';
+
+  @override
+  String get insightsPeriodWeek => 'Week';
+
+  @override
+  String get insightsPeriodMonth => 'Month';
+
+  @override
+  String get insightsMoodWeek => 'Your last 7 days';
+
+  @override
+  String get insightsMoodMonth => 'Your last 30 days';
+
+  @override
+  String get insightsWords => 'Words written';
+
+  @override
+  String insightsWordsTotal(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count words',
+      one: '1 word',
+      zero: 'No words yet',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get insightsFeelingsTitle => 'What you felt most';
+
+  @override
+  String get insightsFeelingsEmpty =>
+      'Name a feeling when you check in and it shows up here.';
 }

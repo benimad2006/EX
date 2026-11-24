@@ -83,3 +83,31 @@ List<JournalEntry> filterJournal(
         e,
   ];
 }
+
+int wordCount(String text) =>
+    text.trim().isEmpty ? 0 : text.trim().split(RegExp(r'\s+')).length;
+
+/// Words written per day for the last [days] days ending today, oldest first.
+List<int> wordsPerDay(
+  List<JournalEntry> entries,
+  DateTime now, {
+  int days = 7,
+}) {
+  final today = DateTime(now.year, now.month, now.day);
+  final out = List<int>.filled(days, 0);
+  for (final e in entries) {
+    final d = DateTime(e.createdAt.year, e.createdAt.month, e.createdAt.day);
+    final i = days - 1 - today.difference(d).inDays;
+    if (i >= 0 && i < days) out[i] += wordCount(e.body);
+  }
+  return out;
+}
+
+/// Entries written on the calendar day of [day].
+List<JournalEntry> entriesOn(List<JournalEntry> all, DateTime day) => [
+  for (final e in all)
+    if (e.createdAt.year == day.year &&
+        e.createdAt.month == day.month &&
+        e.createdAt.day == day.day)
+      e,
+];

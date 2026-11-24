@@ -77,7 +77,11 @@ class _MoodCheckInState extends ConsumerState<_MoodCheckIn> {
       children: [
         Semantics(
           header: true,
-          child: Text(l.homeMoodTitle, style: MyExType.title2),
+          child: Text(
+            l.homeMoodTitle,
+            style: MyExType.sheetTitle,
+            textAlign: TextAlign.center,
+          ),
         ),
         const Gap(MyExSpacing.s5),
         MoodScale(

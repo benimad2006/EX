@@ -184,7 +184,7 @@ Future<void> showCrisisSheet(BuildContext context) {
       children: [
         Text(
           l.crisisTitle,
-          style: MyExType.title2,
+          style: MyExType.sheetTitle,
           textAlign: TextAlign.center,
         ),
         const Gap(MyExSpacing.s2),

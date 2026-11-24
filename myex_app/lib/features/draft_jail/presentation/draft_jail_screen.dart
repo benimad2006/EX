@@ -103,7 +103,8 @@ class _DraftJailScreenState extends ConsumerState<DraftJailScreen> {
           children: [
             Text(
               locked ? l.draftLockedRow : l.draftReadyRow,
-              style: MyExType.title2,
+              style: MyExType.sheetTitle,
+              textAlign: TextAlign.center,
             ),
             const Gap(MyExSpacing.s1),
             Text(

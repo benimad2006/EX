@@ -37,7 +37,7 @@ Future<bool> showDemoPurchaseSheet(
           icon: Icons.science_outlined,
         ),
         const Gap(MyExSpacing.s3),
-        Text(r.title, style: MyExType.title2, textAlign: TextAlign.center),
+        Text(r.title, style: MyExType.sheetTitle, textAlign: TextAlign.center),
         const Gap(MyExSpacing.s1),
         Text(r.price, style: MyExType.headline, textAlign: TextAlign.center),
         if (r.detail != null)
@@ -137,7 +137,11 @@ Future<void> showDemoMenu(BuildContext context, WidgetRef ref) {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('Demo menu', style: MyExType.title2),
+          Text(
+            'Demo menu',
+            style: MyExType.sheetTitle,
+            textAlign: TextAlign.center,
+          ),
           Text(
             'No Supabase or RevenueCat. Everything is fake and in memory.',
             style: MyExType.subheadline,

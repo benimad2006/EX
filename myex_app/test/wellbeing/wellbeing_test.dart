@@ -170,4 +170,45 @@ void main() {
       },
     );
   });
+
+  group('journal views', () {
+    test('words per day: oldest first, today last', () {
+      JournalEntry e(String body, DateTime at) => JournalEntry(
+        id: body,
+        kind: JournalKind.reflection,
+        body: body,
+        createdAt: at,
+        updatedAt: at,
+      );
+      final w = wordsPerDay(
+        [
+          e('one two three', ago(0)),
+          e('four five', ago(0, 9)),
+          e('six', ago(2)),
+          e('too old to count', ago(9)),
+        ],
+        now,
+        days: 3,
+      );
+      expect(w, [1, 0, 5]);
+      expect(wordCount('  '), 0);
+    });
+
+    test('mood by day averages each calendar day', () {
+      final m = moodByDay([mood(2, ago(1, 9)), mood(4, ago(1, 22))]);
+      expect(m[DateTime(2026, 11, 23)], 3.0);
+    });
+
+    test('feeling counts within the period, most first', () {
+      final c = feelingCounts(
+        [
+          mood(2, ago(0), [MoodWord.lonely, MoodWord.calm]),
+          mood(3, ago(3), [MoodWord.calm]),
+          mood(1, ago(20), [MoodWord.angry]),
+        ],
+        now,
+      );
+      expect(c, [(MoodWord.calm, 2), (MoodWord.lonely, 1)]);
+    });
+  });
 }
