@@ -1683,4 +1683,523 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get paywallHowCancelAndroid =>
       'Play Store › your profile › Payments & subscriptions › Subscriptions › MyEx › Cancel. Takes under a minute. Your streak and journal stay.';
+
+  @override
+  String get tabJournal => 'Journal';
+
+  @override
+  String get commonSaveFailed => 'Couldn’t save. Try again.';
+
+  @override
+  String get homeMoodTitle => 'How are you, right now?';
+
+  @override
+  String homeMoodDone(String mood) {
+    return 'Today you felt $mood.';
+  }
+
+  @override
+  String get homeMoodWrite => 'Write About It';
+
+  @override
+  String get homeMoodAgain => 'Check In Again';
+
+  @override
+  String get homeDayHeader => 'Your day';
+
+  @override
+  String get homeJournalTitle => 'Journal';
+
+  @override
+  String homeJournalSub(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count entries so far',
+      one: '1 entry so far',
+      zero: 'Write tonight’s first line',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeWeekTitle => 'This week';
+
+  @override
+  String get homeWeekSee => 'Insights';
+
+  @override
+  String get homeHeroChooseGoal => 'Choose a Goal';
+
+  @override
+  String homeHeroChosen(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count days you chose yourself',
+      one: '1 day you chose yourself',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get moodLevel1 => 'heavy';
+
+  @override
+  String get moodLevel2 => 'low';
+
+  @override
+  String get moodLevel3 => 'okay';
+
+  @override
+  String get moodLevel4 => 'lighter';
+
+  @override
+  String get moodLevel5 => 'good';
+
+  @override
+  String get moodSheetFeelings => 'What’s in there?';
+
+  @override
+  String get moodSheetNote => 'Anything to add? (optional)';
+
+  @override
+  String get moodSheetSave => 'Save Check-in';
+
+  @override
+  String get moodSaved => 'Saved. Thanks for checking in.';
+
+  @override
+  String moodScaleSemantics(int level, String word) {
+    return 'Mood $level of 5, $word';
+  }
+
+  @override
+  String get moodWordHeartbroken => 'Heartbroken';
+
+  @override
+  String get moodWordLonely => 'Lonely';
+
+  @override
+  String get moodWordAngry => 'Angry';
+
+  @override
+  String get moodWordAnxious => 'Anxious';
+
+  @override
+  String get moodWordNumb => 'Numb';
+
+  @override
+  String get moodWordConfused => 'Confused';
+
+  @override
+  String get moodWordTired => 'Tired';
+
+  @override
+  String get moodWordHopeful => 'Hopeful';
+
+  @override
+  String get moodWordCalm => 'Calm';
+
+  @override
+  String get moodWordRelieved => 'Relieved';
+
+  @override
+  String get moodWordProud => 'Proud';
+
+  @override
+  String get moodWordGrateful => 'Grateful';
+
+  @override
+  String get journalTitle => 'Journal';
+
+  @override
+  String get journalNew => 'New Entry';
+
+  @override
+  String get journalSearch => 'Search your journal';
+
+  @override
+  String get journalFilterAll => 'All';
+
+  @override
+  String get journalKindReflection => 'Reflection';
+
+  @override
+  String get journalKindLetter => 'Unsent letter';
+
+  @override
+  String get journalKindGratitude => 'Gratitude';
+
+  @override
+  String get journalKindList => 'List';
+
+  @override
+  String get journalPromptToday => 'Tonight’s prompt';
+
+  @override
+  String get journalWrite => 'Write';
+
+  @override
+  String get journalEmptyTitle => 'Your pages are private.';
+
+  @override
+  String get journalEmptyBody =>
+      'Write what you can’t say out loud. Only you can see it.';
+
+  @override
+  String get journalEmptyCta => 'Write Your First Entry';
+
+  @override
+  String journalNoResults(String query) {
+    return 'Nothing matches “$query”.';
+  }
+
+  @override
+  String get journalPrivate => 'Only you can see your journal.';
+
+  @override
+  String get journalEditorHint => 'Start anywhere.';
+
+  @override
+  String get journalSave => 'Save';
+
+  @override
+  String get journalAnotherPrompt => 'Another Prompt';
+
+  @override
+  String get journalMoodOptional => 'How did writing leave you? (optional)';
+
+  @override
+  String get journalDelete => 'Delete Entry';
+
+  @override
+  String get journalDeleteTitle => 'Delete this entry?';
+
+  @override
+  String get journalDeleteBody => 'It can’t be recovered.';
+
+  @override
+  String get journalDiscardTitle => 'Discard this entry?';
+
+  @override
+  String get journalDiscardBody => 'What you wrote won’t be saved.';
+
+  @override
+  String get journalDiscard => 'Discard';
+
+  @override
+  String get journalKeepWriting => 'Keep Writing';
+
+  @override
+  String get journalSaved => 'Saved to your journal.';
+
+  @override
+  String get journalPromptReflection1 => 'What was hardest today?';
+
+  @override
+  String get journalPromptReflection2 =>
+      'What do you miss, and what don’t you?';
+
+  @override
+  String get journalPromptReflection3 =>
+      'When did you feel most like yourself this week?';
+
+  @override
+  String get journalPromptReflection4 =>
+      'What would you tell a friend going through this?';
+
+  @override
+  String get journalPromptLetter1 => 'A letter you won’t send';
+
+  @override
+  String get journalPromptLetter2 => 'What you never got to say';
+
+  @override
+  String get journalPromptLetter3 => 'Goodbye, in your own words';
+
+  @override
+  String get journalPromptGratitude1 => 'One small thing that went right today';
+
+  @override
+  String get journalPromptGratitude2 => 'Someone who showed up for you';
+
+  @override
+  String get journalPromptGratitude3 => 'Something you did for yourself today';
+
+  @override
+  String get journalPromptList1 => 'Three things you won’t miss';
+
+  @override
+  String get journalPromptList2 => 'Five things that are yours again';
+
+  @override
+  String get journalPromptList3 => 'Things you want to try on your own';
+
+  @override
+  String get noContactTitle => 'No contact';
+
+  @override
+  String get noContactIntroTitle => 'Give yourself space.';
+
+  @override
+  String get noContactIntroBody =>
+      'No texts, no checking their profile. Pick a goal. If you slip, you restart kindly, and every day still counts.';
+
+  @override
+  String get noContactGoal => 'Goal';
+
+  @override
+  String noContactGoalDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count days',
+      one: '1 day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noContactStart => 'Start Today';
+
+  @override
+  String noContactOfGoal(String goal) {
+    return 'of $goal';
+  }
+
+  @override
+  String noContactNext(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Next milestone in $count days',
+      one: 'Next milestone tomorrow',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noContactGoalReached =>
+      'Goal reached. Keep going if it feels right.';
+
+  @override
+  String get noContactChosen => 'Days you chose yourself';
+
+  @override
+  String get noContactChosenNote =>
+      'Counts every day of every run. It never resets.';
+
+  @override
+  String get noContactBest => 'Best run';
+
+  @override
+  String get noContactRuns => 'Runs';
+
+  @override
+  String get noContactMilestones => 'Milestones';
+
+  @override
+  String get noContactMilestone1 => 'The first night';
+
+  @override
+  String get noContactMilestone3 => 'The hardest stretch for many';
+
+  @override
+  String get noContactMilestone7 => 'One week of choosing you';
+
+  @override
+  String get noContactMilestone14 => 'New habits take root';
+
+  @override
+  String get noContactMilestone30 => 'A month of space';
+
+  @override
+  String get noContactMilestone60 => 'Two months, your own rhythm';
+
+  @override
+  String get noContactMilestone90 => 'A new normal';
+
+  @override
+  String get noContactHistory => 'Past runs';
+
+  @override
+  String noContactRun(int days, String range) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days days',
+      one: '1 day',
+    );
+    return '$_temp0 · $range';
+  }
+
+  @override
+  String get noContactReachedOut => 'I Reached Out';
+
+  @override
+  String get noContactRestartTitle => 'That’s okay.';
+
+  @override
+  String noContactRestartBody(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days days',
+      one: '1 day',
+    );
+    return 'Reaching out doesn’t erase what you did. Your $_temp0 still count.';
+  }
+
+  @override
+  String get noContactReflection =>
+      'What happened? What would help next time? (optional)';
+
+  @override
+  String get noContactRestart => 'Restart Today';
+
+  @override
+  String get noContactRestarted => 'New run started. Your days still count.';
+
+  @override
+  String get insightsTitle => 'Insights';
+
+  @override
+  String get insightsMood => 'Your last 14 days';
+
+  @override
+  String get insightsNonLinear =>
+      'Healing isn’t a straight line. Ups and downs are part of it.';
+
+  @override
+  String get insightsWeek => 'This week';
+
+  @override
+  String insightsWeekCheckins(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'You checked in $count times.',
+      one: 'You checked in once.',
+      zero: 'You haven’t checked in yet this week.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get insightsWeekUp =>
+      'Your days felt a little lighter than the week before.';
+
+  @override
+  String get insightsWeekDown =>
+      'This week was heavier than the last. That’s part of it too.';
+
+  @override
+  String get insightsWeekSame =>
+      'About the same as last week. Steady counts too.';
+
+  @override
+  String insightsWeekFeelings(String feelings) {
+    return 'Most often: $feelings.';
+  }
+
+  @override
+  String get insightsCheckins => 'Check-ins';
+
+  @override
+  String get insightsEntries => 'Journal entries';
+
+  @override
+  String get insightsPlanDays => 'Plan days done';
+
+  @override
+  String get insightsEmptyTitle => 'Your pattern shows up here.';
+
+  @override
+  String get insightsEmptyBody =>
+      'Check in for a few days and you’ll see how your weeks move.';
+
+  @override
+  String get insightsCheckInNow => 'Check In Now';
+
+  @override
+  String insightsChartSemantics(String summary) {
+    return 'Mood over the last 14 days. $summary';
+  }
+
+  @override
+  String get coachAiLabel => 'AI · not therapy';
+
+  @override
+  String get coachSuggestTitle => 'Not sure where to start?';
+
+  @override
+  String get coachSuggest1 => 'I want to text them right now.';
+
+  @override
+  String get coachSuggest2 => 'I keep checking their profile.';
+
+  @override
+  String get coachSuggest3 => 'I can’t sleep tonight.';
+
+  @override
+  String get coachSuggest4 => 'Why do I still miss them?';
+
+  @override
+  String get coachNew => 'New Conversation';
+
+  @override
+  String get coachNewTitle => 'Start a new conversation?';
+
+  @override
+  String get coachNewBody =>
+      'Mira starts fresh. Earlier messages won’t show here anymore.';
+
+  @override
+  String get coachNewConfirm => 'Start New';
+
+  @override
+  String get meAppearance => 'Appearance';
+
+  @override
+  String get meAppearanceSystem => 'Automatic';
+
+  @override
+  String get meAppearanceLight => 'Light';
+
+  @override
+  String get meAppearanceDark => 'Night';
+
+  @override
+  String get meProgressHeader => 'Your progress';
+
+  @override
+  String get draftJailEmptyTitle => 'Nothing locked right now.';
+
+  @override
+  String get draftJailEmptyBody =>
+      'When the urge hits, write it here first. You can decide tomorrow.';
+
+  @override
+  String get paywallIncludes => 'Everything in Premium';
+
+  @override
+  String get paywallBrandBadge => 'Premium';
+
+  @override
+  String get paywallMedalMira => 'Mira, anytime';
+
+  @override
+  String get paywallMedalPlan => 'All 30 days';
+
+  @override
+  String get paywallMedalAnalysis => 'Full analysis';
+
+  @override
+  String get paywallMedalDrafts => 'Unlimited Draft Jail';
+
+  @override
+  String paywallMedalCoins(int count) {
+    return '+$count coins a month';
+  }
 }

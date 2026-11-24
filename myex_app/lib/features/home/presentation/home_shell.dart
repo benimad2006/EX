@@ -48,6 +48,11 @@ class HomeShell extends StatelessWidget {
                   label: l.tabCoach,
                 ),
                 GlassTabItem(
+                  icon: Icons.book_outlined,
+                  selectedIcon: Icons.book_rounded,
+                  label: l.tabJournal,
+                ),
+                GlassTabItem(
                   icon: Icons.person_outline_rounded,
                   selectedIcon: Icons.person_rounded,
                   label: l.tabMe,

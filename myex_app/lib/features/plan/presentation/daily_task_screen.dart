@@ -210,16 +210,13 @@ class DayCompleteScreen extends ConsumerWidget {
                   curve: m.bouncyCurve,
                   builder: (context, v, child) =>
                       Transform.scale(scale: v, child: child),
-                  child: Container(
-                    width: MyExSizes.successMark,
-                    height: MyExSizes.successMark,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: MyExColors.successSoft,
-                    ),
+                  // The ring shows the whole plan filling up, one day at a time.
+                  child: ProgressRing(
+                    value: (s?.doneCount ?? day) / planTotalDays,
+                    size: MyExSizes.successMark * 1.4,
                     child: Icon(
                       Icons.check_rounded,
-                      color: MyExColors.success,
+                      color: MyExColors.accent,
                       size: MyExSizes.successMark / 2,
                     ),
                   ),
@@ -229,7 +226,7 @@ class DayCompleteScreen extends ConsumerWidget {
                   header: true,
                   child: Text(
                     l.dayCompleteTitle(day),
-                    style: MyExType.title1,
+                    style: MyExType.display,
                     textAlign: TextAlign.center,
                   ),
                 ),

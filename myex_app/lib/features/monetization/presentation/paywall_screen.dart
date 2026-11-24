@@ -15,7 +15,6 @@ import '../../onboarding/application/onboarding_controller.dart';
 import '../../onboarding/presentation/onboarding_labels.dart';
 import '../../onboarding/presentation/onboarding_quiz_screen.dart'
     show notifPrePromptedKey;
-import '../../plan/application/plan_progress.dart';
 import '../application/monetization_providers.dart';
 import '../domain/monetization_ids.dart';
 import '../domain/paywall_offer.dart';
@@ -309,24 +308,22 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
                     ListView(
                       padding: EdgeInsets.fromLTRB(
                         MyExSpacing.margin,
-                        top + MyExSizes.navBarHeight + MyExSpacing.s2,
+                        top + MyExSpacing.s2,
                         MyExSpacing.margin,
                         MyExSpacing.s6,
                       ),
                       children: [
-                        DisplayText(l.paywallTitle),
-                        const Gap(MyExSpacing.s2),
+                        _PosterHeader(title: l.paywallTitle),
+                        const Gap(MyExSpacing.s3),
                         // R14: the billed price, in body size, above the fold.
                         SwapText(
                           copy?.subtitle(_selected) ?? l.paywallSub,
                           key: const Key('paywall-sub'),
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           style: MyExType.body.copyWith(color: MyExColors.ink2),
                         ),
                         const Gap(MyExSpacing.section),
-                        _PlanStrip(day: ref.watch(currentPlanDayProvider)),
-                        const Gap(MyExSpacing.section),
-                        _Benefits(
+                        _Includes(
                           focus: answers.focus == null
                               ? null
                               : l.focusLabel(answers.focus!),
@@ -457,82 +454,118 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
   }
 }
 
-/// 30 capsules (15×2): past days success, today accent, rest neutral.
-class _PlanStrip extends StatelessWidget {
-  const _PlanStrip({required this.day});
-  final int day;
+/// Poster header: night scene (moon, stars, the dreamer) with the wordmark
+/// and a bold stacked headline over its lower-left corner.
+class _PosterHeader extends StatelessWidget {
+  const _PosterHeader({required this.title});
+  final String title;
 
   @override
-  Widget build(BuildContext context) => Column(
-    children: [
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: MyExSpacing.s2),
-        child: DayStrip(total: planTotalDays, today: day),
+  Widget build(BuildContext context) {
+    final w = MediaQuery.sizeOf(context).width;
+    final h = (w * 0.92).clamp(300.0, 420.0);
+    return SizedBox(
+      height: h,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Positioned(
+            left: -MyExSpacing.margin,
+            right: -MyExSpacing.margin,
+            top: 0,
+            child: DreamScene(height: h),
+          ),
+          Positioned(
+            left: 0,
+            bottom: 0,
+            width: w * 0.64,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'MyEx',
+                      style: MyExType.display.copyWith(fontSize: 26),
+                    ),
+                    const Gap(MyExSpacing.s2),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: MyExSpacing.s2,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: MyExColors.blush,
+                        borderRadius: BorderRadius.circular(MyExRadii.capsule),
+                      ),
+                      child: Text(
+                        context.l10n.paywallBrandBadge,
+                        style: MyExType.caption1.copyWith(
+                          color: MyExColors.onBlush,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const Gap(MyExSpacing.s3),
+                PosterHeadline(title, accentWords: 2),
+              ],
+            ),
+          ),
+        ],
       ),
-      const Gap(MyExSpacing.s2),
-      Footnote(context.l10n.paywallStripCaption(day)),
-    ],
-  );
+    );
+  }
 }
 
-class _Benefits extends StatelessWidget {
-  const _Benefits({this.focus});
-
-  /// The user's chosen focus from onboarding (personalizes benefit 2).
+/// "Everything in Premium": painted medallions (the user's focus, when known,
+/// personalizes the line under them).
+class _Includes extends StatelessWidget {
+  const _Includes({this.focus});
   final String? focus;
 
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
     final items = [
+      (ArtKind.orb, l.paywallMedalMira),
+      (ArtKind.sunrise, l.paywallMedalPlan),
+      (ArtKind.rose, l.paywallMedalAnalysis),
+      (ArtKind.lock, l.paywallMedalDrafts),
       (
-        Icons.chat_bubble_outline_rounded,
-        l.paywallBenefitMiraTitle,
-        l.paywallBenefitMiraSub,
-      ),
-      (
-        Icons.calendar_today_outlined,
-        l.paywallBenefitPlanTitle,
-        focus == null
-            ? l.paywallBenefitPlanSub(MonetizationDisplay.freePlanDays)
-            : l.paywallBenefitPlanSubFocus(
-                focus!,
-                MonetizationDisplay.freePlanDays,
-              ),
-      ),
-      (
-        Icons.search_rounded,
-        l.paywallBenefitAnalysisTitle,
-        l.paywallBenefitAnalysisSub,
+        ArtKind.moon,
+        l.paywallMedalCoins(MonetizationDisplay.premiumMonthlyBonusCoins),
       ),
     ];
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (var i = 0; i < items.length; i++) ...[
-          if (i > 0) const Gap(MyExSpacing.s4),
-          MergeSemantics(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(
-                  items[i].$1,
-                  color: MyExColors.accent,
-                  size: MyExSizes.iconLg,
-                ),
-                const Gap(MyExSpacing.s3),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(items[i].$2, style: MyExType.headline),
-                      Text(items[i].$3, style: MyExType.subheadline),
-                    ],
-                  ),
-                ),
+        Text(l.paywallIncludes, style: MyExType.headline),
+        const Gap(MyExSpacing.s3),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          clipBehavior: Clip.none,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (final (k, label) in items) ...[
+                LabeledMedallion(kind: k, label: label),
+                const Gap(MyExSpacing.s1),
               ],
-            ),
+            ],
           ),
-        ],
+        ),
+        const Gap(MyExSpacing.s2),
+        Text(
+          focus == null
+              ? l.paywallBenefitPlanSub(MonetizationDisplay.freePlanDays)
+              : l.paywallBenefitPlanSubFocus(
+                  focus!,
+                  MonetizationDisplay.freePlanDays,
+                ),
+          style: MyExType.footnote,
+        ),
       ],
     );
   }

@@ -454,7 +454,13 @@ class _Question extends StatelessWidget {
         MyExSpacing.s6,
       ),
       children: [
-        Semantics(header: true, child: Text(title, style: MyExType.title1)),
+        Semantics(
+          header: true,
+          child: Text(
+            title,
+            style: MyExType.display.copyWith(fontSize: 32, height: 36 / 32),
+          ),
+        ),
         if (sub != null) ...[
           const Gap(MyExSpacing.s1),
           Text(sub!, style: MyExType.subheadline),
@@ -672,11 +678,20 @@ class _MiraStep extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const MiraOrb(size: MyExSizes.mascotOrb),
+            const SizedBox(
+              height: 180,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Positioned.fill(child: StarField(count: 24, seed: 5)),
+                  MiraOrb(size: MyExSizes.mascotOrb),
+                ],
+              ),
+            ),
             const Gap(MyExSpacing.s6),
             Text(
               l.onbMiraTitle,
-              style: MyExType.title1,
+              style: MyExType.display,
               textAlign: TextAlign.center,
             ),
             const Gap(MyExSpacing.s2),
@@ -947,7 +962,7 @@ class _BuildingStepState extends ConsumerState<_BuildingStep> {
               header: true,
               child: Text(
                 l.onbBuildingTitle,
-                style: MyExType.title1,
+                style: MyExType.display,
                 textAlign: TextAlign.center,
               ),
             ),

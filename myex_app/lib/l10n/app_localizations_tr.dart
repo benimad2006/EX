@@ -1675,4 +1675,519 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get paywallHowCancelAndroid =>
       'Play Store › profilin › Ödemeler ve abonelikler › Abonelikler › MyEx › İptal et. Bir dakikadan kısa sürer. Serin ve günlüğün kalır.';
+
+  @override
+  String get tabJournal => 'Günlük';
+
+  @override
+  String get commonSaveFailed => 'Kaydedilemedi. Tekrar dene.';
+
+  @override
+  String get homeMoodTitle => 'Şu an nasılsın?';
+
+  @override
+  String homeMoodDone(String mood) {
+    return 'Bugün kendini $mood hissettin.';
+  }
+
+  @override
+  String get homeMoodWrite => 'Bunu Yaz';
+
+  @override
+  String get homeMoodAgain => 'Tekrar Kaydet';
+
+  @override
+  String get homeDayHeader => 'Günün';
+
+  @override
+  String get homeJournalTitle => 'Günlük';
+
+  @override
+  String homeJournalSub(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Şimdiye kadar $count yazı',
+      zero: 'Bu gecenin ilk satırını yaz',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeWeekTitle => 'Bu hafta';
+
+  @override
+  String get homeWeekSee => 'İçgörüler';
+
+  @override
+  String get homeHeroChooseGoal => 'Hedef Seç';
+
+  @override
+  String homeHeroChosen(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Kendini seçtiğin $count gün',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get moodLevel1 => 'ağır';
+
+  @override
+  String get moodLevel2 => 'düşük';
+
+  @override
+  String get moodLevel3 => 'idare eder';
+
+  @override
+  String get moodLevel4 => 'daha hafif';
+
+  @override
+  String get moodLevel5 => 'iyi';
+
+  @override
+  String get moodSheetFeelings => 'İçinde neler var?';
+
+  @override
+  String get moodSheetNote =>
+      'Eklemek istediğin bir şey var mı? (isteğe bağlı)';
+
+  @override
+  String get moodSheetSave => 'Kaydet';
+
+  @override
+  String get moodSaved => 'Kaydedildi. Kendine baktığın için teşekkürler.';
+
+  @override
+  String moodScaleSemantics(int level, String word) {
+    return 'Ruh hâli 5 üzerinden $level, $word';
+  }
+
+  @override
+  String get moodWordHeartbroken => 'Kalbi kırık';
+
+  @override
+  String get moodWordLonely => 'Yalnız';
+
+  @override
+  String get moodWordAngry => 'Öfkeli';
+
+  @override
+  String get moodWordAnxious => 'Kaygılı';
+
+  @override
+  String get moodWordNumb => 'Hissiz';
+
+  @override
+  String get moodWordConfused => 'Kafası karışık';
+
+  @override
+  String get moodWordTired => 'Yorgun';
+
+  @override
+  String get moodWordHopeful => 'Umutlu';
+
+  @override
+  String get moodWordCalm => 'Sakin';
+
+  @override
+  String get moodWordRelieved => 'Rahatlamış';
+
+  @override
+  String get moodWordProud => 'Gururlu';
+
+  @override
+  String get moodWordGrateful => 'Minnettar';
+
+  @override
+  String get journalTitle => 'Günlük';
+
+  @override
+  String get journalNew => 'Yeni Yazı';
+
+  @override
+  String get journalSearch => 'Günlüğünde ara';
+
+  @override
+  String get journalFilterAll => 'Tümü';
+
+  @override
+  String get journalKindReflection => 'Düşünce';
+
+  @override
+  String get journalKindLetter => 'Gönderilmeyen mektup';
+
+  @override
+  String get journalKindGratitude => 'Şükran';
+
+  @override
+  String get journalKindList => 'Liste';
+
+  @override
+  String get journalPromptToday => 'Bu gecenin sorusu';
+
+  @override
+  String get journalWrite => 'Yaz';
+
+  @override
+  String get journalEmptyTitle => 'Sayfaların sana özel.';
+
+  @override
+  String get journalEmptyBody =>
+      'Yüksek sesle söyleyemediklerini yaz. Bunu yalnızca sen görebilirsin.';
+
+  @override
+  String get journalEmptyCta => 'İlk Yazını Yaz';
+
+  @override
+  String journalNoResults(String query) {
+    return '“$query” ile eşleşen bir şey yok.';
+  }
+
+  @override
+  String get journalPrivate => 'Günlüğünü yalnızca sen görebilirsin.';
+
+  @override
+  String get journalEditorHint => 'İstediğin yerden başla.';
+
+  @override
+  String get journalSave => 'Kaydet';
+
+  @override
+  String get journalAnotherPrompt => 'Başka Bir Soru';
+
+  @override
+  String get journalMoodOptional =>
+      'Yazmak sana nasıl hissettirdi? (isteğe bağlı)';
+
+  @override
+  String get journalDelete => 'Yazıyı Sil';
+
+  @override
+  String get journalDeleteTitle => 'Bu yazı silinsin mi?';
+
+  @override
+  String get journalDeleteBody => 'Geri getirilemez.';
+
+  @override
+  String get journalDiscardTitle => 'Bu yazıdan vazgeçilsin mi?';
+
+  @override
+  String get journalDiscardBody => 'Yazdıkların kaydedilmeyecek.';
+
+  @override
+  String get journalDiscard => 'Vazgeç';
+
+  @override
+  String get journalKeepWriting => 'Yazmaya Devam Et';
+
+  @override
+  String get journalSaved => 'Günlüğüne kaydedildi.';
+
+  @override
+  String get journalPromptReflection1 => 'Bugün seni en çok ne zorladı?';
+
+  @override
+  String get journalPromptReflection2 => 'Neyi özlüyorsun, neyi özlemiyorsun?';
+
+  @override
+  String get journalPromptReflection3 =>
+      'Bu hafta kendini en çok ne zaman kendin gibi hissettin?';
+
+  @override
+  String get journalPromptReflection4 =>
+      'Bunu yaşayan bir arkadaşına ne söylerdin?';
+
+  @override
+  String get journalPromptLetter1 => 'Göndermeyeceğin bir mektup';
+
+  @override
+  String get journalPromptLetter2 => 'Söyleyemediğin şeyler';
+
+  @override
+  String get journalPromptLetter3 => 'Kendi sözlerinle veda';
+
+  @override
+  String get journalPromptGratitude1 => 'Bugün yolunda giden küçük bir şey';
+
+  @override
+  String get journalPromptGratitude2 => 'Senin için orada olan biri';
+
+  @override
+  String get journalPromptGratitude3 => 'Bugün kendin için yaptığın bir şey';
+
+  @override
+  String get journalPromptList1 => 'Özlemeyeceğin üç şey';
+
+  @override
+  String get journalPromptList2 => 'Yeniden senin olan beş şey';
+
+  @override
+  String get journalPromptList3 => 'Tek başına denemek istediğin şeyler';
+
+  @override
+  String get noContactTitle => 'İletişimsizlik';
+
+  @override
+  String get noContactIntroTitle => 'Kendine alan tanı.';
+
+  @override
+  String get noContactIntroBody =>
+      'Mesaj yok, profiline bakmak yok. Bir hedef seç. Kayarsan nazikçe yeniden başlarsın ve her gün yine sayılır.';
+
+  @override
+  String get noContactGoal => 'Hedef';
+
+  @override
+  String noContactGoalDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count gün',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noContactStart => 'Bugün Başla';
+
+  @override
+  String noContactOfGoal(String goal) {
+    return '$goal hedefinden';
+  }
+
+  @override
+  String noContactNext(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sonraki kilometre taşına $count gün',
+      one: 'Sonraki kilometre taşı yarın',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noContactGoalReached =>
+      'Hedefe ulaştın. İçinden geliyorsa devam et.';
+
+  @override
+  String get noContactChosen => 'Kendini seçtiğin günler';
+
+  @override
+  String get noContactChosenNote =>
+      'Her serinin her gününü sayar. Hiç sıfırlanmaz.';
+
+  @override
+  String get noContactBest => 'En uzun seri';
+
+  @override
+  String get noContactRuns => 'Seriler';
+
+  @override
+  String get noContactMilestones => 'Kilometre taşları';
+
+  @override
+  String get noContactMilestone1 => 'İlk gece';
+
+  @override
+  String get noContactMilestone3 => 'Birçokları için en zor kısım';
+
+  @override
+  String get noContactMilestone7 => 'Kendini seçtiğin bir hafta';
+
+  @override
+  String get noContactMilestone14 => 'Yeni alışkanlıklar kök salıyor';
+
+  @override
+  String get noContactMilestone30 => 'Bir aylık alan';
+
+  @override
+  String get noContactMilestone60 => 'İki ay, kendi ritmin';
+
+  @override
+  String get noContactMilestone90 => 'Yeni bir normal';
+
+  @override
+  String get noContactHistory => 'Önceki seriler';
+
+  @override
+  String noContactRun(int days, String range) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days gün',
+    );
+    return '$_temp0 · $range';
+  }
+
+  @override
+  String get noContactReachedOut => 'İletişime Geçtim';
+
+  @override
+  String get noContactRestartTitle => 'Sorun değil.';
+
+  @override
+  String noContactRestartBody(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days günün',
+    );
+    return 'Yazmış olman yaptıklarını silmez. $_temp0 hâlâ sayılıyor.';
+  }
+
+  @override
+  String get noContactReflection =>
+      'Ne oldu? Bir dahaki sefere ne yardımcı olur? (isteğe bağlı)';
+
+  @override
+  String get noContactRestart => 'Bugün Yeniden Başla';
+
+  @override
+  String get noContactRestarted =>
+      'Yeni seri başladı. Günlerin hâlâ sayılıyor.';
+
+  @override
+  String get insightsTitle => 'İçgörüler';
+
+  @override
+  String get insightsMood => 'Son 14 günün';
+
+  @override
+  String get insightsNonLinear =>
+      'İyileşme düz bir çizgi değil. İnişler ve çıkışlar da bunun parçası.';
+
+  @override
+  String get insightsWeek => 'Bu hafta';
+
+  @override
+  String insightsWeekCheckins(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kez kendine baktın.',
+      zero: 'Bu hafta henüz kayıt yapmadın.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get insightsWeekUp =>
+      'Günlerin bir önceki haftadan biraz daha hafifti.';
+
+  @override
+  String get insightsWeekDown =>
+      'Bu hafta geçen haftadan daha ağırdı. Bu da sürecin bir parçası.';
+
+  @override
+  String get insightsWeekSame =>
+      'Geçen haftayla hemen hemen aynı. İstikrar da önemli.';
+
+  @override
+  String insightsWeekFeelings(String feelings) {
+    return 'En sık: $feelings.';
+  }
+
+  @override
+  String get insightsCheckins => 'Kayıt';
+
+  @override
+  String get insightsEntries => 'Günlük yazısı';
+
+  @override
+  String get insightsPlanDays => 'Tamamlanan gün';
+
+  @override
+  String get insightsEmptyTitle => 'Örüntün burada görünecek.';
+
+  @override
+  String get insightsEmptyBody =>
+      'Birkaç gün kayıt yap, haftalarının nasıl ilerlediğini gör.';
+
+  @override
+  String get insightsCheckInNow => 'Şimdi Kaydet';
+
+  @override
+  String insightsChartSemantics(String summary) {
+    return 'Son 14 gündeki ruh hâli. $summary';
+  }
+
+  @override
+  String get coachAiLabel => 'Yapay zekâ · terapi değil';
+
+  @override
+  String get coachSuggestTitle => 'Nereden başlayacağını bilmiyor musun?';
+
+  @override
+  String get coachSuggest1 => 'Şu an ona yazmak istiyorum.';
+
+  @override
+  String get coachSuggest2 => 'Sürekli profiline bakıyorum.';
+
+  @override
+  String get coachSuggest3 => 'Bu gece uyuyamıyorum.';
+
+  @override
+  String get coachSuggest4 => 'Neden hâlâ onu özlüyorum?';
+
+  @override
+  String get coachNew => 'Yeni Sohbet';
+
+  @override
+  String get coachNewTitle => 'Yeni bir sohbet başlasın mı?';
+
+  @override
+  String get coachNewBody =>
+      'Mira baştan başlar. Önceki mesajlar artık burada görünmez.';
+
+  @override
+  String get coachNewConfirm => 'Yeni Başlat';
+
+  @override
+  String get meAppearance => 'Görünüm';
+
+  @override
+  String get meAppearanceSystem => 'Otomatik';
+
+  @override
+  String get meAppearanceLight => 'Açık';
+
+  @override
+  String get meAppearanceDark => 'Gece';
+
+  @override
+  String get meProgressHeader => 'İlerlemen';
+
+  @override
+  String get draftJailEmptyTitle => 'Şu an kilitli bir şey yok.';
+
+  @override
+  String get draftJailEmptyBody =>
+      'Yazma isteği geldiğinde önce buraya yaz. Kararı yarın verebilirsin.';
+
+  @override
+  String get paywallIncludes => 'Premium’da her şey';
+
+  @override
+  String get paywallBrandBadge => 'Premium';
+
+  @override
+  String get paywallMedalMira => 'Mira, her an';
+
+  @override
+  String get paywallMedalPlan => '30 günün tamamı';
+
+  @override
+  String get paywallMedalAnalysis => 'Tam analiz';
+
+  @override
+  String get paywallMedalDrafts => 'Sınırsız Taslak Hapsi';
+
+  @override
+  String paywallMedalCoins(int count) {
+    return 'Ayda +$count jeton';
+  }
 }

@@ -39,6 +39,25 @@ class _CoachScreenState extends ConsumerState<CoachScreen> {
     super.dispose();
   }
 
+  Future<void> _newConversation() async {
+    final l = context.l10n;
+    final ok = await showConfirmDialog(
+      context: context,
+      title: l.coachNewTitle,
+      message: l.coachNewBody,
+      confirmLabel: l.coachNewConfirm,
+      cancelLabel: l.commonCancel,
+      destructive: false,
+    );
+    if (!ok || !mounted) return;
+    await ref.read(coachControllerProvider(widget.origin).notifier).startNew();
+  }
+
+  Future<void> _sendSuggestion(String text) async {
+    _composer.text = text;
+    await _send();
+  }
+
   Future<void> _send() async {
     final provider = coachControllerProvider(widget.origin);
     final result = await ref.read(provider.notifier).send(_composer.text);
@@ -115,6 +134,25 @@ class _CoachScreenState extends ConsumerState<CoachScreen> {
       body: ScreenBackground(
         child: Stack(
           children: [
+            // Empty conversation: a quiet night scene behind the greeting.
+            if (state.messages.isEmpty)
+              Positioned(
+                left: 0,
+                right: 0,
+                top: top + MyExSizes.navBarHeight + MyExSpacing.s6,
+                height: 260,
+                child: const ExcludeSemantics(
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Positioned.fill(
+                        child: StarField(count: 30, seed: 13, twinkle: true),
+                      ),
+                      CrescentMoon(size: 150),
+                    ],
+                  ),
+                ),
+              ),
             Column(
               children: [
                 Expanded(
@@ -166,6 +204,16 @@ class _CoachScreenState extends ConsumerState<CoachScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      if (state.messages.isEmpty && !state.sending)
+                        _Suggestions(
+                          onPick: _sendSuggestion,
+                          prompts: [
+                            l.coachSuggest1,
+                            l.coachSuggest2,
+                            l.coachSuggest3,
+                            l.coachSuggest4,
+                          ],
+                        ),
                       if (meter.sosMode)
                         GlassChip(
                           key: const Key('sos-mode-banner'),
@@ -200,23 +248,73 @@ class _CoachScreenState extends ConsumerState<CoachScreen> {
                   : null,
               center: Semantics(
                 header: true,
-                label: l.coachTitle,
+                label: '${l.coachTitle}, ${l.coachAiLabel}',
                 excludeSemantics: true,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     MiraOrb(thinking: state.sending),
                     const SizedBox(height: MyExSpacing.tight),
-                    Text(l.coachTitle, style: MyExType.caption2),
+                    Text.rich(
+                      TextSpan(
+                        text: l.coachTitle,
+                        children: [
+                          TextSpan(
+                            text: ' · ${l.coachAiLabel}',
+                            style: MyExType.caption2.copyWith(
+                              color: MyExColors.ink2,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                      style: MyExType.caption2,
+                    ),
                   ],
                 ),
               ),
+              trailing: !_isSos && state.messages.isNotEmpty
+                  ? GlassIconButton(
+                      key: const Key('coach-new'),
+                      icon: Icons.add_comment_outlined,
+                      semanticLabel: l.coachNew,
+                      onPressed: _newConversation,
+                    )
+                  : null,
             ),
           ],
         ),
       ),
     );
   }
+}
+
+/// Starter prompts while the conversation is empty (one tap sends).
+class _Suggestions extends StatelessWidget {
+  const _Suggestions({required this.prompts, required this.onPick});
+  final List<String> prompts;
+  final ValueChanged<String> onPick;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.only(bottom: MyExSpacing.s3),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: MyExSpacing.s1),
+          child: Text(context.l10n.coachSuggestTitle, style: MyExType.footnote),
+        ),
+        Wrap(
+          spacing: MyExSpacing.s2,
+          children: [
+            for (final p in prompts)
+              WordChip(label: p, selected: false, onTap: () => onPick(p)),
+          ],
+        ),
+      ],
+    ),
+  );
 }
 
 class _Meter extends StatelessWidget {

@@ -2845,6 +2845,870 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Play Store › your profile › Payments & subscriptions › Subscriptions › MyEx › Cancel. Takes under a minute. Your streak and journal stay.'**
   String get paywallHowCancelAndroid;
+
+  /// No description provided for @tabJournal.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal'**
+  String get tabJournal;
+
+  /// No description provided for @commonSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t save. Try again.'**
+  String get commonSaveFailed;
+
+  /// No description provided for @homeMoodTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How are you, right now?'**
+  String get homeMoodTitle;
+
+  /// No description provided for @homeMoodDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Today you felt {mood}.'**
+  String homeMoodDone(String mood);
+
+  /// No description provided for @homeMoodWrite.
+  ///
+  /// In en, this message translates to:
+  /// **'Write About It'**
+  String get homeMoodWrite;
+
+  /// No description provided for @homeMoodAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Check In Again'**
+  String get homeMoodAgain;
+
+  /// No description provided for @homeDayHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Your day'**
+  String get homeDayHeader;
+
+  /// No description provided for @homeJournalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal'**
+  String get homeJournalTitle;
+
+  /// No description provided for @homeJournalSub.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Write tonight’s first line} =1{1 entry so far} other{{count} entries so far}}'**
+  String homeJournalSub(int count);
+
+  /// No description provided for @homeWeekTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This week'**
+  String get homeWeekTitle;
+
+  /// No description provided for @homeWeekSee.
+  ///
+  /// In en, this message translates to:
+  /// **'Insights'**
+  String get homeWeekSee;
+
+  /// No description provided for @homeHeroChooseGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a Goal'**
+  String get homeHeroChooseGoal;
+
+  /// No description provided for @homeHeroChosen.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day you chose yourself} other{{count} days you chose yourself}}'**
+  String homeHeroChosen(int count);
+
+  /// No description provided for @moodLevel1.
+  ///
+  /// In en, this message translates to:
+  /// **'heavy'**
+  String get moodLevel1;
+
+  /// No description provided for @moodLevel2.
+  ///
+  /// In en, this message translates to:
+  /// **'low'**
+  String get moodLevel2;
+
+  /// No description provided for @moodLevel3.
+  ///
+  /// In en, this message translates to:
+  /// **'okay'**
+  String get moodLevel3;
+
+  /// No description provided for @moodLevel4.
+  ///
+  /// In en, this message translates to:
+  /// **'lighter'**
+  String get moodLevel4;
+
+  /// No description provided for @moodLevel5.
+  ///
+  /// In en, this message translates to:
+  /// **'good'**
+  String get moodLevel5;
+
+  /// No description provided for @moodSheetFeelings.
+  ///
+  /// In en, this message translates to:
+  /// **'What’s in there?'**
+  String get moodSheetFeelings;
+
+  /// No description provided for @moodSheetNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Anything to add? (optional)'**
+  String get moodSheetNote;
+
+  /// No description provided for @moodSheetSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Check-in'**
+  String get moodSheetSave;
+
+  /// No description provided for @moodSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved. Thanks for checking in.'**
+  String get moodSaved;
+
+  /// No description provided for @moodScaleSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Mood {level} of 5, {word}'**
+  String moodScaleSemantics(int level, String word);
+
+  /// No description provided for @moodWordHeartbroken.
+  ///
+  /// In en, this message translates to:
+  /// **'Heartbroken'**
+  String get moodWordHeartbroken;
+
+  /// No description provided for @moodWordLonely.
+  ///
+  /// In en, this message translates to:
+  /// **'Lonely'**
+  String get moodWordLonely;
+
+  /// No description provided for @moodWordAngry.
+  ///
+  /// In en, this message translates to:
+  /// **'Angry'**
+  String get moodWordAngry;
+
+  /// No description provided for @moodWordAnxious.
+  ///
+  /// In en, this message translates to:
+  /// **'Anxious'**
+  String get moodWordAnxious;
+
+  /// No description provided for @moodWordNumb.
+  ///
+  /// In en, this message translates to:
+  /// **'Numb'**
+  String get moodWordNumb;
+
+  /// No description provided for @moodWordConfused.
+  ///
+  /// In en, this message translates to:
+  /// **'Confused'**
+  String get moodWordConfused;
+
+  /// No description provided for @moodWordTired.
+  ///
+  /// In en, this message translates to:
+  /// **'Tired'**
+  String get moodWordTired;
+
+  /// No description provided for @moodWordHopeful.
+  ///
+  /// In en, this message translates to:
+  /// **'Hopeful'**
+  String get moodWordHopeful;
+
+  /// No description provided for @moodWordCalm.
+  ///
+  /// In en, this message translates to:
+  /// **'Calm'**
+  String get moodWordCalm;
+
+  /// No description provided for @moodWordRelieved.
+  ///
+  /// In en, this message translates to:
+  /// **'Relieved'**
+  String get moodWordRelieved;
+
+  /// No description provided for @moodWordProud.
+  ///
+  /// In en, this message translates to:
+  /// **'Proud'**
+  String get moodWordProud;
+
+  /// No description provided for @moodWordGrateful.
+  ///
+  /// In en, this message translates to:
+  /// **'Grateful'**
+  String get moodWordGrateful;
+
+  /// No description provided for @journalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal'**
+  String get journalTitle;
+
+  /// No description provided for @journalNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New Entry'**
+  String get journalNew;
+
+  /// No description provided for @journalSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search your journal'**
+  String get journalSearch;
+
+  /// No description provided for @journalFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get journalFilterAll;
+
+  /// No description provided for @journalKindReflection.
+  ///
+  /// In en, this message translates to:
+  /// **'Reflection'**
+  String get journalKindReflection;
+
+  /// No description provided for @journalKindLetter.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsent letter'**
+  String get journalKindLetter;
+
+  /// No description provided for @journalKindGratitude.
+  ///
+  /// In en, this message translates to:
+  /// **'Gratitude'**
+  String get journalKindGratitude;
+
+  /// No description provided for @journalKindList.
+  ///
+  /// In en, this message translates to:
+  /// **'List'**
+  String get journalKindList;
+
+  /// No description provided for @journalPromptToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Tonight’s prompt'**
+  String get journalPromptToday;
+
+  /// No description provided for @journalWrite.
+  ///
+  /// In en, this message translates to:
+  /// **'Write'**
+  String get journalWrite;
+
+  /// No description provided for @journalEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your pages are private.'**
+  String get journalEmptyTitle;
+
+  /// No description provided for @journalEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Write what you can’t say out loud. Only you can see it.'**
+  String get journalEmptyBody;
+
+  /// No description provided for @journalEmptyCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Write Your First Entry'**
+  String get journalEmptyCta;
+
+  /// No description provided for @journalNoResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing matches “{query}”.'**
+  String journalNoResults(String query);
+
+  /// No description provided for @journalPrivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Only you can see your journal.'**
+  String get journalPrivate;
+
+  /// No description provided for @journalEditorHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Start anywhere.'**
+  String get journalEditorHint;
+
+  /// No description provided for @journalSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get journalSave;
+
+  /// No description provided for @journalAnotherPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Another Prompt'**
+  String get journalAnotherPrompt;
+
+  /// No description provided for @journalMoodOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'How did writing leave you? (optional)'**
+  String get journalMoodOptional;
+
+  /// No description provided for @journalDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Entry'**
+  String get journalDelete;
+
+  /// No description provided for @journalDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this entry?'**
+  String get journalDeleteTitle;
+
+  /// No description provided for @journalDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It can’t be recovered.'**
+  String get journalDeleteBody;
+
+  /// No description provided for @journalDiscardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard this entry?'**
+  String get journalDiscardTitle;
+
+  /// No description provided for @journalDiscardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'What you wrote won’t be saved.'**
+  String get journalDiscardBody;
+
+  /// No description provided for @journalDiscard.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get journalDiscard;
+
+  /// No description provided for @journalKeepWriting.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep Writing'**
+  String get journalKeepWriting;
+
+  /// No description provided for @journalSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved to your journal.'**
+  String get journalSaved;
+
+  /// No description provided for @journalPromptReflection1.
+  ///
+  /// In en, this message translates to:
+  /// **'What was hardest today?'**
+  String get journalPromptReflection1;
+
+  /// No description provided for @journalPromptReflection2.
+  ///
+  /// In en, this message translates to:
+  /// **'What do you miss, and what don’t you?'**
+  String get journalPromptReflection2;
+
+  /// No description provided for @journalPromptReflection3.
+  ///
+  /// In en, this message translates to:
+  /// **'When did you feel most like yourself this week?'**
+  String get journalPromptReflection3;
+
+  /// No description provided for @journalPromptReflection4.
+  ///
+  /// In en, this message translates to:
+  /// **'What would you tell a friend going through this?'**
+  String get journalPromptReflection4;
+
+  /// No description provided for @journalPromptLetter1.
+  ///
+  /// In en, this message translates to:
+  /// **'A letter you won’t send'**
+  String get journalPromptLetter1;
+
+  /// No description provided for @journalPromptLetter2.
+  ///
+  /// In en, this message translates to:
+  /// **'What you never got to say'**
+  String get journalPromptLetter2;
+
+  /// No description provided for @journalPromptLetter3.
+  ///
+  /// In en, this message translates to:
+  /// **'Goodbye, in your own words'**
+  String get journalPromptLetter3;
+
+  /// No description provided for @journalPromptGratitude1.
+  ///
+  /// In en, this message translates to:
+  /// **'One small thing that went right today'**
+  String get journalPromptGratitude1;
+
+  /// No description provided for @journalPromptGratitude2.
+  ///
+  /// In en, this message translates to:
+  /// **'Someone who showed up for you'**
+  String get journalPromptGratitude2;
+
+  /// No description provided for @journalPromptGratitude3.
+  ///
+  /// In en, this message translates to:
+  /// **'Something you did for yourself today'**
+  String get journalPromptGratitude3;
+
+  /// No description provided for @journalPromptList1.
+  ///
+  /// In en, this message translates to:
+  /// **'Three things you won’t miss'**
+  String get journalPromptList1;
+
+  /// No description provided for @journalPromptList2.
+  ///
+  /// In en, this message translates to:
+  /// **'Five things that are yours again'**
+  String get journalPromptList2;
+
+  /// No description provided for @journalPromptList3.
+  ///
+  /// In en, this message translates to:
+  /// **'Things you want to try on your own'**
+  String get journalPromptList3;
+
+  /// No description provided for @noContactTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No contact'**
+  String get noContactTitle;
+
+  /// No description provided for @noContactIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Give yourself space.'**
+  String get noContactIntroTitle;
+
+  /// No description provided for @noContactIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'No texts, no checking their profile. Pick a goal. If you slip, you restart kindly, and every day still counts.'**
+  String get noContactIntroBody;
+
+  /// No description provided for @noContactGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal'**
+  String get noContactGoal;
+
+  /// No description provided for @noContactGoalDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day} other{{count} days}}'**
+  String noContactGoalDays(int count);
+
+  /// No description provided for @noContactStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Today'**
+  String get noContactStart;
+
+  /// No description provided for @noContactOfGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'of {goal}'**
+  String noContactOfGoal(String goal);
+
+  /// No description provided for @noContactNext.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Next milestone tomorrow} other{Next milestone in {count} days}}'**
+  String noContactNext(int count);
+
+  /// No description provided for @noContactGoalReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal reached. Keep going if it feels right.'**
+  String get noContactGoalReached;
+
+  /// No description provided for @noContactChosen.
+  ///
+  /// In en, this message translates to:
+  /// **'Days you chose yourself'**
+  String get noContactChosen;
+
+  /// No description provided for @noContactChosenNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Counts every day of every run. It never resets.'**
+  String get noContactChosenNote;
+
+  /// No description provided for @noContactBest.
+  ///
+  /// In en, this message translates to:
+  /// **'Best run'**
+  String get noContactBest;
+
+  /// No description provided for @noContactRuns.
+  ///
+  /// In en, this message translates to:
+  /// **'Runs'**
+  String get noContactRuns;
+
+  /// No description provided for @noContactMilestones.
+  ///
+  /// In en, this message translates to:
+  /// **'Milestones'**
+  String get noContactMilestones;
+
+  /// No description provided for @noContactMilestone1.
+  ///
+  /// In en, this message translates to:
+  /// **'The first night'**
+  String get noContactMilestone1;
+
+  /// No description provided for @noContactMilestone3.
+  ///
+  /// In en, this message translates to:
+  /// **'The hardest stretch for many'**
+  String get noContactMilestone3;
+
+  /// No description provided for @noContactMilestone7.
+  ///
+  /// In en, this message translates to:
+  /// **'One week of choosing you'**
+  String get noContactMilestone7;
+
+  /// No description provided for @noContactMilestone14.
+  ///
+  /// In en, this message translates to:
+  /// **'New habits take root'**
+  String get noContactMilestone14;
+
+  /// No description provided for @noContactMilestone30.
+  ///
+  /// In en, this message translates to:
+  /// **'A month of space'**
+  String get noContactMilestone30;
+
+  /// No description provided for @noContactMilestone60.
+  ///
+  /// In en, this message translates to:
+  /// **'Two months, your own rhythm'**
+  String get noContactMilestone60;
+
+  /// No description provided for @noContactMilestone90.
+  ///
+  /// In en, this message translates to:
+  /// **'A new normal'**
+  String get noContactMilestone90;
+
+  /// No description provided for @noContactHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Past runs'**
+  String get noContactHistory;
+
+  /// No description provided for @noContactRun.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, =1{1 day} other{{days} days}} · {range}'**
+  String noContactRun(int days, String range);
+
+  /// No description provided for @noContactReachedOut.
+  ///
+  /// In en, this message translates to:
+  /// **'I Reached Out'**
+  String get noContactReachedOut;
+
+  /// No description provided for @noContactRestartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'That’s okay.'**
+  String get noContactRestartTitle;
+
+  /// No description provided for @noContactRestartBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Reaching out doesn’t erase what you did. Your {days, plural, =1{1 day} other{{days} days}} still count.'**
+  String noContactRestartBody(int days);
+
+  /// No description provided for @noContactReflection.
+  ///
+  /// In en, this message translates to:
+  /// **'What happened? What would help next time? (optional)'**
+  String get noContactReflection;
+
+  /// No description provided for @noContactRestart.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart Today'**
+  String get noContactRestart;
+
+  /// No description provided for @noContactRestarted.
+  ///
+  /// In en, this message translates to:
+  /// **'New run started. Your days still count.'**
+  String get noContactRestarted;
+
+  /// No description provided for @insightsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Insights'**
+  String get insightsTitle;
+
+  /// No description provided for @insightsMood.
+  ///
+  /// In en, this message translates to:
+  /// **'Your last 14 days'**
+  String get insightsMood;
+
+  /// No description provided for @insightsNonLinear.
+  ///
+  /// In en, this message translates to:
+  /// **'Healing isn’t a straight line. Ups and downs are part of it.'**
+  String get insightsNonLinear;
+
+  /// No description provided for @insightsWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This week'**
+  String get insightsWeek;
+
+  /// No description provided for @insightsWeekCheckins.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{You haven’t checked in yet this week.} =1{You checked in once.} other{You checked in {count} times.}}'**
+  String insightsWeekCheckins(int count);
+
+  /// No description provided for @insightsWeekUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Your days felt a little lighter than the week before.'**
+  String get insightsWeekUp;
+
+  /// No description provided for @insightsWeekDown.
+  ///
+  /// In en, this message translates to:
+  /// **'This week was heavier than the last. That’s part of it too.'**
+  String get insightsWeekDown;
+
+  /// No description provided for @insightsWeekSame.
+  ///
+  /// In en, this message translates to:
+  /// **'About the same as last week. Steady counts too.'**
+  String get insightsWeekSame;
+
+  /// No description provided for @insightsWeekFeelings.
+  ///
+  /// In en, this message translates to:
+  /// **'Most often: {feelings}.'**
+  String insightsWeekFeelings(String feelings);
+
+  /// No description provided for @insightsCheckins.
+  ///
+  /// In en, this message translates to:
+  /// **'Check-ins'**
+  String get insightsCheckins;
+
+  /// No description provided for @insightsEntries.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal entries'**
+  String get insightsEntries;
+
+  /// No description provided for @insightsPlanDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan days done'**
+  String get insightsPlanDays;
+
+  /// No description provided for @insightsEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your pattern shows up here.'**
+  String get insightsEmptyTitle;
+
+  /// No description provided for @insightsEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Check in for a few days and you’ll see how your weeks move.'**
+  String get insightsEmptyBody;
+
+  /// No description provided for @insightsCheckInNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Check In Now'**
+  String get insightsCheckInNow;
+
+  /// No description provided for @insightsChartSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Mood over the last 14 days. {summary}'**
+  String insightsChartSemantics(String summary);
+
+  /// No description provided for @coachAiLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'AI · not therapy'**
+  String get coachAiLabel;
+
+  /// No description provided for @coachSuggestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Not sure where to start?'**
+  String get coachSuggestTitle;
+
+  /// No description provided for @coachSuggest1.
+  ///
+  /// In en, this message translates to:
+  /// **'I want to text them right now.'**
+  String get coachSuggest1;
+
+  /// No description provided for @coachSuggest2.
+  ///
+  /// In en, this message translates to:
+  /// **'I keep checking their profile.'**
+  String get coachSuggest2;
+
+  /// No description provided for @coachSuggest3.
+  ///
+  /// In en, this message translates to:
+  /// **'I can’t sleep tonight.'**
+  String get coachSuggest3;
+
+  /// No description provided for @coachSuggest4.
+  ///
+  /// In en, this message translates to:
+  /// **'Why do I still miss them?'**
+  String get coachSuggest4;
+
+  /// No description provided for @coachNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New Conversation'**
+  String get coachNew;
+
+  /// No description provided for @coachNewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a new conversation?'**
+  String get coachNewTitle;
+
+  /// No description provided for @coachNewBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Mira starts fresh. Earlier messages won’t show here anymore.'**
+  String get coachNewBody;
+
+  /// No description provided for @coachNewConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Start New'**
+  String get coachNewConfirm;
+
+  /// No description provided for @meAppearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get meAppearance;
+
+  /// No description provided for @meAppearanceSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic'**
+  String get meAppearanceSystem;
+
+  /// No description provided for @meAppearanceLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get meAppearanceLight;
+
+  /// No description provided for @meAppearanceDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Night'**
+  String get meAppearanceDark;
+
+  /// No description provided for @meProgressHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress'**
+  String get meProgressHeader;
+
+  /// No description provided for @draftJailEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing locked right now.'**
+  String get draftJailEmptyTitle;
+
+  /// No description provided for @draftJailEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'When the urge hits, write it here first. You can decide tomorrow.'**
+  String get draftJailEmptyBody;
+
+  /// No description provided for @paywallIncludes.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything in Premium'**
+  String get paywallIncludes;
+
+  /// No description provided for @paywallBrandBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium'**
+  String get paywallBrandBadge;
+
+  /// No description provided for @paywallMedalMira.
+  ///
+  /// In en, this message translates to:
+  /// **'Mira, anytime'**
+  String get paywallMedalMira;
+
+  /// No description provided for @paywallMedalPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'All 30 days'**
+  String get paywallMedalPlan;
+
+  /// No description provided for @paywallMedalAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Full analysis'**
+  String get paywallMedalAnalysis;
+
+  /// No description provided for @paywallMedalDrafts.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited Draft Jail'**
+  String get paywallMedalDrafts;
+
+  /// No description provided for @paywallMedalCoins.
+  ///
+  /// In en, this message translates to:
+  /// **'+{count} coins a month'**
+  String paywallMedalCoins(int count);
 }
 
 class _AppLocalizationsDelegate

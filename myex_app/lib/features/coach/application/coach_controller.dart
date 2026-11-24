@@ -86,6 +86,15 @@ class CoachController extends Notifier<CoachState> {
     return id;
   }
 
+  /// Starts a fresh conversation (normal chat only). Earlier messages stay on
+  /// the server; this device just stops showing them.
+  Future<void> startNew() async {
+    if (origin == ChatOrigin.normal) {
+      await ref.read(sharedPreferencesProvider).remove(_kNormalConversation);
+    }
+    if (ref.mounted) state = const CoachState();
+  }
+
   /// Sends [text]. The caller keeps the composer text until [CoachSendResult.sent]
   /// so an unsent message is never lost.
   Future<CoachSendResult> send(String text) async {

@@ -43,3 +43,7 @@ flutter:
     - family: InstrumentSerif
       fonts:
         - asset: assets/fonts/InstrumentSerif-Regular.ttf
+    # Fraunces (OFL), static instance: opsz 72, wght 620, SOFT 100, WONK 0.
+    - family: Fraunces
+      fonts:
+        - asset: assets/fonts/FrauncesSoft-SemiBold.ttf

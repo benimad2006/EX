@@ -7,6 +7,10 @@ import '../../features/coach/presentation/coach_screen.dart';
 import '../../features/draft_jail/presentation/draft_jail_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/home/presentation/home_shell.dart';
+import '../../features/insights/presentation/insights_screen.dart';
+import '../../features/journal/domain/journal_entry.dart';
+import '../../features/journal/presentation/journal_entry_screen.dart';
+import '../../features/journal/presentation/journal_screen.dart';
 import '../../features/lifecycle/presentation/trial_status_screen.dart';
 import '../../features/lifecycle/presentation/winback_screen.dart';
 import '../../features/me/presentation/me_screen.dart';
@@ -15,6 +19,7 @@ import '../../features/monetization/presentation/coins_store_screen.dart';
 import '../../features/monetization/presentation/paywall_screen.dart';
 import '../../features/monetization/presentation/plan_ready_screen.dart';
 import '../../features/monetization/presentation/welcome_screen.dart';
+import '../../features/no_contact/presentation/no_contact_screen.dart';
 import '../../features/onboarding/application/onboarding_controller.dart';
 import '../../features/onboarding/presentation/onboarding_quiz_screen.dart';
 import '../../features/plan/presentation/daily_task_screen.dart';
@@ -38,6 +43,16 @@ abstract final class Routes {
   static const trial = '/trial';
   static const winback = '/winback';
   static const sosDraft = '/sos/draft';
+  static const journal = '/journal';
+  static const noContact = '/no-contact';
+  static const insights = '/insights';
+
+  /// Journal editor: an existing entry ([id]) or a new one, optionally of a
+  /// [kind] and answering a guided [prompt].
+  static String journalEntry({String? id, String? kind, String? prompt}) => Uri(
+    path: '/journal-entry',
+    queryParameters: {'id': ?id, 'kind': ?kind, 'prompt': ?prompt},
+  ).toString();
 
   /// SOS with its entry point, for the sos_opened safety metric.
   static String sosFrom(String from) => '$sos?from=$from';
@@ -154,6 +169,32 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
       GoRoute(
+        path: '/journal-entry',
+        pageBuilder: (context, state) {
+          final q = state.uri.queryParameters;
+          return MaterialPage(
+            fullscreenDialog: q['id'] == null,
+            child: PresentingScale(
+              child: JournalEntryScreen(
+                id: q['id'],
+                kind: q['kind'] == null ? null : JournalKind.parse(q['kind']),
+                prompt: q['prompt'],
+              ),
+            ),
+          );
+        },
+      ),
+      GoRoute(
+        path: Routes.noContact,
+        builder: (context, state) =>
+            const PresentingScale(child: NoContactScreen()),
+      ),
+      GoRoute(
+        path: Routes.insights,
+        builder: (context, state) =>
+            const PresentingScale(child: InsightsScreen()),
+      ),
+      GoRoute(
         path: Routes.coins,
         builder: (context, state) =>
             const PresentingScale(child: CoinsStoreScreen()),
@@ -187,6 +228,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 path: Routes.coach,
                 builder: (context, state) =>
                     const CoachScreen(origin: ChatOrigin.normal),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.journal,
+                builder: (context, state) => const JournalScreen(),
               ),
             ],
           ),

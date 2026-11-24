@@ -101,6 +101,7 @@ class _PlanPickerState extends State<PlanPicker> {
         decoration: BoxDecoration(
           color: MyExColors.bgElev,
           borderRadius: BorderRadius.circular(MyExRadii.l),
+          border: Border.all(color: MyExColors.sep),
         ),
         child: Stack(
           children: [
@@ -115,12 +116,8 @@ class _PlanPickerState extends State<PlanPicker> {
                 height: hl.height,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: MyExColors.accentSoft,
+                    color: MyExColors.blush,
                     borderRadius: BorderRadius.circular(MyExRadii.planRow),
-                    border: Border.all(
-                      color: MyExColors.accent,
-                      width: MyExSizes.planHighlightBorder,
-                    ),
                   ),
                 ),
               ),
@@ -159,6 +156,9 @@ class _PlanRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // On the blush highlight, text switches to the dark "on blush" ink.
+    final on = selected ? MyExColors.onBlush : null;
+    final onSoft = selected ? MyExColors.onBlush.withValues(alpha: 0.72) : null;
     return Semantics(
       inMutuallyExclusiveGroup: true,
       checked: selected,
@@ -189,20 +189,26 @@ class _PlanRow extends StatelessWidget {
                       Text.rich(
                         TextSpan(
                           text: data.title,
-                          style: MyExType.headline,
+                          style: MyExType.headline.copyWith(color: on),
                           children: [
                             if (data.saveLabel != null) ...[
                               const TextSpan(text: '  '),
                               TextSpan(
                                 text: data.saveLabel,
-                                style: MyExType.save,
+                                style: MyExType.save.copyWith(
+                                  color: selected ? MyExColors.onBlush : null,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ],
                           ],
                         ),
                       ),
                       if (data.detail != null)
-                        Text(data.detail!, style: MyExType.footnote),
+                        Text(
+                          data.detail!,
+                          style: MyExType.footnote.copyWith(color: onSoft),
+                        ),
                     ],
                   ),
                 ),
@@ -213,12 +219,12 @@ class _PlanRow extends StatelessWidget {
                     Text(
                       data.price,
                       key: const Key('plan-billed'),
-                      style: MyExType.billedPrice,
+                      style: MyExType.billedPrice.copyWith(color: on),
                     ),
                     Text(
                       data.period,
                       key: const Key('plan-period'),
-                      style: MyExType.priceDetail,
+                      style: MyExType.priceDetail.copyWith(color: onSoft),
                     ),
                   ],
                 ),

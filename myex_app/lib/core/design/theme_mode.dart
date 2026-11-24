@@ -15,7 +15,8 @@ class AppearanceController extends Notifier<AppearanceMode> {
     final raw = ref.read(sharedPreferencesProvider).getString(_key);
     return AppearanceMode.values.firstWhere(
       (m) => m.name == raw,
-      orElse: () => AppearanceMode.system,
+      // Rose night is the identity; light is a choice in Me › Appearance.
+      orElse: () => AppearanceMode.dark,
     );
   }
 

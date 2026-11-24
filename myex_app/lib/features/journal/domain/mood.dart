@@ -83,7 +83,7 @@ MoodEntry? todaysMood(List<MoodEntry> entries, DateTime now) {
 }
 
 /// Most frequent feelings (top [n]) across [entries].
-List<MoodWord> topFeelings(List<MoodEntry> entries, {int n = 3}) {
+List<MoodWord> mostFrequentFeelings(List<MoodEntry> entries, {int n = 3}) {
   final c = <MoodWord, int>{};
   for (final e in entries) {
     for (final f in e.feelings) {

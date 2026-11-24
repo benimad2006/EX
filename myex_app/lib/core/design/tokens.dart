@@ -39,6 +39,12 @@ class MyExPalette {
     required this.pageGlowBottom,
     required this.mood,
     required this.shadowTint,
+    required this.skyTop,
+    required this.blush,
+    required this.onBlush,
+    required this.moon,
+    required this.lavender,
+    required this.cardRim,
   });
 
   final Brightness brightness;
@@ -53,6 +59,20 @@ class MyExPalette {
 
   /// Base colour of the (neutral) floating shadows.
   final Color shadowTint;
+
+  /// Top of the page sky (night: a plum dusk fading into [bg]).
+  final Color skyTop;
+
+  /// Soft pink highlight: headline accent words, the selected plan card.
+  final Color blush;
+  final Color onBlush;
+
+  /// Art colours (illustrations only, never UI text).
+  final Color moon;
+  final Color lavender;
+
+  /// Hairline rim on content cards (night only; transparent by day).
+  final Color cardRim;
 
   static const light = MyExPalette(
     brightness: Brightness.light,
@@ -86,45 +106,59 @@ class MyExPalette {
       Color(0xFFF59AB8),
     ],
     shadowTint: Color(0xFF3A0F22),
+    skyTop: Color(0xFFFFE9EF),
+    blush: Color(0xFFFFD6E4),
+    onBlush: Color(0xFF3A0F22),
+    moon: Color(0xFFF7C9A6),
+    lavender: Color(0xFF9C7BEA),
+    cardRim: Color(0x00000000),
   );
 
+  /// "Rose night": the default identity. Plum-black sky, rose accent,
+  /// blush highlights, a cream moon (docs/design/MYEX_DESIGN_DIRECTION.md).
   static const night = MyExPalette(
     brightness: Brightness.dark,
-    bg: Color(0xFF140A0F),
-    bgElev: Color(0xFF231219),
-    ink: Color(0xFFFBEAF0),
-    ink2: Color(0xFFC79AAE),
-    ink3: Color(0x52FBEAF0),
-    sep: Color(0x24FBEAF0),
-    fill: Color(0x14FBEAF0),
-    capsule: Color(0x1FFBEAF0),
-    neutralIcon: Color(0xFF8F6E7D),
-    accent: Color(0xFFFF4F8B),
-    accentInk: Color(0xFFFF8DB3),
-    accentSoft: Color(0x29FF4F8B),
-    success: Color(0xFF3CCB94),
-    successSoft: Color(0x243CCB94),
+    bg: Color(0xFF140A18),
+    bgElev: Color(0xFF22122A),
+    ink: Color(0xFFFFF0F5),
+    ink2: Color(0xFFCDA6BC),
+    ink3: Color(0x52FFF0F5),
+    sep: Color(0x1FFFF0F5),
+    fill: Color(0x14FFF0F5),
+    capsule: Color(0x1FFFF0F5),
+    neutralIcon: Color(0xFF7E5F78),
+    accent: Color(0xFFFF5C93),
+    accentInk: Color(0xFFFF9EC2),
+    accentSoft: Color(0x2EFF5C93),
+    success: Color(0xFF45D19E),
+    successSoft: Color(0x2445D19E),
     danger: Color(0xFFFF5A6E),
-    scrim: Color(0x8C000000),
+    scrim: Color(0x99000000),
     pushDim: Color(0x4D000000),
-    glassFill: Color(0x99301A24),
-    glassRim: Color(0x33FFFFFF),
-    glassHighlight: Color(0x1AFFFFFF),
-    pageGlowTop: Color(0x29B3134F),
-    pageGlowBottom: Color(0x1A7A1F4A),
+    glassFill: Color(0x8C2A1633),
+    glassRim: Color(0x29FFFFFF),
+    glassHighlight: Color(0x14FFFFFF),
+    pageGlowTop: Color(0x40B3134F),
+    pageGlowBottom: Color(0x33603A9C),
     mood: [
-      Color(0xFF8C5A7C),
-      Color(0xFFB3628F),
-      Color(0xFFE0457F),
-      Color(0xFFF2709D),
-      Color(0xFFFFADC8),
+      Color(0xFF8C5A9C),
+      Color(0xFFB862A0),
+      Color(0xFFE8508A),
+      Color(0xFFFF7EA8),
+      Color(0xFFFFC4D8),
     ],
     shadowTint: Color(0xFF000000),
+    skyTop: Color(0xFF2A1233),
+    blush: Color(0xFFFFC4D8),
+    onBlush: Color(0xFF2B0E22),
+    moon: Color(0xFFFDE1CD),
+    lavender: Color(0xFFB79BFF),
+    cardRim: Color(0x14FFFFFF),
   );
 }
 
 abstract final class MyExColors {
-  static MyExPalette _p = MyExPalette.light;
+  static MyExPalette _p = MyExPalette.night;
 
   /// The active palette. Set ONLY by the app root (lib/app.dart), which then
   /// remounts the tree so every widget picks it up.
@@ -180,6 +214,14 @@ abstract final class MyExColors {
 
   /// Switches only.
   static const switchOn = Color(0xFF34C759);
+
+  // ---- Highlights + art ----
+  static Color get blush => _p.blush;
+  static Color get onBlush => _p.onBlush;
+  static Color get moon => _p.moon;
+  static Color get lavender => _p.lavender;
+  static Color get skyTop => _p.skyTop;
+  static Color get cardRim => _p.cardRim;
 
   // ---- Mood (1..5) ----
   static Color mood(int level) => _p.mood[(level - 1).clamp(0, 4)];

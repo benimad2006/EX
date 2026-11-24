@@ -23,6 +23,17 @@ plus project notes. Phases run in order: M0 → M1 → … → M9 → MR.
   build with a real config. When adding a repository, add its demo fake too or the APK breaks.
 - Draft Jail and Mira from SOS are never limited (server `consume_quota` bypass + `draftUiAction` rule).
 - Pending founder decision: research R6 (trial-keeping exit offer). Don't implement without a go.
+- **Visual direction (founder, 2026-11-24, overrides the older "no gradients / Instrument Serif" notes above and in
+  the M0 design-token block):** "Rose night" is the default identity, inspired by Moonly: plum-black night sky with
+  stars, cream crescent moon, rose accent, blush highlights, bold soft serif (Fraunces, bundled) for large titles,
+  posters, display text and numerals. Illustrations are drawn in code in `lib/core/design/art.dart` (StarField,
+  CrescentMoon, DreamerFigure, DreamScene, ArtMedallion, PosterHeadline); gradients are allowed inside art, never
+  as fake urgency or glow on CTAs. Light mode stays as a choice in Me › Appearance.
+- Two palettes (light "Love", night "Rose night" = default, `MyExPalette` in `tokens.dart`). `MyExColors.*` and `MyExType.*` are
+  getters, so never put them inside a `const` expression; `lib/app.dart` picks the palette and repaints on change.
+- Journal, mood and no-contact data are private (RLS, own rows only, never sent to analytics or Edge Functions).
+  No contact never shames: "I Reached Out" restarts kindly and "days you chose yourself" never resets.
+- Design research and direction: `docs/design/` (read MYEX_DESIGN_DIRECTION.md before visual work).
 - Checks before finishing any change: `dart format lib test`, `flutter analyze` (0 issues), `flutter test`.
 
 ---

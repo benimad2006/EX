@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'art.dart';
 import 'glass.dart';
 import 'motion.dart';
 import 'tokens.dart';
@@ -19,20 +20,32 @@ import 'typography.dart';
 /// Calm static page background: bg + two faint glows (gives glass something
 /// to refract without moving).
 class ScreenBackground extends StatelessWidget {
-  const ScreenBackground({super.key, required this.child});
+  const ScreenBackground({super.key, required this.child, this.stars = true});
   final Widget child;
+
+  /// Night only: a faint star field over the upper sky.
+  final bool stars;
 
   @override
   Widget build(BuildContext context) {
+    final night = MyExColors.isNight;
     return DecoratedBox(
-      decoration: BoxDecoration(color: MyExColors.bg),
+      decoration: BoxDecoration(
+        color: MyExColors.bg,
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [MyExColors.skyTop, MyExColors.bg],
+          stops: const [0, 0.55],
+        ),
+      ),
       child: DecoratedBox(
         decoration: BoxDecoration(
           gradient: RadialGradient(
             center: const Alignment(1, -1),
             radius: 1.0,
             colors: [MyExColors.pageGlowTop, const Color(0x00FF78A0)],
-            stops: [0, 0.7],
+            stops: const [0, 0.7],
           ),
         ),
         child: DecoratedBox(
@@ -41,10 +54,26 @@ class ScreenBackground extends StatelessWidget {
               center: const Alignment(-1, 1),
               radius: 0.8,
               colors: [MyExColors.pageGlowBottom, const Color(0x00FFAAC3)],
-              stops: [0, 0.7],
+              stops: const [0, 0.7],
             ),
           ),
-          child: child,
+          child: night && stars
+              ? Stack(
+                  children: [
+                    const Positioned(
+                      left: 0,
+                      right: 0,
+                      top: 0,
+                      height: 420,
+                      child: Opacity(
+                        opacity: 0.55,
+                        child: StarField(count: 38, seed: 21),
+                      ),
+                    ),
+                    Positioned.fill(child: child),
+                  ],
+                )
+              : child,
         ),
       ),
     );
@@ -78,6 +107,10 @@ class SolidCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: MyExColors.bgElev,
         borderRadius: const BorderRadius.all(Radius.circular(MyExRadii.l)),
+        border: Border.all(
+          color: MyExColors.cardRim,
+          width: MyExSizes.hairline,
+        ),
       ),
       child: Padding(padding: padding, child: child),
     );
@@ -149,11 +182,21 @@ class InsetGroup extends StatelessWidget {
       }
       rows.add(children[i]);
     }
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(MyExRadii.l),
-      child: ColoredBox(
-        color: MyExColors.bgElev,
-        child: Column(mainAxisSize: MainAxisSize.min, children: rows),
+    return DecoratedBox(
+      position: DecorationPosition.foreground,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(MyExRadii.l),
+        border: Border.all(
+          color: MyExColors.cardRim,
+          width: MyExSizes.hairline,
+        ),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(MyExRadii.l),
+        child: ColoredBox(
+          color: MyExColors.bgElev,
+          child: Column(mainAxisSize: MainAxisSize.min, children: rows),
+        ),
       ),
     );
   }
@@ -607,6 +650,7 @@ class HeroCard extends StatelessWidget {
       pressedScale: 0.98,
       child: Container(
         width: double.infinity,
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(MyExRadii.xl),
           gradient: MyExColors.heroGradient,
@@ -616,15 +660,34 @@ class HeroCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(MyExRadii.xl),
             gradient: MyExColors.heroHighlightGradient,
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(MyExSpacing.s5),
-            child: DefaultTextStyle.merge(
-              style: const TextStyle(color: MyExColors.onHero),
-              child: IconTheme.merge(
-                data: const IconThemeData(color: MyExColors.onHero),
-                child: child,
+          child: Stack(
+            children: [
+              const Positioned(
+                right: -6,
+                top: -10,
+                child: Opacity(opacity: 0.9, child: CrescentMoon(size: 92)),
               ),
-            ),
+              const Positioned.fill(
+                child: Opacity(
+                  opacity: 0.6,
+                  child: StarField(
+                    count: 14,
+                    seed: 9,
+                    color: MyExColors.onHero,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(MyExSpacing.s5),
+                child: DefaultTextStyle.merge(
+                  style: const TextStyle(color: MyExColors.onHero),
+                  child: IconTheme.merge(
+                    data: const IconThemeData(color: MyExColors.onHero),
+                    child: child,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

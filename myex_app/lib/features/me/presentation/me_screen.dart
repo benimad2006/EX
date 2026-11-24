@@ -16,6 +16,7 @@ import '../../monetization/domain/paywall_offer.dart';
 import '../../monetization/domain/premium_state.dart';
 import '../../monetization/domain/purchase_outcome.dart';
 import '../../monetization/presentation/paywall_copy.dart';
+import '../../no_contact/data/no_contact_repository.dart';
 import '../../onboarding/application/onboarding_controller.dart';
 import '../../plan/application/plan_progress.dart';
 import '../../subscription/data/subscription_repository.dart';
@@ -152,6 +153,13 @@ class _MeScreenState extends ConsumerState<MeScreen> {
     };
 
     final expires = premium?.expiresAt;
+    final nc = ref.watch(noContactProvider).value;
+    final appearance = ref.watch(appearanceProvider);
+    String appearanceLabel(AppearanceMode m) => switch (m) {
+      AppearanceMode.system => l.meAppearanceSystem,
+      AppearanceMode.light => l.meAppearanceLight,
+      AppearanceMode.dark => l.meAppearanceDark,
+    };
 
     return ScreenBackground(
       child: LargeTitleScrollView(
@@ -266,6 +274,69 @@ class _MeScreenState extends ConsumerState<MeScreen> {
                   SectionFooter(l.meCancelledNote(context.shortDate(expires))),
               ],
             ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SectionHeader(l.meProgressHeader),
+              InsetGroup(
+                children: [
+                  ListRow(
+                    key: const Key('me-insights'),
+                    leading: const IconSquare(icon: Icons.insights_rounded),
+                    title: l.insightsTitle,
+                    onTap: () => context.push(Routes.insights),
+                  ),
+                  ListRow(
+                    key: const Key('me-no-contact'),
+                    leading: const IconSquare(
+                      icon: Icons.local_fire_department_outlined,
+                    ),
+                    title: l.noContactTitle,
+                    value: nc?.current == null
+                        ? null
+                        : l.noContactGoalDays(nc!.currentDays(DateTime.now())),
+                    onTap: () => context.push(Routes.noContact),
+                  ),
+                  ListRow(
+                    key: const Key('me-appearance'),
+                    leading: const IconSquare(
+                      icon: Icons.dark_mode_outlined,
+                      tone: IconTone.neutral,
+                    ),
+                    title: l.meAppearance,
+                    value: appearanceLabel(appearance),
+                    onTap: () => showGlassSheet<void>(
+                      context: context,
+                      semanticLabel: l.meAppearance,
+                      builder: (ctx) => Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(l.meAppearance, style: MyExType.title2),
+                          const Gap(MyExSpacing.s4),
+                          InsetGroup(
+                            children: [
+                              for (final m in AppearanceMode.values)
+                                SelectRow(
+                                  title: appearanceLabel(m),
+                                  selected: m == appearance,
+                                  onTap: () {
+                                    Navigator.of(ctx).pop();
+                                    ref
+                                        .read(appearanceProvider.notifier)
+                                        .set(m);
+                                  },
+                                ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

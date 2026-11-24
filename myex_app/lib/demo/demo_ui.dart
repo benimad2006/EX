@@ -74,18 +74,17 @@ class DemoPill extends ConsumerWidget {
     return Stack(
       children: [
         child,
+        // A small handle on the left edge: never covers nav titles or CTAs.
         Positioned(
-          top: top,
           left: 0,
-          right: 0,
-          child: Center(
-            child: GlassChip(
+          top: top + MyExSizes.navBarHeight + MyExSpacing.s8 * 3,
+          child: Semantics(
+            button: true,
+            label: 'Demo mode. Open demo menu',
+            excludeSemantics: true,
+            child: Pressable(
               key: const Key('demo-pill'),
-              label: 'Demo',
-              leading: const Icon(Icons.science_outlined),
-              foreground: MyExColors.accentInk,
-              semanticLabel: 'Demo mode. Open demo menu',
-              onPressed: () {
+              onTap: () {
                 final ctx = ref
                     .read(appRouterProvider)
                     .routerDelegate
@@ -93,6 +92,20 @@ class DemoPill extends ConsumerWidget {
                     .currentContext;
                 if (ctx != null) showDemoMenu(ctx, ref);
               },
+              child: GlassSurface(
+                radius: MyExRadii.capsule,
+                padding: const EdgeInsets.fromLTRB(
+                  MyExSpacing.s2,
+                  MyExSpacing.s3,
+                  MyExSpacing.s2 + 2,
+                  MyExSpacing.s3,
+                ),
+                child: Icon(
+                  Icons.science_outlined,
+                  size: MyExSizes.icon,
+                  color: MyExColors.accentInk,
+                ),
+              ),
             ),
           ),
         ),

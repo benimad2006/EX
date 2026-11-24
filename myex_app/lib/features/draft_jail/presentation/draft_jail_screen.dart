@@ -227,7 +227,26 @@ class _DraftJailScreenState extends ConsumerState<DraftJailScreen> {
             if (drafts.hasError && list.isEmpty)
               Footnote(l.draftListError)
             else if (list.isEmpty && drafts.hasValue)
-              Footnote(l.draftEmpty),
+              Padding(
+                padding: const EdgeInsets.only(top: MyExSpacing.s6),
+                child: Column(
+                  children: [
+                    const PetalMark(size: 44),
+                    const Gap(MyExSpacing.s3),
+                    Text(
+                      l.draftJailEmptyTitle,
+                      textAlign: TextAlign.center,
+                      style: MyExType.headline,
+                    ),
+                    const Gap(MyExSpacing.s1),
+                    Text(
+                      l.draftJailEmptyBody,
+                      textAlign: TextAlign.center,
+                      style: MyExType.subheadline,
+                    ),
+                  ],
+                ),
+              ),
             if (locked.isNotEmpty)
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,

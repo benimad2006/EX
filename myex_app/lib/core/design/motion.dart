@@ -77,6 +77,9 @@ abstract final class MyExDurations {
   /// Reduce Motion crossfade.
   static const reducedFade = Duration(milliseconds: 200);
 
+  /// Mood chart draw-in (once, on first show).
+  static const chartDraw = Duration(milliseconds: 900);
+
   /// SOS breathing cycle (in + out).
   static const breath = Duration(seconds: 8);
 }

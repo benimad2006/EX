@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../../../core/design/design.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/util/context_x.dart';
+import '../../journal/data/journal_repository.dart';
+import '../../journal/domain/mood.dart';
+import '../../journal/presentation/journal_labels.dart';
+import '../../journal/presentation/mood_checkin_sheet.dart';
 import '../../monetization/application/monetization_providers.dart';
 import '../../monetization/domain/paywall_offer.dart';
 import '../../monetization/presentation/paywall_copy.dart';
 import '../../monetization/presentation/widgets/status_chips.dart';
+import '../../no_contact/data/no_contact_repository.dart';
+import '../../no_contact/domain/no_contact.dart';
 import '../../onboarding/application/onboarding_controller.dart';
 import '../../plan/application/plan_progress.dart';
 import '../../plan/domain/plan_models.dart';
-import '../application/streak.dart';
 
 /// Home (spec H1): large title "Today", the streak hero (the app's only
 /// gradient), then grouped lists. Premium is a quiet row, never a pop-up.
@@ -35,7 +41,9 @@ class HomeScreen extends ConsumerWidget {
     final premium = ref.watch(premiumProvider).value;
     final isPremium = premium?.isActive ?? false;
     final limits = ref.watch(limitsProvider).value;
-    final since = ref.watch(noContactSinceProvider).value;
+    final nc = ref.watch(noContactProvider).value;
+    final moods = ref.watch(moodEntriesProvider).value;
+    final entries = ref.watch(journalEntriesProvider).value;
     final offer = isPremium ? null : ref.watch(paywallOfferProvider).value;
     final trialDays = offer == null
         ? null
@@ -50,7 +58,10 @@ class HomeScreen extends ConsumerWidget {
         trailing: const CoinChip(),
         onRefresh: () async {
           invalidateMonetization(ref);
-          ref.invalidate(noContactSinceProvider);
+          ref
+            ..invalidate(noContactProvider)
+            ..invalidate(moodEntriesProvider)
+            ..invalidate(journalEntriesProvider);
         },
         children: [
           if (premium?.billingIssue ?? false)
@@ -61,26 +72,41 @@ class HomeScreen extends ConsumerWidget {
               onAction: () =>
                   Links.openManageSubscriptions(premium?.managementUrl),
             ),
-          _StreakHero(
-            since: since,
-            onStart: () => ref.read(startStreakProvider)(),
-            onTap: () => context.go(Routes.plan),
-          ),
-          InsetGroup(
+          _StreakHero(state: nc, onTap: () => context.push(Routes.noContact)),
+          _MoodCard(moods: moods),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _todayRow(context, ref, plan),
-              ListRow(
-                leading: const IconSquare(
-                  icon: Icons.chat_bubble_outline_rounded,
-                  tone: IconTone.neutral,
-                ),
-                title: l.homeMiraTitle,
-                subtitle: isPremium
-                    ? l.homeMiraUnlimited
-                    : limits == null
-                    ? null
-                    : l.homeMiraFreeLeft(limits.freeMessagesLeft),
-                onTap: () => context.go(Routes.coach),
+              SectionHeader(l.homeDayHeader),
+              InsetGroup(
+                children: [
+                  _todayRow(context, ref, plan),
+                  ListRow(
+                    leading: const IconSquare(
+                      icon: Icons.chat_bubble_outline_rounded,
+                      tone: IconTone.neutral,
+                    ),
+                    title: l.homeMiraTitle,
+                    subtitle: isPremium
+                        ? l.homeMiraUnlimited
+                        : limits == null
+                        ? null
+                        : l.homeMiraFreeLeft(limits.freeMessagesLeft),
+                    onTap: () => context.go(Routes.coach),
+                  ),
+                  ListRow(
+                    key: const Key('home-journal-row'),
+                    leading: const IconSquare(
+                      icon: Icons.book_outlined,
+                      tone: IconTone.neutral,
+                    ),
+                    title: l.homeJournalTitle,
+                    subtitle: entries == null
+                        ? null
+                        : l.homeJournalSub(entries.length),
+                    onTap: () => context.go(Routes.journal),
+                  ),
+                ],
               ),
             ],
           ),
@@ -179,20 +205,16 @@ class HomeScreen extends ConsumerWidget {
 }
 
 class _StreakHero extends StatelessWidget {
-  const _StreakHero({
-    required this.since,
-    required this.onStart,
-    required this.onTap,
-  });
+  const _StreakHero({required this.state, required this.onTap});
 
-  final DateTime? since;
-  final VoidCallback onStart;
+  final NoContactState? state;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    final s = since;
+    final now = DateTime.now();
+    final s = state;
     final labelStyle = MyExType.subheadline.copyWith(
       color: MyExColors.onHero,
       fontWeight: FontWeight.w600,
@@ -204,9 +226,11 @@ class _StreakHero extends StatelessWidget {
         Text(l.homeHeroLabel, style: labelStyle),
       ],
     );
-    if (s == null) {
+    if (s == null) return const SkeletonBox(height: 168);
+    if (s.current == null) {
       return HeroCard(
-        onTap: onStart,
+        key: const Key('home-hero-start'),
+        onTap: onTap,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -214,19 +238,30 @@ class _StreakHero extends StatelessWidget {
             const Gap(MyExSpacing.s3),
             Text(
               l.homeHeroStart,
-              style: MyExType.title3.copyWith(color: MyExColors.onHero),
+              style: MyExType.display.copyWith(
+                color: MyExColors.onHero,
+                fontSize: 30,
+                height: 34 / 30,
+              ),
             ),
-            const Gap(MyExSpacing.s1),
-            Text(
-              l.homeHeroStartCta,
-              style: MyExType.headline.copyWith(color: MyExColors.onHero),
+            const Gap(MyExSpacing.s4),
+            Row(
+              children: [
+                Text(
+                  l.homeHeroChooseGoal,
+                  style: MyExType.headline.copyWith(color: MyExColors.onHero),
+                ),
+                const Gap(MyExSpacing.s1),
+                const Icon(Icons.arrow_forward_rounded, size: MyExSizes.icon),
+              ],
             ),
           ],
         ),
       );
     }
-    final days = streakDays(s, DateTime.now());
-    final target = nextStreakMilestone(days);
+    final days = s.currentDays(now);
+    final target = s.nextTarget(now);
+    final chosen = s.chosenDays(now);
     return Semantics(
       button: true,
       label: '${l.homeHeroLabel}: $days ${l.homeHeroUnit(days)}',
@@ -257,7 +292,7 @@ class _StreakHero extends StatelessWidget {
             ),
             const Gap(MyExSpacing.s3),
             ProgressBar(
-              value: days / target,
+              value: target == 0 ? 0 : days / target,
               color: MyExColors.onHero,
               track: MyExColors.heroTrack,
             ),
@@ -266,8 +301,136 @@ class _StreakHero extends StatelessWidget {
               l.homeHeroNext(target - days, target),
               style: MyExType.subheadline.copyWith(color: MyExColors.onHero),
             ),
+            if (chosen > days) ...[
+              const Gap(MyExSpacing.s1),
+              Text(
+                l.homeHeroChosen(chosen),
+                style: MyExType.footnote.copyWith(
+                  color: MyExColors.onHero.withValues(alpha: 0.85),
+                ),
+              ),
+            ],
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// Inline check-in (two taps) + this week's dots. The dots open Insights.
+class _MoodCard extends StatelessWidget {
+  const _MoodCard({required this.moods});
+  final List<MoodEntry>? moods;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l10n;
+    final now = DateTime.now();
+    final all = moods ?? const <MoodEntry>[];
+    final today = todaysMood(all, now);
+    final week = dailyMoodAverages(all, now, days: 7);
+    final letter = DateFormat('EEEEE', context.localeName);
+    return SolidCard(
+      key: const Key('home-mood-card'),
+      padding: const EdgeInsets.all(MyExSpacing.s5),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (today == null) ...[
+            Text(l.homeMoodTitle, style: MyExType.headline),
+            const Gap(MyExSpacing.s3),
+            MoodScale(
+              value: null,
+              dotSize: 34,
+              words: l.moodWords,
+              semantics: l.moodScaleSemantics,
+              onChanged: (lv) => showMoodCheckIn(context, initialLevel: lv),
+            ),
+          ] else ...[
+            Row(
+              children: [
+                MoodDot(level: today.level.toDouble(), size: 14),
+                const Gap(MyExSpacing.s2),
+                Expanded(
+                  child: Text(
+                    l.homeMoodDone(l.moodWord(today.level)),
+                    style: MyExType.headline,
+                  ),
+                ),
+              ],
+            ),
+            if (today.feelings.isNotEmpty) ...[
+              const Gap(MyExSpacing.s1),
+              Text(
+                today.feelings.map(l.feeling).join(' · '),
+                style: MyExType.subheadline,
+              ),
+            ],
+            const Gap(MyExSpacing.s2),
+            Row(
+              children: [
+                TextLinkButton(
+                  label: l.homeMoodWrite,
+                  small: true,
+                  semibold: true,
+                  onPressed: () => context.push(Routes.journalEntry()),
+                ),
+                const Gap(MyExSpacing.s4),
+                TextLinkButton(
+                  label: l.homeMoodAgain,
+                  small: true,
+                  tone: TextLinkTone.muted,
+                  onPressed: () => showMoodCheckIn(context),
+                ),
+              ],
+            ),
+          ],
+          const Gap(MyExSpacing.s4),
+          Divider(
+            height: MyExSizes.hairline,
+            thickness: MyExSizes.hairline,
+            color: MyExColors.sep,
+          ),
+          const Gap(MyExSpacing.s4),
+          Pressable(
+            onTap: () => context.push(Routes.insights),
+            pressedScale: 0.98,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    Text(l.homeWeekTitle, style: MyExType.subheadline),
+                    const Spacer(),
+                    Text(
+                      l.homeWeekSee,
+                      style: MyExType.subheadline.copyWith(
+                        color: MyExColors.accentInk,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Icon(
+                      Icons.chevron_right_rounded,
+                      size: MyExSizes.icon,
+                      color: MyExColors.accentInk,
+                    ),
+                  ],
+                ),
+                const Gap(MyExSpacing.s3),
+                WeekStrip(
+                  days: [
+                    for (var i = 0; i < 7; i++)
+                      (
+                        letter.format(now.subtract(Duration(days: 6 - i))),
+                        week[i],
+                        i == 6,
+                      ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

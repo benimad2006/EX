@@ -11,7 +11,8 @@ import 'tokens.dart';
 // =============================================================================
 
 abstract final class MyExFonts {
-  static const serif = 'InstrumentSerif';
+  /// Fraunces, soft semibold (bundled static instance, OFL).
+  static const serif = 'Fraunces';
 }
 
 abstract final class MyExType {
@@ -24,7 +25,15 @@ abstract final class MyExType {
   );
 
   // ---- iOS text styles ----
-  static TextStyle get largeTitle => _sans(34, 41, FontWeight.w700);
+  /// Tab large titles: the brand serif (editorial voice on every tab).
+  static TextStyle get largeTitle => TextStyle(
+    fontFamily: MyExFonts.serif,
+    fontSize: 36,
+    height: 42 / 36,
+    letterSpacing: -0.8,
+    fontWeight: FontWeight.w400,
+    color: MyExColors.ink,
+  );
   static TextStyle get title1 => _sans(28, 34, FontWeight.w700);
   static TextStyle get title2 => _sans(22, 28, FontWeight.w700);
 
@@ -53,13 +62,17 @@ abstract final class MyExType {
   /// One per emotional screen (Plan ready, Paywall, Welcome, SOS, Win-back).
   static TextStyle get display => TextStyle(
     fontFamily: MyExFonts.serif,
-    fontSize: 40,
-    height: 44 / 40,
-    letterSpacing: -0.8, // −0.02em
+    fontSize: 36,
+    height: 40 / 36,
+    letterSpacing: -0.7, // −0.02em
     fontWeight: FontWeight.w400,
     fontStyle: FontStyle.normal,
     color: MyExColors.ink,
   );
+
+  /// Poster headline (paywall, onboarding hero): bold, stacked, 3 lines max.
+  static TextStyle get poster =>
+      display.copyWith(fontSize: 46, height: 48 / 46, letterSpacing: -1.2);
 
   /// Display at sheet size (exit offer).
   static const displaySheet = 34.0;
@@ -78,7 +91,7 @@ abstract final class MyExType {
     fontFamily: MyExFonts.serif,
     fontSize: size,
     height: 0.9,
-    letterSpacing: -0.03 * size,
+    letterSpacing: -0.02 * size,
     fontWeight: FontWeight.w400,
     fontStyle: FontStyle.normal,
     fontFeatures: const [FontFeature.tabularFigures()],

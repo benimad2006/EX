@@ -1261,5 +1261,253 @@
   "paywallOpenSettings": "Open Settings",
   "paywallHowCancel": "How do I cancel?",
   "paywallHowCancelIos": "Settings › your name › Subscriptions › MyEx › Cancel Subscription. Takes under a minute. Your streak and journal stay.",
-  "paywallHowCancelAndroid": "Play Store › your profile › Payments & subscriptions › Subscriptions › MyEx › Cancel. Takes under a minute. Your streak and journal stay."
+  "paywallHowCancelAndroid": "Play Store › your profile › Payments & subscriptions › Subscriptions › MyEx › Cancel. Takes under a minute. Your streak and journal stay.",
+  "tabJournal": "Journal",
+  "commonSaveFailed": "Couldn’t save. Try again.",
+  "homeMoodTitle": "How are you, right now?",
+  "homeMoodDone": "Today you felt {mood}.",
+  "@homeMoodDone": {
+    "placeholders": {
+      "mood": {
+        "type": "String"
+      }
+    }
+  },
+  "homeMoodWrite": "Write About It",
+  "homeMoodAgain": "Check In Again",
+  "homeDayHeader": "Your day",
+  "homeJournalTitle": "Journal",
+  "homeJournalSub": "{count, plural, =0{Write tonight’s first line} =1{1 entry so far} other{{count} entries so far}}",
+  "@homeJournalSub": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeWeekTitle": "This week",
+  "homeWeekSee": "Insights",
+  "homeHeroChooseGoal": "Choose a Goal",
+  "homeHeroChosen": "{count, plural, =1{1 day you chose yourself} other{{count} days you chose yourself}}",
+  "@homeHeroChosen": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "moodLevel1": "heavy",
+  "moodLevel2": "low",
+  "moodLevel3": "okay",
+  "moodLevel4": "lighter",
+  "moodLevel5": "good",
+  "moodSheetFeelings": "What’s in there?",
+  "moodSheetNote": "Anything to add? (optional)",
+  "moodSheetSave": "Save Check-in",
+  "moodSaved": "Saved. Thanks for checking in.",
+  "moodScaleSemantics": "Mood {level} of 5, {word}",
+  "@moodScaleSemantics": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      },
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "moodWordHeartbroken": "Heartbroken",
+  "moodWordLonely": "Lonely",
+  "moodWordAngry": "Angry",
+  "moodWordAnxious": "Anxious",
+  "moodWordNumb": "Numb",
+  "moodWordConfused": "Confused",
+  "moodWordTired": "Tired",
+  "moodWordHopeful": "Hopeful",
+  "moodWordCalm": "Calm",
+  "moodWordRelieved": "Relieved",
+  "moodWordProud": "Proud",
+  "moodWordGrateful": "Grateful",
+  "journalTitle": "Journal",
+  "journalNew": "New Entry",
+  "journalSearch": "Search your journal",
+  "journalFilterAll": "All",
+  "journalKindReflection": "Reflection",
+  "journalKindLetter": "Unsent letter",
+  "journalKindGratitude": "Gratitude",
+  "journalKindList": "List",
+  "journalPromptToday": "Tonight’s prompt",
+  "journalWrite": "Write",
+  "journalEmptyTitle": "Your pages are private.",
+  "journalEmptyBody": "Write what you can’t say out loud. Only you can see it.",
+  "journalEmptyCta": "Write Your First Entry",
+  "journalNoResults": "Nothing matches “{query}”.",
+  "@journalNoResults": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "journalPrivate": "Only you can see your journal.",
+  "journalEditorHint": "Start anywhere.",
+  "journalSave": "Save",
+  "journalAnotherPrompt": "Another Prompt",
+  "journalMoodOptional": "How did writing leave you? (optional)",
+  "journalDelete": "Delete Entry",
+  "journalDeleteTitle": "Delete this entry?",
+  "journalDeleteBody": "It can’t be recovered.",
+  "journalDiscardTitle": "Discard this entry?",
+  "journalDiscardBody": "What you wrote won’t be saved.",
+  "journalDiscard": "Discard",
+  "journalKeepWriting": "Keep Writing",
+  "journalSaved": "Saved to your journal.",
+  "journalPromptReflection1": "What was hardest today?",
+  "journalPromptReflection2": "What do you miss, and what don’t you?",
+  "journalPromptReflection3": "When did you feel most like yourself this week?",
+  "journalPromptReflection4": "What would you tell a friend going through this?",
+  "journalPromptLetter1": "A letter you won’t send",
+  "journalPromptLetter2": "What you never got to say",
+  "journalPromptLetter3": "Goodbye, in your own words",
+  "journalPromptGratitude1": "One small thing that went right today",
+  "journalPromptGratitude2": "Someone who showed up for you",
+  "journalPromptGratitude3": "Something you did for yourself today",
+  "journalPromptList1": "Three things you won’t miss",
+  "journalPromptList2": "Five things that are yours again",
+  "journalPromptList3": "Things you want to try on your own",
+  "noContactTitle": "No contact",
+  "noContactIntroTitle": "Give yourself space.",
+  "noContactIntroBody": "No texts, no checking their profile. Pick a goal. If you slip, you restart kindly, and every day still counts.",
+  "noContactGoal": "Goal",
+  "noContactGoalDays": "{count, plural, =1{1 day} other{{count} days}}",
+  "@noContactGoalDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noContactStart": "Start Today",
+  "noContactOfGoal": "of {goal}",
+  "@noContactOfGoal": {
+    "placeholders": {
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
+  "noContactNext": "{count, plural, =1{Next milestone tomorrow} other{Next milestone in {count} days}}",
+  "@noContactNext": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noContactGoalReached": "Goal reached. Keep going if it feels right.",
+  "noContactChosen": "Days you chose yourself",
+  "noContactChosenNote": "Counts every day of every run. It never resets.",
+  "noContactBest": "Best run",
+  "noContactRuns": "Runs",
+  "noContactMilestones": "Milestones",
+  "noContactMilestone1": "The first night",
+  "noContactMilestone3": "The hardest stretch for many",
+  "noContactMilestone7": "One week of choosing you",
+  "noContactMilestone14": "New habits take root",
+  "noContactMilestone30": "A month of space",
+  "noContactMilestone60": "Two months, your own rhythm",
+  "noContactMilestone90": "A new normal",
+  "noContactHistory": "Past runs",
+  "noContactRun": "{days, plural, =1{1 day} other{{days} days}} · {range}",
+  "@noContactRun": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      },
+      "range": {
+        "type": "String"
+      }
+    }
+  },
+  "noContactReachedOut": "I Reached Out",
+  "noContactRestartTitle": "That’s okay.",
+  "noContactRestartBody": "Reaching out doesn’t erase what you did. Your {days, plural, =1{1 day} other{{days} days}} still count.",
+  "@noContactRestartBody": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "noContactReflection": "What happened? What would help next time? (optional)",
+  "noContactRestart": "Restart Today",
+  "noContactRestarted": "New run started. Your days still count.",
+  "insightsTitle": "Insights",
+  "insightsMood": "Your last 14 days",
+  "insightsNonLinear": "Healing isn’t a straight line. Ups and downs are part of it.",
+  "insightsWeek": "This week",
+  "insightsWeekCheckins": "{count, plural, =0{You haven’t checked in yet this week.} =1{You checked in once.} other{You checked in {count} times.}}",
+  "@insightsWeekCheckins": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsWeekUp": "Your days felt a little lighter than the week before.",
+  "insightsWeekDown": "This week was heavier than the last. That’s part of it too.",
+  "insightsWeekSame": "About the same as last week. Steady counts too.",
+  "insightsWeekFeelings": "Most often: {feelings}.",
+  "@insightsWeekFeelings": {
+    "placeholders": {
+      "feelings": {
+        "type": "String"
+      }
+    }
+  },
+  "insightsCheckins": "Check-ins",
+  "insightsEntries": "Journal entries",
+  "insightsPlanDays": "Plan days done",
+  "insightsEmptyTitle": "Your pattern shows up here.",
+  "insightsEmptyBody": "Check in for a few days and you’ll see how your weeks move.",
+  "insightsCheckInNow": "Check In Now",
+  "insightsChartSemantics": "Mood over the last 14 days. {summary}",
+  "@insightsChartSemantics": {
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
+  "coachAiLabel": "AI · not therapy",
+  "coachSuggestTitle": "Not sure where to start?",
+  "coachSuggest1": "I want to text them right now.",
+  "coachSuggest2": "I keep checking their profile.",
+  "coachSuggest3": "I can’t sleep tonight.",
+  "coachSuggest4": "Why do I still miss them?",
+  "coachNew": "New Conversation",
+  "coachNewTitle": "Start a new conversation?",
+  "coachNewBody": "Mira starts fresh. Earlier messages won’t show here anymore.",
+  "coachNewConfirm": "Start New",
+  "meAppearance": "Appearance",
+  "meAppearanceSystem": "Automatic",
+  "meAppearanceLight": "Light",
+  "meAppearanceDark": "Night",
+  "meProgressHeader": "Your progress",
+  "draftJailEmptyTitle": "Nothing locked right now.",
+  "draftJailEmptyBody": "When the urge hits, write it here first. You can decide tomorrow.",
+  "paywallIncludes": "Everything in Premium",
+  "paywallBrandBadge": "Premium",
+  "paywallMedalMira": "Mira, anytime",
+  "paywallMedalPlan": "All 30 days",
+  "paywallMedalAnalysis": "Full analysis",
+  "paywallMedalDrafts": "Unlimited Draft Jail",
+  "paywallMedalCoins": "+{count} coins a month",
+  "@paywallMedalCoins": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

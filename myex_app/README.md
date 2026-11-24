@@ -10,7 +10,7 @@ coins + subscriptions. Source of truth: `../MyEx_Monetization_Prompts.md` (phase
 |---|---|
 | Flutter app (`lib/`) | `flutter analyze` 0 issues, `flutter test` 98 green. Runs on the iOS Simulator in demo mode (see "Run on the iOS Simulator"). Not tested on a physical device. |
 | Demo mode (`lib/demo/`) | Runs the whole app with no keys (see "Demo / Android test build"). |
-| Supabase migrations (`supabase/migrations/`) | **UNTESTED.** Written without the Supabase CLI. Run `supabase db reset` first. |
+| Supabase migrations (`supabase/migrations/`, incl. `20261124000000_wellbeing`) | **UNTESTED.** Written without the Supabase CLI. Run `supabase db reset` first. |
 | SQL tests (`supabase/tests/*.sql`) | **UNTESTED.** |
 | Edge Functions (`supabase/functions/`) | **UNTESTED.** Written without Deno. Run `deno check` on each before deploying. |
 | iOS `AppDelegate.swift` (Reduce Transparency channel, notification delegate) | **UNTESTED.** Needs Xcode. |
@@ -24,6 +24,7 @@ coins + subscriptions. Source of truth: `../MyEx_Monetization_Prompts.md` (phase
 | M7 | Trial reminder (48 h before end, clamped 10:00–20:00 and never later than 48 h; value recap; cancelled on convert/cancel/expiry; reschedules on foreground), Trial status, Win-back (promo offer, once, 7–14 days after lapse), billing-issue banner, honest pre-prompt on Welcome (skipped if already asked in onboarding). | `lib/features/lifecycle/`, `lib/core/notifications/`, migration `…0300_lifecycle` |
 | M8 | Me = subscription hub; cancel survey (price → save-50 promo or switch to yearly, better → celebrate, unused → nightly check-in, other → note). "Continue to Cancel" always opens App Store management from the first frame. | `lib/features/me/`, `lib/features/subscription/`, `lib/features/checkins/` |
 | M9 | Typed analytics facade with per-event allowlists (no free text can leave the app), debug sink + `[ANALYTICS_PROVIDER]` stub, wired to the funnel. KPI doc. | `lib/core/analytics/`, `docs/monetization/KPIS.md` |
+| Design pass + wellbeing (2026-11-24) | Research in `docs/design/` (44 references, competitor analysis, moodboard, screen map, direction). Night "wine" theme (Me › Appearance: Automatic / Light / Night). New: **Journal** tab (prompts, unsent letters, search, kinds), **mood check-in** (5 levels + feeling words), **No contact** challenge (goal 7/30/60/90, milestones, "days you chose yourself" that never resets, kind restart with reflection), **Insights** (14-day mood line, week summary, counts). Home redesigned (hero, inline check-in, week dots); Coach gets the "AI · not therapy" label, starter prompts, New Conversation; Draft Jail empty state; Day complete ring. | `lib/features/{journal,no_contact,insights}/`, `lib/core/design/{wellbeing,theme_mode}.dart`, migration `20261124000000_wellbeing` |
 | Paywall research items | R3 completed "Build your plan" step, R4 "No payment today", R5 honest reminder switch (notifications off → Open Settings), R13 "How do I cancel?", R14 billed price in the subtitle. | `lib/features/monetization/presentation/` |
 
 ## Demo / Android test build
@@ -111,6 +112,17 @@ Real backend instead of demo mode: `cp env/example.json env/dev.json`, fill it i
 The first build takes a few minutes (`pod install` + a full Xcode build); later ones take about a minute.
 In a `flutter run` session: `r` hot reload, `R` hot restart, `q` quit.
 
+### Design QA screenshots
+
+`tool/design_capture.dart` walks every route in demo mode (empty states first, then the demo "sample weeks", then
+the mood sheet) and prints `CAPTURE:<name>` for each screen, so a script can run
+`xcrun simctl io <device> screenshot <name>.png`. Limit it with `--dart-define=ONLY=home,journal`.
+Switch the simulator theme with `xcrun simctl ui <device> appearance dark`.
+
+```bash
+flutter run -d <simulator-id> -t tool/design_capture.dart
+```
+
 ### Troubleshooting
 
 | Symptom | Fix |
@@ -154,6 +166,9 @@ lib/
     app/app_overlay.dart     optional app-wide overlay (demo pill)
   features/
     onboarding/  plan/  draft_jail/  coach/  sos/  home/  me/
+    journal/                 journal entries + mood check-ins (repository, sheet, editor)
+    no_contact/              no-contact challenge (attempts, milestones, kind restart)
+    insights/                14-day mood line, week summary
     monetization/            purchase layer, paywall, exit offer, welcome, coins, limit + lock-day sheets
     lifecycle/               trial reminder, trial status, win-back, coordinator
     subscription/            cancel survey        checkins/   nightly check-in
@@ -162,8 +177,10 @@ lib/
 supabase/
   migrations/  20261117…: core, monetization (M2) · 20261118…: onboarding, plan, draft_jail, lifecycle, onboarding_v2
   functions/   _shared, revenuecat-webhook, sync-purchases, mira-chat
-  tests/       monetization_test.sql, plan_drafts_test.sql
+  tests/       monetization_test.sql, plan_drafts_test.sql, wellbeing_test.sql
 docs/monetization/KPIS.md
+docs/design/                 design research, competitor analysis, moodboard, screen map, direction
+tool/design_capture.dart     simulator screenshot harness (dev only)
 ```
 
 ## Design system (ported from `../MyEx_Design_Spec.md` §13)
@@ -183,7 +200,10 @@ All visual decisions live in `lib/core/design/`:
   Welcome, Win-back only), Mira orb (faceless), Dynamic Island toast, day strip
 - `theme.dart` — Material theme derived from the above
 
-Font: `assets/fonts/InstrumentSerif-Regular.ttf` (OFL, license in `assets/fonts/OFL.txt`).
+Fonts: `assets/fonts/FrauncesSoft-SemiBold.ttf` (the brand serif since 2026-11-24: a static instance of Fraunces at
+opsz 72 / wght 620 / SOFT 100, OFL, license in `assets/fonts/OFL-Fraunces.txt`) and the older
+`InstrumentSerif-Regular.ttf` (OFL, `assets/fonts/OFL.txt`, no longer used by the theme).
+Illustrations (night sky, moon, dreamer figure, medallions) are drawn in code in `lib/core/design/art.dart`.
 Lumi is drawn by `_LumiPainter` in `components.dart`; replace it when final artwork exists.
 
 ## Manual setup

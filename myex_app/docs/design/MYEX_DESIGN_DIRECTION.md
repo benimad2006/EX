@@ -1,5 +1,13 @@
 # MyEx: design direction
 
+> **Update 2026-11-24 (founder):** the refined-rose result was too plain. The direction is now **"Rose night"**,
+> inspired by the Moonly paywall (Pinterest reference shared by the founder): dark by default, a plum-black sky with
+> stars, a cream crescent moon, an illustrated "dreamer" figure with flowing rose-to-lavender hair, a bold soft serif
+> (Fraunces SemiBold, SOFT 100) for large titles and posters with the last words in blush, painted feature
+> medallions, and blush plan cards. All art is drawn in code (`lib/core/design/art.dart`). Light mode stays
+> available. The principles below still apply, except "no decorative gradients": gradients are allowed inside
+> illustrations.
+
 **Decision (founder, 2026-11-24):** refine the rose "Love" identity and add a night theme. The dark purple / Kalito
 direction from the ChatGPT conversation was not chosen. `MyEx_Design_Spec.md` and the CLAUDE.md hard rules still
 apply.
